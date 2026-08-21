@@ -32,11 +32,11 @@ const UNITS = [
   },
 ];
 
-// TODO: validar URLs das redes sociais com a Sólida antes do go-live
+// TODO: validar URLs de Instagram/LinkedIn com a Sólida (Facebook veio da auditoria)
 const SOCIALS = [
   { label: "Instagram", href: "#", Icon: InstagramIcon },
   { label: "LinkedIn", href: "#", Icon: LinkedInIcon },
-  { label: "Facebook", href: "#", Icon: FacebookIcon },
+  { label: "Facebook", href: "https://facebook.com/solidatransporte", Icon: FacebookIcon },
 ];
 
 export function Footer() {

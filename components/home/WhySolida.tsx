@@ -12,7 +12,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 
-const DIFFERENTIALS = [
+export const DIFFERENTIALS = [
   {
     Icon: Award,
     title: "32 anos de mercado",

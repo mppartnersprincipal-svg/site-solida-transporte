@@ -56,8 +56,8 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 |---|---|---|
 | 0 | Setup: Next+TS+Tailwind+Framer, tokens, estrutura, base Supabase | ✅ concluída |
 | 1 | Layout global + Home completa | ✅ concluída |
-| 2 | Páginas institucionais (A Empresa, Como Funciona, Segmentos, Diferenciais, Contato, Privacidade, Cookies) | ⏳ aguardando ok |
-| 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | pendente |
+| 2 | Páginas institucionais (A Empresa, Como Funciona, Segmentos, Diferenciais, Contato, Privacidade, Cookies) | ✅ concluída |
+| 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | ⏳ aguardando ok |
 | 4 | Depoimentos, SEO, analytics, acessibilidade, QA | pendente |
 | 5 | Conteúdo e go-live (posts, redirects 301, domínio) | pendente |
 
@@ -76,13 +76,22 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **Home:** 11 seções com a copy exata da §5.1 — hero (foto real da sede) + barra de confiança, rotas SP⇄GO⇄DF com caminhão animado, 5 pilares, estoque enxuto, como funciona, 9 segmentos, 8 diferenciais (seção escura), preço x valor, depoimentos (placeholder), blog (placeholder), CTA final
 - QA visual feito em desktop e mobile (headless browser); bugs de stacking/layer corrigidos
 
+### Fase 2 — concluída (21/08/2026)
+
+- **7 páginas** com a copy das §5.2–5.8: `/a-empresa` (missão, selos, foto, timeline 1994→hoje), `/como-funciona` (fluxo Fabricante→Sólida→Lojista, 4 passos, destaque 2–3 dias, FOB x CIF), `/segmentos` (9 cards dor/solução + bloco "o que não transportamos"), `/diferenciais` (8 numerados + PriceValue reutilizado), `/contato` (Central inline com 6 assuntos incl. Jurídico, unidades reais com endereço/tel/e-mail/mapa embed da matriz, redes), `/politica-de-privacidade` e `/politica-de-cookies` (LGPD, corrige o 404 do site antigo)
+- Novos: `components/ui/PageHero.tsx` (hero interno), `lib/units.ts` (unidades — dados da auditoria), assunto "juridico" no `lib/whatsapp.ts`, `DIFFERENTIALS` exportado de WhySolida
+- Footer/Contato: Facebook real (facebook.com/solidatransporte); metadata por página
+- QA visual em todas as páginas (obs.: screenshots full-page em headless mostram seções vazias — falso-negativo do `whileInView`; confirmar com scroll real)
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
-- URLs reais de Instagram/LinkedIn/Facebook (hoje `#` no Footer)
+- URLs reais de Instagram/LinkedIn (hoje `#`; Facebook veio da auditoria)
 - Confirmar números de WhatsApp por assunto (§6.2 veio do site antigo)
 - Número/responsável de rastreamento e jurídico (hoje roteados para coleta GO / comercial GO)
+- Datas/marcos reais da timeline de `/a-empresa` (1994 é derivado dos "32 anos")
+- CNPJ e e-mail do encarregado (DPO) na Política de Privacidade + revisão jurídica
+- Endereços/telefones das unidades (vieram da auditoria do site antigo; CEP de SP corrigido para 07.177-020)
 - Depoimentos reais (gravação), fotos novas da operação, logo vetorial em alta
-- Endereços completos das unidades para Footer/Contato/SEO local
 
 ## Comandos
 

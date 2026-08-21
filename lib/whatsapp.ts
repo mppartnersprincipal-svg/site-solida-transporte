@@ -98,6 +98,16 @@ export const WA_SUBJECTS: WaSubject[] = [
     ),
   },
   {
+    id: "juridico",
+    label: "Jurídico",
+    description: "Assuntos jurídicos e contratuais",
+    // TODO: validar número do responsável jurídico com a Sólida
+    href: waLink(
+      WHATSAPP_NUMBERS.goianiaComercial,
+      "Olá! Preciso falar sobre um assunto jurídico."
+    ),
+  },
+  {
     id: "outros",
     label: "Falar com outro departamento",
     description: "Outros assuntos e atendimento geral",

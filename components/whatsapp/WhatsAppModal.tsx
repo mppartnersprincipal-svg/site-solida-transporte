@@ -10,6 +10,7 @@ import {
   MessageCircle,
   PackageSearch,
   Receipt,
+  Scale,
   Truck,
   X,
 } from "lucide-react";
@@ -20,6 +21,7 @@ const SUBJECT_ICONS: Record<string, React.ComponentType<{ className?: string }>>
   coleta: Truck,
   rastreamento: PackageSearch,
   financeiro: Receipt,
+  juridico: Scale,
   outros: MessageCircle,
 };
 
