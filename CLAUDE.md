@@ -59,7 +59,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 | 2 | Páginas institucionais (A Empresa, Como Funciona, Segmentos, Diferenciais, Contato, Privacidade, Cookies) | ✅ concluída |
 | 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | ✅ concluída |
 | 4 | Depoimentos, SEO, analytics, acessibilidade, QA | ✅ concluída |
-| 5 | Conteúdo e go-live (posts, redirects 301, domínio) | ⏳ aguardando ok |
+| 5 | Conteúdo e go-live (posts, redirects 301, domínio) | 🔶 dev concluído — aguardando ações do usuário (seed, Vercel, DNS) |
 
 ### Fase 0 — concluída (21/08/2026)
 
@@ -104,6 +104,14 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **A11y (AA):** skip link "Pular para o conteúdo" (main#conteudo); focus trap + devolução de foco no modal da Central; Esc + foco gerenciado no drawer do header; `Reveal` ganhou prop `as` (motion.li) e TODAS as listas `ul > Reveal > li` viraram `<Reveal as="li">` (HTML válido — padrão a seguir em listas novas); scroller de depoimentos com tabIndex/aria-label
 - **Performance:** fontes com `display: "swap"`; zero `<img>` cru (tudo next/image); analytics não carrega nada sem consentimento; hero já tinha `priority`
 - QA: build ok (20 rotas, + /depoimentos /robots.txt /sitemap.xml), console limpo nas 8 páginas públicas, screenshots mobile/tablet/desktop ok. **Medir CWV reais (LCP < 2,5s) após deploy na Vercel** (localhost não representa)
+
+### Fase 5 — dev concluído (21/08/2026)
+
+- **Seed do blog** em `supabase/migrations/0002_seed_posts.sql` (usuário roda no painel): **10 posts migrados** do site antigo como published, com slugs/datas originais (4 vieram da doc `solidatransportedoc/…/04-blog.md`; 6 extraídos do site vivo via WebFetch) + **3 pautas novas do briefing como draft** (frete barato, seguro de carga — com lembrete [REVISAR] no texto p/ confirmar apólice —, fracionada x fechada). CTAs da Bsoft/Hivecloud dos originais removidos; fechos reescritos no tom Sólida. Capas originais copiadas p/ `public/assets/blog/` (4 posts têm; resto usa fallback do PostCard)
+- **Redirects 301** no `next.config.ts`: os 10 slugs antigos (raiz do domínio, padrão WordPress) → `/blog/{slug}`, + `/blog/page/:n` → `/blog`. Os 212 posts de 2023–24 do CSV NÃO foram migrados (conteúdo de tema/demonstração e pautas velhas) — sem redirect, viram 404 (decisão consciente)
+- **Git/GitHub:** repo privado criado e push feito → `github.com/mppartnersprincipal-svg/solida-site` (branch master; commit único cobre Fases 3–5)
+- **GOLIVE.md** na raiz do projeto: passo a passo Vercel (import + 4 env vars: SUPABASE_URL/ANON_KEY/SITE_URL/GTM_ID — GA4/PIXEL diretos ficam de fora), apontamento de DNS (CNAME www → cname.vercel-dns.com; A @ → 76.76.21.21), checklist completo de conferência (WhatsApp, blog/admin, SEO, LGPD, GTM, performance, responsivo/a11y) e pós-go-live (Search Console, CWV, funil GA4)
+- **Copy com dados validados:** BLOQUEADO no usuário — tabela de pendências no fim do GOLIVE.md (números WhatsApp, seguro, cidades, timeline, CNPJ/DPO, redes, depoimentos). Quando os dados chegarem, atualizar: lib/whatsapp.ts, lib/units.ts, lib/seo.ts, lib/testimonials.ts, /a-empresa (timeline), /politica-de-privacidade, footer/contato (redes)
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
