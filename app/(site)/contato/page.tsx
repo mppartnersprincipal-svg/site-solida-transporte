@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   title: "Contato",
   alternates: { canonical: "/contato" },
   description:
-    "Fale com a Sólida Transporte pelo WhatsApp certo para o seu assunto — cotação, coleta, rastreamento, financeiro ou jurídico — ou visite nossas unidades em Goiânia, Guarulhos e Brasília.",
+    "Fale com a Sólida Transporte pelo WhatsApp certo para o seu assunto (cotação, coleta, rastreamento, financeiro ou jurídico) ou visite nossas unidades em Goiânia, Guarulhos e Brasília.",
 };
 
 const SUBJECT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -58,7 +58,7 @@ export default function ContatoPage() {
       <PageHero
         eyebrow="Contato"
         title="Olá! Como podemos ajudar?"
-        subtitle="Escolha o assunto e fale direto com quem resolve — sem transferência, sem espera. Cada botão abre o WhatsApp certo com a mensagem já preparada."
+        subtitle="Escolha o assunto e fale direto com quem resolve, sem transferência e sem espera. Cada botão abre o WhatsApp certo com a mensagem já preparada."
       />
 
       {/* Central de WhatsApp */}
@@ -131,7 +131,7 @@ export default function ContatoPage() {
           <SectionHeading
             eyebrow="Unidades"
             title="Onde a Sólida está"
-            subtitle="Matriz em Goiânia e filiais em Guarulhos e Brasília — presença própria nas três pontas da rota."
+            subtitle="Matriz em Goiânia e filiais em Guarulhos e Brasília: presença própria nas três pontas da rota."
           />
           <ul className="grid gap-6 lg:grid-cols-3">
             {UNITS.map((unit, i) => (

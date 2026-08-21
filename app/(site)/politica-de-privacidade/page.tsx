@@ -22,7 +22,7 @@ export default function PoliticaDePrivacidadePage() {
       <PageHero
         eyebrow="LGPD"
         title="Política de Privacidade"
-        subtitle="Como coletamos, usamos e protegemos os seus dados pessoais — em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
+        subtitle="Como coletamos, usamos e protegemos os seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
       />
 
       <section className="bg-surface py-16 sm:py-20">

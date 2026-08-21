@@ -271,7 +271,7 @@ export function PostEditor({
               <span className="text-sm font-semibold">
                 {uploadingCover ? "Enviando…" : "Clique para enviar a capa"}
               </span>
-              <span className="text-xs">JPG, PNG ou WebP — ideal 1600×800</span>
+              <span className="text-xs">JPG, PNG ou WebP (ideal 1600×800)</span>
               <input
                 type="file"
                 accept="image/*"

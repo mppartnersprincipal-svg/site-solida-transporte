@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Segmentos",
   alternates: { canonical: "/segmentos" },
   description:
-    "Segmentos que a Sólida atende melhor: acessórios para celular, autopeças, cosméticos, suplementação, informática, alimentos, vinhos e mais — cargas fracionadas entre SP, GO e DF.",
+    "Segmentos que a Sólida atende melhor: acessórios para celular, autopeças, cosméticos, suplementação, informática, alimentos, vinhos e mais, sempre em cargas fracionadas entre SP, GO e DF.",
 };
 
 const SEGMENTS = [
@@ -33,7 +33,7 @@ const SEGMENTS = [
   {
     Icon: Cog,
     label: "Autopeças",
-    text: "Reposição rápida para as lojas não perderem venda — peça parada é carro parado no cliente.",
+    text: "Reposição rápida para as lojas não perderem venda: peça parada é carro parado no cliente.",
   },
   {
     Icon: Bike,
@@ -53,7 +53,7 @@ const SEGMENTS = [
   {
     Icon: Dumbbell,
     label: "Suplementação animal e alimentar",
-    text: "Vários pedidos menores para vários lojistas — o fluxo ideal da carga fracionada.",
+    text: "Vários pedidos menores para vários lojistas: o fluxo ideal da carga fracionada.",
   },
   {
     Icon: Monitor,
@@ -89,7 +89,7 @@ export default function SegmentosPage() {
       <PageHero
         eyebrow="Segmentos"
         title="Segmentos que a Sólida atende melhor"
-        subtitle="Feito para quem envia caixas e volumes menores, com envios recorrentes e diversos destinatários — do fabricante ou distribuidor direto para o lojista."
+        subtitle="Feito para quem envia caixas e volumes menores, com envios recorrentes e diversos destinatários: do fabricante ou distribuidor direto para o lojista."
       />
 
       {/* Grid de segmentos com dor/solução */}
@@ -115,7 +115,7 @@ export default function SegmentosPage() {
           <SectionHeading
             eyebrow="Transparência"
             title="O que não transportamos"
-            subtitle="Para ganharmos tempo — o seu e o nosso — somos diretos sobre o que não se encaixa na nossa operação."
+            subtitle="Para ganharmos tempo (o seu e o nosso), somos diretos sobre o que não se encaixa na nossa operação."
           />
           <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
             <Reveal>
@@ -159,7 +159,7 @@ export default function SegmentosPage() {
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-xl text-2xl font-bold sm:text-3xl text-balance">
-              Seu segmento está aqui — ou parecido com estes?
+              Seu segmento está aqui, ou parecido com estes?
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="mt-7">

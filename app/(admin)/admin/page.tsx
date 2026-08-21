@@ -7,7 +7,7 @@ import { PostRowActions } from "@/components/admin/PostRowActions";
 import { formatPostDate, type PostStatus } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Posts — Área administrativa",
+  title: "Posts | Área administrativa",
 };
 
 type AdminPostRow = {
@@ -58,7 +58,7 @@ export default async function AdminPage() {
           <FileText aria-hidden className="mx-auto size-10 text-ink-muted/40" />
           <p className="mt-4 font-bold text-ink">Nenhum post ainda</p>
           <p className="mx-auto mt-1 max-w-sm text-sm text-ink-muted">
-            Crie o primeiro artigo do blog da Sólida — comece por uma pauta do
+            Crie o primeiro artigo do blog da Sólida. Comece por uma pauta do
             calendário editorial, como &ldquo;Por que o frete mais barato pode
             sair caro?&rdquo;.
           </p>
@@ -98,7 +98,7 @@ export default async function AdminPage() {
                     <p className="mt-0.5 text-xs text-ink-muted">/{post.slug}</p>
                   </td>
                   <td className="px-5 py-4 text-ink-muted">
-                    {post.category ?? "—"}
+                    {post.category ?? "-"}
                   </td>
                   <td className="px-5 py-4">
                     {post.status === "published" ? (

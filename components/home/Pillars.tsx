@@ -7,7 +7,7 @@ const PILLARS = [
   {
     Icon: Zap,
     title: "Rapidez",
-    text: "Sua carga em Goiás, DF ou São Paulo em poucos dias — entrega em 2 a 3 dias úteis após a coleta.",
+    text: "Sua carga em Goiás, DF ou São Paulo em poucos dias: entrega em 2 a 3 dias úteis após a coleta.",
   },
   {
     Icon: ShieldCheck,

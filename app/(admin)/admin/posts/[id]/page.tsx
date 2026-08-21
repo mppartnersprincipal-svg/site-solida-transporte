@@ -5,7 +5,7 @@ import { PostEditor } from "@/components/admin/PostEditor";
 import type { Post } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Editar post — Área administrativa",
+  title: "Editar post | Área administrativa",
 };
 
 export default async function EditPostPage({

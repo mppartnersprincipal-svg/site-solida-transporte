@@ -67,7 +67,7 @@ export function Header() {
       >
         <Link
           href="/"
-          aria-label="Sólida Transporte — página inicial"
+          aria-label="Sólida Transporte, página inicial"
           className="shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
           <Image

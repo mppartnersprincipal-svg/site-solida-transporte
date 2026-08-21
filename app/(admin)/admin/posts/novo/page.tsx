@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PostEditor } from "@/components/admin/PostEditor";
 
 export const metadata: Metadata = {
-  title: "Novo post — Área administrativa",
+  title: "Novo post | Área administrativa",
 };
 
 export default async function NewPostPage() {

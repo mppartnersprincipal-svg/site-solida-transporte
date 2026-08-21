@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "A Empresa",
   alternates: { canonical: "/a-empresa" },
   description:
-    "Há 32 anos a Sólida Transporte movimenta cargas fracionadas entre SP, Goiás e DF — mesmo CNPJ desde a fundação, estrutura e frota próprias.",
+    "Há 32 anos a Sólida Transporte movimenta cargas fracionadas entre SP, Goiás e DF: mesmo CNPJ desde a fundação, estrutura e frota próprias.",
 };
 
 const SEALS = [
@@ -55,7 +55,7 @@ export default function AEmpresaPage() {
       <PageHero
         eyebrow="A Empresa"
         title="32 anos movimentando o comércio entre SP, Goiás e DF."
-        subtitle="A Sólida Transporte nasceu com um propósito simples: levar cargas fracionadas com rapidez, segurança e previsibilidade. Mais de três décadas depois, seguimos com o mesmo CNPJ desde a fundação — sinal de solidez, estabilidade e compromisso com quem confia na gente."
+        subtitle="A Sólida Transporte nasceu com um propósito simples: levar cargas fracionadas com rapidez, segurança e previsibilidade. Mais de três décadas depois, seguimos com o mesmo CNPJ desde a fundação: sinal de solidez, estabilidade e compromisso com quem confia na gente."
       />
 
       {/* Missão + estrutura própria */}
@@ -72,7 +72,7 @@ export default function AEmpresaPage() {
             <p className="mt-5 text-base leading-relaxed text-ink-body sm:text-lg">
               Por meio de um transporte rápido, seguro e transparente. Capital,
               sede e frota próprios: estrutura e capacidade operacional para
-              atender sua demanda com regularidade — matriz em Goiânia e filiais
+              atender sua demanda com regularidade: matriz em Goiânia e filiais
               em São Paulo e no Distrito Federal.
             </p>
             <ul className="mt-6 flex flex-wrap gap-2.5">
@@ -140,7 +140,7 @@ export default function AEmpresaPage() {
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-xl text-2xl font-bold sm:text-3xl text-balance">
-              Quer uma transportadora com história para contar — e prazo para
+              Quer uma transportadora com história para contar, e prazo para
               cumprir?
             </h2>
           </Reveal>

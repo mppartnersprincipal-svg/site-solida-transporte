@@ -26,7 +26,7 @@ const FLOW = [
   {
     Icon: Factory,
     title: "Fabricante / Distribuidor",
-    text: "Você produz ou distribui — e precisa repor o estoque de vários clientes com frequência.",
+    text: "Você produz ou distribui, e precisa repor o estoque de vários clientes com frequência.",
   },
   {
     Icon: Truck,
@@ -163,7 +163,7 @@ export default function ComoFuncionaPage() {
           <SectionHeading
             eyebrow="Conteúdo rápido"
             title="FOB x CIF: quem paga o frete?"
-            subtitle="Dois modelos, uma diferença essencial — e o motivo de o FOB combinar com o perfil da Sólida."
+            subtitle="Dois modelos, uma diferença essencial, e o motivo de o FOB combinar com o perfil da Sólida."
           />
           <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
             <Reveal>
@@ -175,7 +175,7 @@ export default function ComoFuncionaPage() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-body">
                   Quem compra escolhe a transportadora e assume o frete a partir
                   da coleta. É o modelo ideal para lojistas e distribuidores que
-                  compram com frequência nos corredores SP ⇄ GO ⇄ DF — eles
+                  compram com frequência nos corredores SP ⇄ GO ⇄ DF: eles
                   ganham controle sobre prazo, custo e qualidade do transporte.
                   Por isso o FOB combina com o perfil da Sólida.
                 </p>
@@ -189,7 +189,7 @@ export default function ComoFuncionaPage() {
                 <h3 className="mt-2 text-xl font-bold">O vendedor paga o frete</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-body">
                   Quem vende embute o frete no preço e escolhe a transportadora.
-                  O comprador recebe sem se preocupar com a logística — mas
+                  O comprador recebe sem se preocupar com a logística, mas
                   também sem controle sobre prazo e qualidade da entrega.
                 </p>
               </article>

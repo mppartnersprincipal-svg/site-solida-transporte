@@ -14,19 +14,19 @@ import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
 
 const UNITS = [
   {
-    city: "Goiânia — GO",
+    city: "Goiânia - GO",
     role: "Matriz",
     phoneLabel: "(62) 3206-3513",
     href: waLink(WHATSAPP_NUMBERS.goianiaComercial, "Olá! Vim pelo site da Sólida."),
   },
   {
-    city: "São Paulo — SP",
+    city: "São Paulo - SP",
     role: "Filial",
     phoneLabel: "(11) 3936-8284",
     href: waLink(WHATSAPP_NUMBERS.coletaSP, "Olá! Vim pelo site da Sólida."),
   },
   {
-    city: "Brasília — DF",
+    city: "Brasília - DF",
     role: "Filial",
     phoneLabel: "(61) 99653-2064",
     href: waLink(WHATSAPP_NUMBERS.brasiliaComercial, "Olá! Vim pelo site da Sólida."),
@@ -55,7 +55,7 @@ export function Footer() {
           />
           <p className="mt-4 text-sm leading-relaxed">
             Transportadora especializada em cargas fracionadas entre São Paulo,
-            Goiás e Distrito Federal — rapidez, previsibilidade, segurança e
+            Goiás e Distrito Federal: rapidez, previsibilidade, segurança e
             atendimento próximo há 32 anos.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -155,7 +155,7 @@ export function Footer() {
       {/* Barra inferior */}
       <div className="border-t border-white/10">
         <Container className="flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Sólida Transporte — Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} Sólida Transporte. Todos os direitos reservados.</p>
           <div className="flex gap-5">
             <Link
               href="/politica-de-privacidade"

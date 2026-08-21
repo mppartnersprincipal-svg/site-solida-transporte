@@ -19,7 +19,7 @@ export default function DiferenciaisPage() {
       <PageHero
         eyebrow="Diferenciais"
         title="Oito motivos para transportar com a Sólida"
-        subtitle="Não competimos pelo frete mais barato — competimos pelo equilíbrio entre preço, segurança, previsibilidade e velocidade."
+        subtitle="Não competimos pelo frete mais barato: competimos pelo equilíbrio entre preço, segurança, previsibilidade e velocidade."
       />
 
       {/* 8 diferenciais numerados */}

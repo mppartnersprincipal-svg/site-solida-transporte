@@ -4,7 +4,7 @@ import Link from "next/link";
 import { LoginForm } from "@/components/admin/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Login — Área administrativa",
+  title: "Login | Área administrativa",
 };
 
 export default function LoginPage() {

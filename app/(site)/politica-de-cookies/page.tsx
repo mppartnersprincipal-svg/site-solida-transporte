@@ -56,7 +56,7 @@ export default function PoliticaDeCookiesPage() {
             <h2 className={heading}>3. Como gerenciar cookies</h2>
             <p className={paragraph}>
               Você pode apagar ou bloquear cookies a qualquer momento nas
-              configurações do seu navegador (Chrome, Firefox, Safari, Edge —
+              configurações do seu navegador (Chrome, Firefox, Safari, Edge;
               procure por &ldquo;privacidade&rdquo; ou &ldquo;cookies&rdquo; nas
               configurações). Ao bloquear cookies essenciais, algumas
               funcionalidades do site podem deixar de funcionar corretamente.

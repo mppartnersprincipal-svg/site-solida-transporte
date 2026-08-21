@@ -42,7 +42,7 @@ export function Hero() {
 
           <Reveal delay={0.1}>
             <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white text-balance sm:text-5xl lg:text-6xl">
-              Sua carga fracionada entre São Paulo, Goiás e Distrito Federal —{" "}
+              Sua carga fracionada entre São Paulo, Goiás e Distrito Federal:{" "}
               <span className="text-brand">no prazo</span>, com segurança.
             </h1>
           </Reveal>

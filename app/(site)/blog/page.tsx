@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Blog",
   alternates: { canonical: "/blog" },
   description:
-    "Conteúdo para quem vive de logística: frete, cargas fracionadas, prazos, seguro de carga e gestão de estoque — pela Sólida Transporte.",
+    "Conteúdo para quem vive de logística: frete, cargas fracionadas, prazos, seguro de carga e gestão de estoque, pela Sólida Transporte.",
 };
 
 export default async function BlogPage() {

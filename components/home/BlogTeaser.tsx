@@ -42,7 +42,7 @@ export async function BlogTeaser() {
           subtitle={
             posts.length > 0
               ? "Artigos práticos sobre frete, operação e gestão logística, direto do blog da Sólida."
-              : "Artigos práticos sobre frete, operação e gestão logística — em breve no novo blog da Sólida."
+              : "Artigos práticos sobre frete, operação e gestão logística, em breve no novo blog da Sólida."
           }
         />
 

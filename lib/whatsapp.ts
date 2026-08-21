@@ -43,14 +43,14 @@ export const WA_SUBJECTS: WaSubject[] = [
     description: "Fale com o comercial da sua região",
     options: [
       {
-        label: "Goiânia e região — Luana",
+        label: "Goiânia e região (Luana)",
         href: waLink(
           WHATSAPP_NUMBERS.goianiaComercial,
           "Olá! Quero uma cotação de frete de [origem] para [destino]. Tipo de mercadoria: ___"
         ),
       },
       {
-        label: "Brasília e região — Ana Paula",
+        label: "Brasília e região (Ana Paula)",
         href: waLink(
           WHATSAPP_NUMBERS.brasiliaComercial,
           "Olá! Quero uma cotação de frete de [origem] para [destino]. Tipo de mercadoria: ___"

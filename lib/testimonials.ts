@@ -37,7 +37,7 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "[Empresa] · Distribuidor",
     years: "[X] anos de parceria",
     highlight:
-      "Depoimento real em gravação — reposição rápida, coleta pontual e atendimento próximo.",
+      "Depoimento real em gravação: reposição rápida, coleta pontual e atendimento próximo.",
     before:
       "[Problema que tinha antes: atrasos na coleta, falta de informação sobre a carga...]",
     after:
@@ -48,16 +48,16 @@ export const TESTIMONIALS: Testimonial[] = [
     company: "[Empresa] · Indústria com cargas fracionadas",
     years: "[X] anos de parceria",
     highlight:
-      "Depoimento real em gravação — segurança e transparência em todo o percurso da carga.",
+      "Depoimento real em gravação: segurança e transparência em todo o percurso da carga.",
     before: "[Problema que tinha antes: transportadora sem seguro, avarias...]",
     after: "[O que mudou com a Sólida: seguro de carga, acompanhamento total...]",
   },
   {
     name: "[Nome do cliente]",
-    company: "[Empresa] · Comércio B2B — SP ⇄ GO",
+    company: "[Empresa] · Comércio B2B · SP ⇄ GO",
     years: "[X] anos de parceria",
     highlight:
-      "Depoimento real em gravação — previsibilidade que permitiu trabalhar com estoque enxuto.",
+      "Depoimento real em gravação: previsibilidade que permitiu trabalhar com estoque enxuto.",
     before: "[Problema que tinha antes: estoque alto para compensar prazos...]",
     after: "[O que mudou com a Sólida: reposições menores e mais frequentes...]",
   },
