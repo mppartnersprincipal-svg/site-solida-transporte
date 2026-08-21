@@ -126,5 +126,5 @@ Itens já sinalizados no site que dependem de confirmação do cliente —
 | Marcos reais da história (timeline 1994→hoje) | /a-empresa |
 | CNPJ + e-mail do encarregado (DPO) | /politica-de-privacidade |
 | Endereços/telefones das unidades | /contato, footer, JSON-LD LocalBusiness |
-| URLs de Instagram e LinkedIn | Footer e /contato (hoje `#`) |
+| URL do LinkedIn | Footer e /contato (hoje `#`; Instagram ✅ já configurado) |
 | Depoimentos reais (gravações) | lib/testimonials.ts (placeholders marcados) |

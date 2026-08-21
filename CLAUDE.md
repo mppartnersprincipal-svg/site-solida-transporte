@@ -115,7 +115,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
-- URLs reais de Instagram/LinkedIn (hoje `#`; Facebook veio da auditoria)
+- URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
 - Confirmar números de WhatsApp por assunto (§6.2 veio do site antigo)
 - Número/responsável de rastreamento e jurídico (hoje roteados para coleta GO / comercial GO)
 - Datas/marcos reais da timeline de `/a-empresa` (1994 é derivado dos "32 anos")

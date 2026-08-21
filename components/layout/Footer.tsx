@@ -33,9 +33,9 @@ const UNITS = [
   },
 ];
 
-// TODO: validar URLs de Instagram/LinkedIn com a Sólida (Facebook veio da auditoria)
+// TODO: validar URL de LinkedIn com a Sólida (Facebook veio da auditoria)
 const SOCIALS = [
-  { label: "Instagram", href: "#", Icon: InstagramIcon },
+  { label: "Instagram", href: "https://www.instagram.com/solidatransporte/", Icon: InstagramIcon },
   { label: "LinkedIn", href: "#", Icon: LinkedInIcon },
   { label: "Facebook", href: "https://facebook.com/solidatransporte", Icon: FacebookIcon },
 ];

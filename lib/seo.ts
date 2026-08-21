@@ -11,8 +11,11 @@ export const SITE_NAME = "Sólida Transporte";
 export const SITE_DESCRIPTION =
   "Há 32 anos transportando cargas fracionadas entre São Paulo, Goiás e Distrito Federal com rapidez, segurança e previsibilidade.";
 
-// TODO: validar URLs de Instagram/LinkedIn com a Sólida (Facebook veio da auditoria)
-export const SOCIAL_URLS = ["https://facebook.com/solidatransporte"];
+// TODO: validar URL de LinkedIn com a Sólida (Facebook veio da auditoria)
+export const SOCIAL_URLS = [
+  "https://facebook.com/solidatransporte",
+  "https://www.instagram.com/solidatransporte/",
+];
 
 /** Organization — injetado em todas as páginas públicas (layout do site). */
 export const ORGANIZATION_JSONLD = {
