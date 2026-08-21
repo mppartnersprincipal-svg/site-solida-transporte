@@ -1,18 +1,42 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
 
-/** Hero escuro padrão das páginas internas. */
+/**
+ * Hero escuro padrão das páginas internas. Com `image`, usa uma foto real
+ * da operação como fundo (mesmo tratamento do hero da Home: foto escurecida
+ * + gradiente para manter o contraste AA do texto).
+ */
 export function PageHero({
   eyebrow,
   title,
   subtitle,
+  image,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string;
+  /** Caminho da foto de fundo (ex.: "/assets/hero-contato.jpg") */
+  image?: string;
 }) {
   return (
     <section className="relative overflow-hidden bg-ink py-16 text-white sm:py-24">
+      {image ? (
+        <>
+          <Image
+            src={image}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/60 to-ink"
+          />
+        </>
+      ) : null}
       <div
         aria-hidden
         className="absolute -top-24 right-0 size-80 rounded-full bg-brand-action/10 blur-3xl"

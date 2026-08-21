@@ -79,7 +79,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 ### Fase 2 — concluída (21/08/2026)
 
 - **7 páginas** com a copy das §5.2–5.8: `/a-empresa` (missão, selos, foto, timeline 1994→hoje), `/como-funciona` (fluxo Fabricante→Sólida→Lojista, 4 passos, destaque 2–3 dias, FOB x CIF), `/segmentos` (9 cards dor/solução + bloco "o que não transportamos"), `/diferenciais` (8 numerados + PriceValue reutilizado), `/contato` (Central inline com 6 assuntos incl. Jurídico, unidades reais com endereço/tel/e-mail/mapa embed da matriz, redes), `/politica-de-privacidade` e `/politica-de-cookies` (LGPD, corrige o 404 do site antigo)
-- Novos: `components/ui/PageHero.tsx` (hero interno), `lib/units.ts` (unidades — dados da auditoria), assunto "juridico" no `lib/whatsapp.ts`, `DIFFERENTIALS` exportado de WhySolida
+- Novos: `components/ui/PageHero.tsx` (hero interno; ganhou prop `image` na Fase 5 — foto real de fundo com opacity-40 + gradiente, mesmo tratamento do hero da Home; todas as 7 páginas internas usam fotos reais `public/assets/hero-*.jpg` vindas de `../assets/Solida-N-scaled.jpg`, e o FinalCta da Home usa `cta-frota.jpg`), `lib/units.ts` (unidades — dados da auditoria), assunto "juridico" no `lib/whatsapp.ts`, `DIFFERENTIALS` exportado de WhySolida
 - Footer/Contato: Facebook real (facebook.com/solidatransporte); metadata por página
 - QA visual em todas as páginas (obs.: screenshots full-page em headless mostram seções vazias — falso-negativo do `whileInView`; confirmar com scroll real)
 

@@ -24,6 +24,7 @@ export default async function BlogPage() {
   return (
     <>
       <PageHero
+        image="/assets/hero-blog.jpg"
         eyebrow="Blog"
         title="Conteúdo para quem vive de logística"
         subtitle="Artigos práticos sobre frete, operação e gestão logística, escritos por quem transporta cargas fracionadas há 32 anos."

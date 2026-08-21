@@ -17,6 +17,7 @@ export default function DiferenciaisPage() {
   return (
     <>
       <PageHero
+        image="/assets/hero-diferenciais.jpg"
         eyebrow="Diferenciais"
         title="Oito motivos para transportar com a Sólida"
         subtitle="Não competimos pelo frete mais barato: competimos pelo equilíbrio entre preço, segurança, previsibilidade e velocidade."

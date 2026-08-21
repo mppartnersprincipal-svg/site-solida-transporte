@@ -18,6 +18,7 @@ export default function DepoimentosPage() {
   return (
     <>
       <PageHero
+        image="/assets/hero-depoimentos.jpg"
         eyebrow="Depoimentos"
         title="Quem transporta com a Sólida, fica."
         subtitle="Clientes com anos de parceria contam o que mudou na operação deles com uma logística rápida, segura e previsível."

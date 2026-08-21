@@ -53,6 +53,7 @@ export default function AEmpresaPage() {
   return (
     <>
       <PageHero
+        image="/assets/hero-a-empresa.jpg"
         eyebrow="A Empresa"
         title="32 anos movimentando o comércio entre SP, Goiás e DF."
         subtitle="A Sólida Transporte nasceu com um propósito simples: levar cargas fracionadas com rapidez, segurança e previsibilidade. Mais de três décadas depois, seguimos com o mesmo CNPJ desde a fundação: sinal de solidez, estabilidade e compromisso com quem confia na gente."

@@ -87,6 +87,7 @@ export default function SegmentosPage() {
   return (
     <>
       <PageHero
+        image="/assets/hero-segmentos.jpg"
         eyebrow="Segmentos"
         title="Segmentos que a Sólida atende melhor"
         subtitle="Feito para quem envia caixas e volumes menores, com envios recorrentes e diversos destinatários: do fabricante ou distribuidor direto para o lojista."

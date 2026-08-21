@@ -73,6 +73,7 @@ export default function ComoFuncionaPage() {
   return (
     <>
       <PageHero
+        image="/assets/hero-como-funciona.jpg"
         eyebrow="Como funciona"
         title="Como funciona a nossa operação de cargas fracionadas"
         subtitle="Do fabricante ao lojista, sem complicação: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF e entrega com acompanhamento em 2 a 3 dias úteis."

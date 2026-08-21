@@ -56,6 +56,7 @@ export default function ContatoPage() {
       {/* LocalBusiness das 3 unidades (plano §10) */}
       <JsonLd data={LOCAL_BUSINESS_JSONLD} />
       <PageHero
+        image="/assets/hero-contato.jpg"
         eyebrow="Contato"
         title="Olá! Como podemos ajudar?"
         subtitle="Escolha o assunto e fale direto com quem resolve, sem transferência e sem espera. Cada botão abre o WhatsApp certo com a mensagem já preparada."

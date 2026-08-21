@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
@@ -5,6 +6,18 @@ import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 export function FinalCta() {
   return (
     <section className="relative overflow-hidden bg-ink py-16 text-white sm:py-24">
+      {/* Foto real da frota na sede, escurecida para manter o contraste */}
+      <Image
+        src="/assets/cta-frota.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover opacity-30"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-ink via-ink/70 to-ink"
+      />
       {/* Acento discreto em vermelho */}
       <div
         aria-hidden
