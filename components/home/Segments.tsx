@@ -36,14 +36,12 @@ export function Segments() {
         />
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {SEGMENTS.map(({ Icon, label }, i) => (
-            <Reveal key={label} delay={i * 0.05}>
-              <li className="group flex h-full items-center gap-3.5 rounded-2xl border border-line bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-action/30 hover:shadow-md sm:p-5">
+            <Reveal key={label} delay={i * 0.05} as="li" className="group flex h-full items-center gap-3.5 rounded-2xl border border-line bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-action/30 hover:shadow-md sm:p-5">
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-brand-action transition-transform duration-300 group-hover:scale-110">
                   <Icon className="size-5" aria-hidden />
                 </span>
                 <span className="text-sm font-semibold text-ink">{label}</span>
-              </li>
-            </Reveal>
+              </Reveal>
           ))}
         </ul>
         <Reveal delay={0.2} className="mt-10 text-center">

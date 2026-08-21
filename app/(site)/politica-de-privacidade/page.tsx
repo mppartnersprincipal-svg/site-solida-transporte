@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
+  alternates: { canonical: "/politica-de-privacidade" },
   description:
     "Como a Sólida Transporte coleta, usa e protege seus dados pessoais, em conformidade com a LGPD (Lei nº 13.709/2018).",
 };

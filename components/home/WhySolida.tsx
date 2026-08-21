@@ -66,13 +66,11 @@ export function WhySolida() {
         />
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {DIFFERENTIALS.map(({ Icon, title, text }, i) => (
-            <Reveal key={title} delay={i * 0.06}>
-              <li className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-brand/40 hover:bg-white/10">
+            <Reveal key={title} delay={i * 0.06} as="li" className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 transition-colors duration-300 hover:border-brand/40 hover:bg-white/10">
                 <Icon className="size-7 text-brand" aria-hidden />
                 <h3 className="mt-4 text-base font-bold text-white">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/60">{text}</p>
-              </li>
-            </Reveal>
+              </Reveal>
           ))}
         </ul>
       </Container>

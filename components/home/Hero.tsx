@@ -56,7 +56,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.3} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <WhatsAppCTAButton variant="whatsapp" size="lg">
+            <WhatsAppCTAButton variant="whatsapp" size="lg" source="hero">
               Falar com um especialista no WhatsApp
             </WhatsAppCTAButton>
             <Link href="/a-empresa" className={buttonClasses("outline-light", "lg")}>

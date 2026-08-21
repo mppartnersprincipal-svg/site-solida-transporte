@@ -8,8 +8,9 @@ import {
 } from "@/components/layout/SocialIcons";
 import { Container } from "@/components/ui/Container";
 import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
-import { NAV_LINKS } from "@/components/layout/nav-links";
+import { FOOTER_LINKS } from "@/components/layout/nav-links";
 import { WA_SUBJECTS, WHATSAPP_NUMBERS, waLink } from "@/lib/whatsapp";
+import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
 
 const UNITS = [
   {
@@ -74,7 +75,7 @@ export function Footer() {
             Navegação
           </h3>
           <ul className="flex flex-col gap-2.5">
-            {NAV_LINKS.map((link) => (
+            {FOOTER_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -101,14 +102,15 @@ export function Footer() {
                     {unit.city}{" "}
                     <span className="font-normal text-white/50">· {unit.role}</span>
                   </p>
-                  <a
+                  <WaTrackedLink
                     href={unit.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    subject="unidade"
+                    option={unit.city}
+                    source="footer"
                     className="transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
                     {unit.phoneLabel}
-                  </a>
+                  </WaTrackedLink>
                 </div>
               </li>
             ))}
@@ -123,15 +125,15 @@ export function Footer() {
           <ul className="flex flex-col gap-2">
             {WA_SUBJECTS.map((subject) => (
               <li key={subject.id}>
-                <a
-                  href={subject.href ?? subject.options?.[0]?.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <WaTrackedLink
+                  href={subject.href ?? subject.options?.[0]?.href ?? "#"}
+                  subject={subject.id}
+                  source="footer"
                   className="inline-flex items-center gap-2 text-sm transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <WhatsAppIcon className="size-3.5 text-whatsapp" />
                   {subject.label}
-                </a>
+                </WaTrackedLink>
               </li>
             ))}
           </ul>

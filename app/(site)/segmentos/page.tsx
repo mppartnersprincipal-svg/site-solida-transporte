@@ -19,6 +19,7 @@ import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 export const metadata: Metadata = {
   title: "Segmentos",
+  alternates: { canonical: "/segmentos" },
   description:
     "Segmentos que a Sólida atende melhor: acessórios para celular, autopeças, cosméticos, suplementação, informática, alimentos, vinhos e mais — cargas fracionadas entre SP, GO e DF.",
 };
@@ -96,15 +97,13 @@ export default function SegmentosPage() {
         <Container>
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {SEGMENTS.map(({ Icon, label, text }, i) => (
-              <Reveal key={label} delay={i * 0.06}>
-                <li className="group h-full rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-action/30 hover:shadow-lg hover:shadow-brand-action/5">
+              <Reveal key={label} delay={i * 0.06} as="li" className="group h-full rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-action/30 hover:shadow-lg hover:shadow-brand-action/5">
                   <span className="flex size-12 items-center justify-center rounded-xl bg-brand-tint text-brand-action transition-transform duration-300 group-hover:scale-110">
                     <Icon className="size-6" aria-hidden />
                   </span>
                   <h2 className="mt-4 text-base font-bold">{label}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{text}</p>
-                </li>
-              </Reveal>
+                </Reveal>
             ))}
           </ul>
         </Container>

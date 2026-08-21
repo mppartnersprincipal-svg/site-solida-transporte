@@ -57,9 +57,9 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 | 0 | Setup: Next+TS+Tailwind+Framer, tokens, estrutura, base Supabase | ✅ concluída |
 | 1 | Layout global + Home completa | ✅ concluída |
 | 2 | Páginas institucionais (A Empresa, Como Funciona, Segmentos, Diferenciais, Contato, Privacidade, Cookies) | ✅ concluída |
-| 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | ⏳ aguardando ok |
-| 4 | Depoimentos, SEO, analytics, acessibilidade, QA | pendente |
-| 5 | Conteúdo e go-live (posts, redirects 301, domínio) | pendente |
+| 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | ✅ concluída |
+| 4 | Depoimentos, SEO, analytics, acessibilidade, QA | ✅ concluída |
+| 5 | Conteúdo e go-live (posts, redirects 301, domínio) | ⏳ aguardando ok |
 
 ### Fase 0 — concluída (21/08/2026)
 
@@ -82,6 +82,28 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - Novos: `components/ui/PageHero.tsx` (hero interno), `lib/units.ts` (unidades — dados da auditoria), assunto "juridico" no `lib/whatsapp.ts`, `DIFFERENTIALS` exportado de WhySolida
 - Footer/Contato: Facebook real (facebook.com/solidatransporte); metadata por página
 - QA visual em todas as páginas (obs.: screenshots full-page em headless mostram seções vazias — falso-negativo do `whileInView`; confirmar com scroll real)
+
+### Fase 3 — concluída (21/08/2026)
+
+- **Supabase (SQL em `supabase/migrations/0001_blog.sql` — o usuário roda no painel):** tabela `posts` (§2.3, com trigger de `updated_at`), tabela `categories` (seed: Frete, Logística, Fiscal, Institucional), bucket `post-images` público p/ leitura; RLS: leitura pública só de `status='published'`, escrita só autenticado (idem Storage)
+- **Blog público:** `/blog` (PageHero + `BlogGrid` com filtro por categoria e "Carregar mais" — 1ª página via ISR, paginação/filtro via client Supabase no browser), `/blog/[slug]` (capa sobreposta ao header escuro, corpo `.post-body`, tags, CTA WhatsApp, "Continue lendo", JSON-LD BlogPosting, generateStaticParams + notFound)
+- **ISR:** páginas do blog com `revalidate = 3600` + revalidação on-demand nas server actions (`/blog`, `/blog/[slug]`, slug antigo se mudou, e `/` p/ o BlogTeaser). **Páginas públicas usam `lib/supabase/public.ts`** (client anônimo SEM cookies — o client de `server.ts` forçaria render dinâmico e mataria o ISR)
+- **Admin:** `/login` (card sobre fundo ink, Supabase Auth por e-mail/senha, `window.location.assign` após login p/ o proxy ver a sessão), `/admin` (tabela com status/contadores + `PostRowActions`: publicar/despublicar, ver, editar, excluir com confirm), `/admin/posts/novo` e `/admin/posts/[id]` (`PostEditor`: título → slug automático até edição manual, resumo, categoria com datalist da tabela categories, tags, upload de capa e imagens inline p/ Storage via browser client, Tiptap em `RichTextEditor` — Salvar rascunho / Publicar)
+- **Server actions** em `app/(admin)/admin/actions.ts`: savePost (upsert + upsert da categoria digitada em `categories`; 23505 → msg de slug duplicado), setPostStatus, deletePost, signOut — todas com `requireUser()`
+- **BlogTeaser da Home** agora é async: 3 últimos posts reais; mantém cards "Em breve" enquanto não houver post publicado (degrada com log se as tabelas não existirem)
+- Novos: `lib/blog.ts` (tipos + queries compartilhadas server/browser), `slugify` em `lib/utils.ts`, `.post-body` em `globals.css` (tipografia do post, usada TAMBÉM dentro do editor), `remotePatterns` `*.supabase.co` no `next.config.ts`, deps Tiptap v3 (StarterKit já inclui Link — configurar via `StarterKit.configure({link})`, NÃO instalar extension-link junto; `immediatelyRender:false` + `shouldRerenderOnTransaction:true`)
+- QA: build ok (17 rotas; admin ƒ dynamic, blog ○/● com ISR), smoke test em prod server: /blog 200, /login 200, slug inexistente 404, /admin → 307 /login
+- **Pendente do usuário:** rodar o SQL no Supabase e criar o usuário do gerente no painel (Auth → Add user)
+
+### Fase 4 — concluída (21/08/2026)
+
+- **/depoimentos** (§5.6): cards com slot de vídeo ("Vídeo em gravação"), destaque, Antes/Com a Sólida, nome/empresa/anos — **dados placeholder em `lib/testimonials.ts`** (campos marcados com [colchetes]; trocar na Fase 5, foto opcional em `/public/assets/depoimentos/`, videoUrl = embed do YouTube). Home `Testimonials` consome o mesmo arquivo + link "Ver todos"; Depoimentos entrou no rodapé (`FOOTER_LINKS` em nav-links; header segue §4.2 sem ele)
+- **SEO:** `metadataBase` + OG/Twitter defaults no root layout (imagem hero-sede); `alternates.canonical` em todas as páginas; `app/sitemap.ts` (estáticas + posts publicados via client público) e `app/robots.ts` (disallow /admin,/login); JSON-LD Organization no layout do site + LocalBusiness×3 no /contato (`lib/seo.ts`, componente `components/seo/JsonLd.tsx`); BlogPosting já existia (Fase 3). `NEXT_PUBLIC_SITE_URL` no .env (default www.solidatransporte.com.br)
+- **Analytics (LGPD, opt-in):** caminho principal é o **GTM** — `NEXT_PUBLIC_GTM_ID=GTM-MKR53GH3` (já no .env.local; GA4 e Meta Pixel serão configurados DENTRO do container pelo usuário). `components/analytics/Analytics.tsx` só injeta o gtm.js **após aceite** no banner de cookies (que ganhou botão "Só o essencial"). Eventos chegam via **dataLayer**: `page_view` (inclui navegação SPA), `whatsapp_central_open` e `whatsapp_click`. GA4/PIXEL diretos continuam como fallback no .env mas NÃO devem ser preenchidos junto com o GTM (mediria em dobro). Verificado em runtime: sem script antes do aceite; gtm.js + eventos no dataLayer depois
+- **Eventos WhatsApp** (`lib/analytics.ts`): `whatsapp_central_open` {source} ao abrir o modal (open(source) no provider; sources: header, header-mobile, menu-mobile, float, hero, cta-final, post, depoimentos, cta) e `whatsapp_click` {subject, option, source, page} em TODO link wa.me — modal, /contato e footer (via `components/whatsapp/WaTrackedLink.tsx`); no Meta também dispara evento padrão `Contact`
+- **A11y (AA):** skip link "Pular para o conteúdo" (main#conteudo); focus trap + devolução de foco no modal da Central; Esc + foco gerenciado no drawer do header; `Reveal` ganhou prop `as` (motion.li) e TODAS as listas `ul > Reveal > li` viraram `<Reveal as="li">` (HTML válido — padrão a seguir em listas novas); scroller de depoimentos com tabIndex/aria-label
+- **Performance:** fontes com `display: "swap"`; zero `<img>` cru (tudo next/image); analytics não carrega nada sem consentimento; hero já tinha `priority`
+- QA: build ok (20 rotas, + /depoimentos /robots.txt /sitemap.xml), console limpo nas 8 páginas públicas, screenshots mobile/tablet/desktop ok. **Medir CWV reais (LCP < 2,5s) após deploy na Vercel** (localhost não representa)
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 

@@ -8,6 +8,7 @@ import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 export const metadata: Metadata = {
   title: "Diferenciais",
+  alternates: { canonical: "/diferenciais" },
   description:
     "Oito motivos para transportar com a Sólida: 32 anos de mercado, mesmo CNPJ desde a fundação, rapidez na coleta e na entrega, frota própria, seguro de carga, atendimento próximo e transparência total.",
 };
@@ -26,8 +27,7 @@ export default function DiferenciaisPage() {
         <Container>
           <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {DIFFERENTIALS.map(({ Icon, title, text }, i) => (
-              <Reveal key={title} delay={i * 0.07}>
-                <li className="group relative h-full rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-action/30 hover:shadow-lg hover:shadow-brand-action/5">
+              <Reveal key={title} delay={i * 0.07} as="li" className="group relative h-full rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-action/30 hover:shadow-lg hover:shadow-brand-action/5">
                   <span
                     aria-hidden
                     className="absolute top-5 right-5 font-display text-3xl font-bold text-line transition-colors duration-300 group-hover:text-brand-action/25"
@@ -39,8 +39,7 @@ export default function DiferenciaisPage() {
                   </span>
                   <h2 className="mt-4 text-base font-bold">{title}</h2>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{text}</p>
-                </li>
-              </Reveal>
+                </Reveal>
             ))}
           </ol>
         </Container>

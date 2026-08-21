@@ -21,7 +21,7 @@ export function WhatsAppFloat() {
         />
       )}
       <motion.button
-        onClick={open}
+        onClick={() => open("float")}
         aria-label="Falar com a Sólida no WhatsApp"
         title="Fale com a Sólida"
         className="relative flex size-14 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/25 transition-colors hover:bg-whatsapp-hover cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
   title: "Política de Cookies",
+  alternates: { canonical: "/politica-de-cookies" },
   description:
     "Quais cookies o site da Sólida Transporte utiliza, para que servem e como você pode gerenciá-los.",
 };

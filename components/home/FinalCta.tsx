@@ -23,7 +23,7 @@ export function FinalCta() {
           </p>
         </Reveal>
         <Reveal delay={0.2} className="mt-8">
-          <WhatsAppCTAButton variant="whatsapp" size="lg">
+          <WhatsAppCTAButton variant="whatsapp" size="lg" source="cta-final">
             Pedir cotação no WhatsApp
           </WhatsAppCTAButton>
         </Reveal>

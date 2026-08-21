@@ -23,9 +23,13 @@ import {
 } from "@/components/layout/SocialIcons";
 import { WA_SUBJECTS } from "@/lib/whatsapp";
 import { MATRIZ_MAP_EMBED, UNITS } from "@/lib/units";
+import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { LOCAL_BUSINESS_JSONLD } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contato",
+  alternates: { canonical: "/contato" },
   description:
     "Fale com a Sólida Transporte pelo WhatsApp certo para o seu assunto — cotação, coleta, rastreamento, financeiro ou jurídico — ou visite nossas unidades em Goiânia, Guarulhos e Brasília.",
 };
@@ -49,6 +53,8 @@ const SOCIALS = [
 export default function ContatoPage() {
   return (
     <>
+      {/* LocalBusiness das 3 unidades (plano §10) */}
+      <JsonLd data={LOCAL_BUSINESS_JSONLD} />
       <PageHero
         eyebrow="Contato"
         title="Olá! Como podemos ajudar?"
@@ -66,8 +72,7 @@ export default function ContatoPage() {
             {WA_SUBJECTS.map((subject, i) => {
               const Icon = SUBJECT_ICONS[subject.id] ?? MessageCircle;
               return (
-                <Reveal key={subject.id} delay={i * 0.07}>
-                  <li className="h-full rounded-2xl border border-line bg-white p-6">
+                <Reveal key={subject.id} delay={i * 0.07} as="li" className="h-full rounded-2xl border border-line bg-white p-6">
                     <div className="flex items-start gap-4">
                       <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-whatsapp/10 text-whatsapp">
                         <Icon className="size-6" aria-hidden />
@@ -83,11 +88,12 @@ export default function ContatoPage() {
                     {subject.options ? (
                       <div className="mt-4 flex flex-col gap-2.5">
                         {subject.options.map((option) => (
-                          <a
+                          <WaTrackedLink
                             key={option.label}
                             href={option.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            subject={subject.id}
+                            option={option.label}
+                            source="contato"
                             className="flex items-center justify-between gap-3 rounded-xl border border-line px-4 py-3 text-sm font-semibold text-ink transition-colors hover:border-whatsapp hover:bg-whatsapp/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"
                           >
                             <span className="inline-flex items-center gap-2">
@@ -95,14 +101,14 @@ export default function ContatoPage() {
                               {option.label}
                             </span>
                             <ChevronRight className="size-4 shrink-0 text-ink-muted" aria-hidden />
-                          </a>
+                          </WaTrackedLink>
                         ))}
                       </div>
                     ) : (
-                      <a
-                        href={subject.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <WaTrackedLink
+                        href={subject.href ?? "#"}
+                        subject={subject.id}
+                        source="contato"
                         className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-line px-4 py-3 text-sm font-semibold text-ink transition-colors hover:border-whatsapp hover:bg-whatsapp/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"
                       >
                         <span className="inline-flex items-center gap-2">
@@ -110,10 +116,9 @@ export default function ContatoPage() {
                           Abrir conversa no WhatsApp
                         </span>
                         <ChevronRight className="size-4 shrink-0 text-ink-muted" aria-hidden />
-                      </a>
+                      </WaTrackedLink>
                     )}
-                  </li>
-                </Reveal>
+                  </Reveal>
               );
             })}
           </ul>
@@ -130,8 +135,7 @@ export default function ContatoPage() {
           />
           <ul className="grid gap-6 lg:grid-cols-3">
             {UNITS.map((unit, i) => (
-              <Reveal key={unit.city} delay={i * 0.1}>
-                <li className="flex h-full flex-col rounded-2xl border border-line bg-white p-6">
+              <Reveal key={unit.city} delay={i * 0.1} as="li" className="flex h-full flex-col rounded-2xl border border-line bg-white p-6">
                   <p className="text-xs font-semibold tracking-[0.18em] uppercase text-brand-action">
                     {unit.role}
                   </p>
@@ -155,15 +159,16 @@ export default function ContatoPage() {
                       <Mail className="size-4 shrink-0 text-ink-muted" aria-hidden />
                       {unit.email}
                     </a>
-                    <a
+                    <WaTrackedLink
                       href={unit.waHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      subject="unidade"
+                      option={unit.city}
+                      source="contato"
                       className="inline-flex items-center gap-2.5 font-semibold text-ink transition-colors hover:text-whatsapp"
                     >
                       <WhatsAppIcon className="size-4 text-whatsapp" />
                       WhatsApp da unidade
-                    </a>
+                    </WaTrackedLink>
                   </div>
                   <a
                     href={unit.mapsUrl}
@@ -174,8 +179,7 @@ export default function ContatoPage() {
                     Ver no mapa
                     <ChevronRight className="size-4" aria-hidden />
                   </a>
-                </li>
-              </Reveal>
+                </Reveal>
             ))}
           </ul>
 

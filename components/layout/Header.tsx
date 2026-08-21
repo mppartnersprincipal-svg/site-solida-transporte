@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,6 +26,23 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
+  const drawerCloseRef = useRef<HTMLButtonElement>(null);
+
+  // Drawer: fecha com Esc, foca o botão de fechar ao abrir e devolve o foco (AA)
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    drawerCloseRef.current?.focus();
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      previousFocus?.focus();
+    };
+  }, [drawerOpen]);
+
   const { open } = useWhatsApp();
   const pathname = usePathname();
   const reduceMotion = useReducedMotion();
@@ -91,7 +108,7 @@ export function Header() {
           <Button
             variant="whatsapp"
             size="md"
-            onClick={open}
+            onClick={() => open("header")}
             className="max-sm:hidden"
           >
             <WhatsAppIcon className="size-4" />
@@ -100,7 +117,7 @@ export function Header() {
 
           {/* CTA de WhatsApp sempre visível no mobile */}
           <button
-            onClick={open}
+            onClick={() => open("header-mobile")}
             aria-label="Falar no WhatsApp"
             className="inline-flex size-11 items-center justify-center rounded-full bg-whatsapp text-white transition-colors hover:bg-whatsapp-hover sm:hidden cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"
           >
@@ -155,6 +172,7 @@ export function Header() {
                   className="h-auto w-28"
                 />
                 <button
+                  ref={drawerCloseRef}
                   onClick={() => setDrawerOpen(false)}
                   aria-label="Fechar menu"
                   className="inline-flex size-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
@@ -185,7 +203,7 @@ export function Header() {
                 className="w-full"
                 onClick={() => {
                   setDrawerOpen(false);
-                  open();
+                  open("menu-mobile");
                 }}
               >
                 <WhatsAppIcon className="size-5" />

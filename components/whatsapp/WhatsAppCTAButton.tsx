@@ -11,17 +11,20 @@ export function WhatsAppCTAButton({
   size = "lg",
   withIcon = true,
   className,
+  source = "cta",
 }: {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "outline-light" | "whatsapp";
   size?: "md" | "lg";
   withIcon?: boolean;
   className?: string;
+  /** Origem registrada no analytics (ex.: "hero", "cta-final", "post"). */
+  source?: string;
 }) {
   const { open } = useWhatsApp();
 
   return (
-    <Button variant={variant} size={size} className={className} onClick={open}>
+    <Button variant={variant} size={size} className={className} onClick={() => open(source)}>
       {withIcon && <WhatsAppIcon className="size-4.5" />}
       {children}
     </Button>

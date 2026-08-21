@@ -17,6 +17,7 @@ import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 export const metadata: Metadata = {
   title: "Como Funciona",
+  alternates: { canonical: "/como-funciona" },
   description:
     "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF e entrega em 2 a 3 dias úteis.",
 };
@@ -128,8 +129,7 @@ export default function ComoFuncionaPage() {
           <SectionHeading eyebrow="Passo a passo" title="Da coleta à entrega" />
           <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(({ Icon, title, text }, i) => (
-              <Reveal key={title} delay={i * 0.1}>
-                <li className="relative h-full rounded-2xl border border-line bg-white p-6 pt-8">
+              <Reveal key={title} delay={i * 0.1} as="li" className="relative h-full rounded-2xl border border-line bg-white p-6 pt-8">
                   <span
                     aria-hidden
                     className="absolute -top-5 left-6 flex size-10 items-center justify-center rounded-full bg-brand-action font-display text-lg font-bold text-white shadow-md"
@@ -139,8 +139,7 @@ export default function ComoFuncionaPage() {
                   <Icon className="size-6 text-brand-action" aria-hidden />
                   <h3 className="mt-3 text-base font-bold">{title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{text}</p>
-                </li>
-              </Reveal>
+                </Reveal>
             ))}
           </ol>
 

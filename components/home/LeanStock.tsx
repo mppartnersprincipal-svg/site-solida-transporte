@@ -29,12 +29,10 @@ export function LeanStock() {
           </p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {BULLETS.map((bullet, i) => (
-              <Reveal key={bullet} delay={0.1 + i * 0.07}>
-                <li className="flex items-center gap-2.5 text-sm font-medium text-ink">
+              <Reveal key={bullet} delay={0.1 + i * 0.07} as="li" className="flex items-center gap-2.5 text-sm font-medium text-ink">
                   <CheckCircle2 className="size-5 shrink-0 text-brand-action" aria-hidden />
                   {bullet}
-                </li>
-              </Reveal>
+                </Reveal>
             ))}
           </ul>
         </Reveal>

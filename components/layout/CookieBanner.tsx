@@ -4,28 +4,27 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { readConsent, writeConsent } from "@/lib/analytics";
 
-const CONSENT_KEY = "solida-cookie-consent";
-
-/** Banner de consentimento de cookies (LGPD). */
+/**
+ * Banner de consentimento de cookies (LGPD). O aceite libera o carregamento
+ * de GA4/Meta Pixel (components/analytics/Analytics.tsx); "Só o essencial"
+ * mantém o site 100% funcional sem scripts de medição.
+ */
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem(CONSENT_KEY)) setVisible(true);
+      if (!readConsent()) setVisible(true);
     } catch {
       // storage indisponível (ex.: modo privado) — não exibe o banner
     }
   }, []);
 
-  const accept = () => {
-    try {
-      localStorage.setItem(CONSENT_KEY, JSON.stringify({ accepted: true, at: Date.now() }));
-    } catch {
-      // sem storage, apenas fecha nesta visita
-    }
+  const decide = (accepted: boolean) => {
+    writeConsent(accepted);
     setVisible(false);
   };
 
@@ -43,7 +42,7 @@ export function CookieBanner() {
         >
           <p className="text-sm text-ink-body">
             Usamos cookies para melhorar sua experiência e medir o desempenho do
-            site. Ao continuar navegando, você concorda com a nossa{" "}
+            site. Saiba mais na nossa{" "}
             <Link
               href="/politica-de-cookies"
               className="font-semibold text-brand-action underline-offset-2 hover:underline"
@@ -52,8 +51,14 @@ export function CookieBanner() {
             </Link>
             .
           </p>
-          <div className="mt-3 shrink-0 sm:mt-0">
-            <Button size="md" onClick={accept}>
+          <div className="mt-3 flex shrink-0 items-center gap-2 sm:mt-0">
+            <button
+              onClick={() => decide(false)}
+              className="cursor-pointer rounded-full px-4 py-2.5 text-sm font-semibold text-ink-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-action"
+            >
+              Só o essencial
+            </button>
+            <Button size="md" onClick={() => decide(true)}>
               Aceitar
             </Button>
           </div>

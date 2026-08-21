@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { WA_SUBJECTS, type WaSubject } from "@/lib/whatsapp";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const SUBJECT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   cotacao: Calculator,
@@ -34,16 +35,40 @@ export function WhatsAppModal({
 }) {
   const [activeSubject, setActiveSubject] = useState<WaSubject | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
-  // Fecha com Esc, trava o scroll do body e foca o botão de fechar
+  // Fecha com Esc, trava o scroll do body, foca o botão de fechar,
+  // prende o Tab dentro do diálogo e devolve o foco ao fechar (AA)
   useEffect(() => {
     if (!isOpen) return;
     setActiveSubject(null);
+    const previousFocus = document.activeElement as HTMLElement | null;
     closeButtonRef.current?.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusables = Array.from(
+          dialogRef.current.querySelectorAll<HTMLElement>(
+            'a[href], button:not([tabindex="-1"])'
+          )
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !dialogRef.current.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     const previousOverflow = document.body.style.overflow;
@@ -51,6 +76,7 @@ export function WhatsAppModal({
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
     };
   }, [isOpen, onClose]);
 
@@ -78,6 +104,7 @@ export function WhatsAppModal({
           />
 
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label="Central de WhatsApp da Sólida"
@@ -120,7 +147,14 @@ export function WhatsAppModal({
                     target="_blank"
                     rel="noopener noreferrer"
                     className={itemClasses}
-                    onClick={onClose}
+                    onClick={() => {
+                      trackWhatsAppClick({
+                        subject: activeSubject.id,
+                        option: option.label,
+                        source: "modal",
+                      });
+                      onClose();
+                    }}
                   >
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-whatsapp/10 text-whatsapp">
                       <MapPin className="size-5" aria-hidden />
@@ -171,7 +205,10 @@ export function WhatsAppModal({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={itemClasses}
-                      onClick={onClose}
+                      onClick={() => {
+                        trackWhatsAppClick({ subject: subject.id, source: "modal" });
+                        onClose();
+                      }}
                     >
                       {inner}
                     </a>

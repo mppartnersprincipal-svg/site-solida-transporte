@@ -10,6 +10,7 @@ import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 export const metadata: Metadata = {
   title: "A Empresa",
+  alternates: { canonical: "/a-empresa" },
   description:
     "Há 32 anos a Sólida Transporte movimenta cargas fracionadas entre SP, Goiás e DF — mesmo CNPJ desde a fundação, estrutura e frota próprias.",
 };
@@ -116,8 +117,7 @@ export default function AEmpresaPage() {
           />
           <ol className="relative mx-auto max-w-2xl border-l-2 border-line pl-8">
             {TIMELINE.map(({ Icon, year, title, text }, i) => (
-              <Reveal key={title} delay={i * 0.1}>
-                <li className="relative pb-10 last:pb-0">
+              <Reveal key={title} delay={i * 0.1} as="li" className="relative pb-10 last:pb-0">
                   <span
                     aria-hidden
                     className="absolute -left-[45px] flex size-8 items-center justify-center rounded-full border-2 border-brand-action bg-white text-brand-action"
@@ -129,8 +129,7 @@ export default function AEmpresaPage() {
                   </p>
                   <h3 className="mt-1 text-lg font-bold">{title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{text}</p>
-                </li>
-              </Reveal>
+                </Reveal>
             ))}
           </ol>
         </Container>

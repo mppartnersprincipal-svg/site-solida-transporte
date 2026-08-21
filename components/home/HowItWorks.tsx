@@ -27,8 +27,7 @@ export function HowItWorks() {
         />
         <ol className="relative grid gap-6 md:grid-cols-3 md:gap-8">
           {STEPS.map((step, i) => (
-            <Reveal key={step.title} delay={i * 0.12}>
-              <li className="relative h-full rounded-2xl border border-line bg-white p-6 pt-8">
+            <Reveal key={step.title} delay={i * 0.12} as="li" className="relative h-full rounded-2xl border border-line bg-white p-6 pt-8">
                 <span
                   aria-hidden
                   className="absolute -top-5 left-6 flex size-10 items-center justify-center rounded-full bg-brand-action font-display text-lg font-bold text-white shadow-md"
@@ -37,8 +36,7 @@ export function HowItWorks() {
                 </span>
                 <h3 className="text-lg font-bold">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-muted">{step.text}</p>
-              </li>
-            </Reveal>
+              </Reveal>
           ))}
         </ol>
       </Container>
