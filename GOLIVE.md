@@ -18,7 +18,7 @@ Marque cada item antes de apontar o domínio.
 
 1. Acesse [vercel.com/new](https://vercel.com/new) logado com a conta que tem acesso
    ao GitHub `mppartnersprincipal-svg`
-2. **Import** → selecione o repositório **`solida-site`** (privado — autorize o
+2. **Import** → selecione o repositório **`site-solida-transporte`** (autorize o
    acesso da Vercel ao GitHub se for a primeira vez)
 3. Framework: a Vercel detecta **Next.js** sozinha — não mude nada de build
 4. Em **Environment Variables**, cadastre (valores no `.env.local`):
