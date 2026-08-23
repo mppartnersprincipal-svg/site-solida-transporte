@@ -32,6 +32,7 @@ export function PageHero({
             fill
             priority
             sizes="100vw"
+            quality={60}
             className="object-cover opacity-40"
           />
           <div

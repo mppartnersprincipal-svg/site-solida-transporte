@@ -132,6 +132,48 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - A pedido do usuário, a seção Depoimentos foi **oculta até existirem depoimentos reais**: `<Testimonials />` comentado na Home, link removido do FOOTER_LINKS, entrada comentada no sitemap e `robots: noindex` em /depoimentos (página segue acessível por URL direta)
 - **Para reativar:** descomentar nesses 4 pontos e preencher `lib/testimonials.ts`
 
+## Intro de vídeo na Home + Performance (23/08/2026)
+
+- **Intro:** vídeo horizontal de 6,4s roda em tela cheia ao acessar a Home; o site
+  só aparece quando termina (fade de 500ms). Só na **1ª visita da sessão**
+  (`sessionStorage["solida-intro"]`), com botão **Pular** (também Esc), letterbox
+  no mobile, sem som (autoplay móvel exige muted+playsInline)
+- **Arquitetura:** `components/home/IntroGate.tsx` (RSC: script inline
+  parser-blocking que seta `html[data-intro="1"]` antes do paint + preload do
+  poster) + `components/home/IntroVideo.tsx` (client: overlay `z-[70]`, escolha
+  720p/1080p por matchMedia no mount, `muted` via ref antes do play — React não
+  serializa muted no SSR). CSS em `globals.css`: `#intro-overlay` nasce
+  `display:none`; `html[data-intro]` mostra overlay + trava scroll. Visitante
+  recorrente/sem-JS/reduced-motion **nunca** vê a intro; navegação client-side
+  não a reexibe; cleanup do effect destrava o scroll se navegar no meio
+- **Robustez:** watchdog de 4s sem `playing` → libera o site; onError/onEnded/
+  Pular/Esc convergem num `finish()` único; poster como `<img>` cru por cima do
+  vídeo até o `playing` (LCP candidato cedo p/ quem pula; NÃO trocar por
+  next/image — duplicaria o download do preload)
+- **Armadilhas aprendidas:** (1) `backdrop-blur` sobre vídeo em movimento
+  explode o TBT (648→241ms ao remover); (2) esconder o hero durante a intro
+  (`visibility:hidden`) piora o LCP real p/ ~13s — o hero DEVE pintar atrás do
+  overlay (pintura oculta conta como LCP cedo); (3) `<link rel=preload as=video>`
+  não é suportado no Chrome (warning no console)
+- **Assets:** `public/assets/video/` — intro-1080.mp4 (1,7 MB, crf23),
+  intro-720.mp4 (0,77 MB, crf24), intro-poster.webp (41 KB). Fonte:
+  `../assets/Video hero.mp4` (4,1 MB). Reencodar: ffmpeg `-an -preset slow
+  -movflags +faststart`
+- **Performance:** `next.config.ts` ganhou `images.formats` (AVIF→WebP),
+  `qualities [60,75]` (60 nos heros fill sob gradiente: Hero, PageHero,
+  FinalCta), `minimumCacheTTL` 31d e `headers()` com
+  `Cache-Control: immutable` p/ `/assets/*` — **regra: substituiu um asset de
+  public/, renomeie o arquivo**. SVGs do create-next-app removidos de public/
+- **Medições (build prod local):** Lighthouse mobile *simulado* — Home 85
+  (FCP 1,0s, TBT ~215ms, CLS 0), A Empresa 91, Blog 88 (1ª medição de cada
+  página sofre com encode AVIF frio; na Vercel o edge cacheia). *Throttling
+  real (devtools, Slow 4G+4x CPU)* — Home LCP **2,42s**, A Empresa LCP 2,41s.
+  O TBT em devtools (~1s) é artefato do decode de vídeo a 4x CPU (celular real
+  tem decode por hardware). LCP alvo <2,5s ✅. Otimização opcional futura:
+  LazyMotion/m. no framer (9 arquivos, ~15-20KB gz) — não foi necessária
+- Verificado no headless: fluxo completo, Pular, Esc, reload sem intro,
+  client-nav sem intro, scroll lock, console limpo, mobile letterbox
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria

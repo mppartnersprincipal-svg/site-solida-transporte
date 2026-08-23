@@ -24,6 +24,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
+        quality={60}
         className="object-cover opacity-50"
       />
       <div

@@ -37,6 +37,12 @@ const nextConfig: NextConfig = {
   },
   // Capas e imagens dos posts vêm do Supabase Storage (bucket post-images)
   images: {
+    // AVIF primeiro: ~30–40% menor que WebP nos heros fotográficos
+    formats: ["image/avif", "image/webp"],
+    // Next 16 exige declarar qualities não-default; 60 é usado nos heros
+    // fill 100vw que ficam sob gradiente/opacity (degradação invisível)
+    qualities: [60, 75],
+    minimumCacheTTL: 2678400, // 31 dias — capas do Supabase mudam por URL
     remotePatterns: [
       {
         protocol: "https",
@@ -44,6 +50,22 @@ const nextConfig: NextConfig = {
         pathname: "/storage/v1/object/public/**",
       },
     ],
+  },
+  async headers() {
+    return [
+      {
+        // Assets estáticos de public/ (fotos, vídeos da intro, logos).
+        // Na Vercel o default é max-age=0; immutable é seguro porque a regra
+        // do projeto é: substituiu um asset → renomeia o arquivo.
+        source: "/assets/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
   },
 };
 

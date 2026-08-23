@@ -12,6 +12,7 @@ export function FinalCta() {
         alt=""
         fill
         sizes="100vw"
+        quality={60}
         className="object-cover opacity-30"
       />
       <div
