@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { CompanyCarousel } from "@/components/empresa/CompanyCarousel";
 import { Counter } from "@/components/motion/Counter";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
@@ -133,8 +134,21 @@ export default function AEmpresaPage() {
         </Container>
       </section>
 
+      {/* Carrossel: empresa e frota */}
+      <section className="bg-surface py-16 sm:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Por dentro da Sólida"
+            title="A estrutura e a frota de perto"
+          />
+          <Reveal className="mx-auto max-w-5xl">
+            <CompanyCarousel />
+          </Reveal>
+        </Container>
+      </section>
+
       {/* CTA */}
-      <section className="bg-surface py-16 text-center sm:py-20">
+      <section className="bg-surface-alt py-16 text-center sm:py-20">
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-xl text-2xl font-bold sm:text-3xl text-balance">
