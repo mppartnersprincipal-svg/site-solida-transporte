@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Truck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -14,6 +15,10 @@ const CITIES = [
 
 export function RoutesSection() {
   const reduceMotion = useReducedMotion();
+  const trackRef = useRef<HTMLDivElement>(null);
+  // A animação só inicia quando a barra entra na tela — senão o loop já
+  // estaria no meio do trajeto quando o usuário rolasse até aqui
+  const inView = useInView(trackRef, { once: true, amount: 0.5 });
 
   return (
     <section className="bg-surface py-16 sm:py-24">
@@ -29,13 +34,27 @@ export function RoutesSection() {
           <div className="relative mx-auto max-w-3xl px-2 py-8">
             <div className="relative flex items-center justify-between">
               {/* Linha do trajeto + caminhão percorrendo */}
-              <div aria-hidden className="absolute inset-x-8 top-1/2 -translate-y-1/2 sm:inset-x-10">
+              <div
+                ref={trackRef}
+                aria-hidden
+                className="absolute inset-x-8 top-1/2 -translate-y-1/2 sm:inset-x-10"
+              >
                 <div className="h-0.5 bg-line" />
-                {!reduceMotion && (
+                {!reduceMotion && inView && (
                   <motion.span
                     className="absolute -top-3 text-brand-action"
-                    animate={{ left: ["2%", "90%", "2%"] }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                    initial={{ left: "2%", scaleX: 1 }}
+                    animate={{
+                      // ida SP → DF, pausa e volta DF → SP com o caminhão espelhado
+                      left: ["2%", "90%", "90%", "2%", "2%"],
+                      scaleX: [1, 1, -1, -1, 1],
+                    }}
+                    transition={{
+                      duration: 11,
+                      times: [0, 0.45, 0.5, 0.95, 1],
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     <Truck className="size-6" />
                   </motion.span>
