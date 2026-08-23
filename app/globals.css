@@ -168,58 +168,34 @@
 
 /*
   Efeito máquina de escrever da headline (components/motion/TypeReveal.tsx).
-  100% CSS: cada caractere já ocupa seu espaço (zero CLS) e "aparece" quando
-  a animação de duração 0s salta para opacity 1 após o delay inline do span.
-  Roda sem JavaScript e antes da hidratação.
+  Os caracteres sempre ocupam seu espaço (zero CLS); o JS só alterna opacity
+  direto no DOM. O caret é o ::after do caractere atual (.type-current) —
+  acompanha a digitação sem medir layout.
 */
-@keyframes type-reveal {
-  to {
-    opacity: 1;
-  }
-}
-
 .type-char {
-  opacity: 0;
-  animation: type-reveal 0s forwards;
+  position: relative;
 }
 
-/* Cursor: pisca algumas vezes ao fim da digitação e some (volta a opacity 0) */
+.type-current::after {
+  content: "";
+  position: absolute;
+  top: 0.06em;
+  right: -0.14em;
+  width: 3px;
+  height: 0.85em;
+  background: var(--color-brand);
+  animation: type-caret-blink 0.9s step-end infinite;
+}
+
 @keyframes type-caret-blink {
-  0%,
-  40%,
-  80% {
-    opacity: 1;
-  }
-  20%,
-  60%,
-  100% {
+  50% {
     opacity: 0;
   }
 }
 
-.type-caret {
-  display: inline-block;
-  width: 3px;
-  height: 0.9em;
-  margin-left: 0.08em;
-  vertical-align: baseline;
-  transform: translateY(0.12em);
-  background: var(--color-brand);
-  opacity: 0;
-  animation: type-caret-blink 1.8s;
-}
-
-/*
-  Reduced motion: o bloco global abaixo zera duration mas NÃO os delays —
-  sem esta regra o texto ainda "digitaria". Aqui ele aparece inteiro, parado.
-*/
 @media (prefers-reduced-motion: reduce) {
-  .type-char {
-    animation: none;
-    opacity: 1;
-  }
-
-  .type-caret {
+  /* O efeito nem inicia (matchMedia no componente); garante caret oculto */
+  .type-current::after {
     display: none;
   }
 }
