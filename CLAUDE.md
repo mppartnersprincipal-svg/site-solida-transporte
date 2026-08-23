@@ -131,7 +131,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 ## Depoimentos REMOVIDOS (23/08/2026)
 
 - Primeiro a seção foi oculta; depois, a pedido do usuário, foi **removida por completo**: deletados `app/(site)/depoimentos/`, `components/home/Testimonials.tsx`, `components/ui/Testimonial.tsx` (card com foto estilo photo-card, criado no mesmo dia) e `lib/testimonials.ts`; limpos os pontos em Home, FOOTER_LINKS, sitemap e o remotePattern do Unsplash no next.config (usado por depoimentos simulados de apresentação, também descartados)
-- **Se voltar:** todo o código está no histórico do git desta data (última versão: cards escuros com foto + depoimentos fictícios para demo). `public/assets/hero-depoimentos.jpg` foi mantido
+- **Se voltar:** a rota `/depoimentos`, a seção da Home e `lib/testimonials.ts` (placeholders) estão no histórico do git (versões pré-remoção, commit db369b4^). Já o card com foto (`components/ui/Testimonial.tsx`) e os depoimentos simulados NUNCA foram commitados — existiram só na working tree de 23/08; recriar se necessário. `public/assets/hero-depoimentos.jpg` foi mantido
 
 ## Performance mobile ≤3s (23/08/2026)
 
