@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { buttonClasses } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
+import { TypeReveal } from "@/components/motion/TypeReveal";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 const TRUST_ITEMS = [
@@ -41,12 +42,17 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white text-balance sm:text-5xl lg:text-6xl">
-              Sua carga entre São Paulo, Goiás e Distrito Federal:{" "}
-              <span className="text-brand">no prazo</span>, com segurança.
-            </h1>
-          </Reveal>
+          {/* Sem Reveal aqui: a própria digitação é a entrada (e roda sem JS) */}
+          {/* contain: cada passo da digitação invalida só o h1, não a página */}
+          <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white text-balance [contain:layout_paint_style] sm:text-5xl lg:text-6xl">
+            <TypeReveal
+              segments={[
+                { text: "Sua carga entre São Paulo, Goiás e Distrito Federal: " },
+                { text: "no prazo", className: "text-brand" },
+                { text: ", com segurança." },
+              ]}
+            />
+          </h1>
 
           <Reveal delay={0.2}>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
