@@ -10,7 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/como-funciona", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/segmentos", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/diferenciais", priority: 0.8, changeFrequency: "monthly" as const },
-    // { path: "/depoimentos", priority: 0.7, changeFrequency: "monthly" as const }, // oculto até os depoimentos reais
     { path: "/contato", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/blog", priority: 0.9, changeFrequency: "daily" as const },
     { path: "/politica-de-privacidade", priority: 0.3, changeFrequency: "yearly" as const },

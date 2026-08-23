@@ -10,8 +10,6 @@ import { WhySolida } from "@/components/home/WhySolida";
 import { OperationVideo } from "@/components/home/OperationVideo";
 import { OperationGallery } from "@/components/home/OperationGallery";
 import { PriceValue } from "@/components/home/PriceValue";
-// Depoimentos oculto até os depoimentos reais serem gravados (reativar aqui e no rodapé/sitemap)
-// import { Testimonials } from "@/components/home/Testimonials";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
 import { FinalCta } from "@/components/home/FinalCta";
 
@@ -33,7 +31,6 @@ export default function Home() {
       <OperationVideo />
       <OperationGallery />
       <PriceValue />
-      {/* <Testimonials /> — oculto até os depoimentos reais */}
       <BlogTeaser />
       <FinalCta />
     </>

@@ -128,10 +128,10 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **12 correções de overclaim** (afirmava mais que as fontes): "toda carga viaja segurada"→"trabalhamos com seguro de carga"; "galpões próprios nas três praças, sem depender de terceiros"→verbatim "capital, sede e frota próprios"; "nenhuma etapa na mão de terceiros" removido; rota inicial inventada na timeline 1994 → data real de fundação; "estamos gravando depoimentos"/"Vídeo em gravação"→"em breve" (gravação ainda não começou); "unidades próprias"→"unidades"; "alta temporada"→"demanda"
 - Build validado
 
-## Depoimentos ocultos (23/08/2026)
+## Depoimentos REMOVIDOS (23/08/2026)
 
-- A pedido do usuário, a seção Depoimentos foi **oculta até existirem depoimentos reais**: `<Testimonials />` comentado na Home, link removido do FOOTER_LINKS, entrada comentada no sitemap e `robots: noindex` em /depoimentos (página segue acessível por URL direta)
-- **Para reativar:** descomentar nesses 4 pontos e preencher `lib/testimonials.ts`
+- Primeiro a seção foi oculta; depois, a pedido do usuário, foi **removida por completo**: deletados `app/(site)/depoimentos/`, `components/home/Testimonials.tsx`, `components/ui/Testimonial.tsx` (card com foto estilo photo-card, criado no mesmo dia) e `lib/testimonials.ts`; limpos os pontos em Home, FOOTER_LINKS, sitemap e o remotePattern do Unsplash no next.config (usado por depoimentos simulados de apresentação, também descartados)
+- **Se voltar:** todo o código está no histórico do git desta data (última versão: cards escuros com foto + depoimentos fictícios para demo). `public/assets/hero-depoimentos.jpg` foi mantido
 
 ## Performance mobile ≤3s (23/08/2026)
 
