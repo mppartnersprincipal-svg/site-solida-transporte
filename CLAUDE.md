@@ -31,6 +31,7 @@ assunto** (Central de WhatsApp). Sem formulário de cotação, sem guerra de pre
 - **Regra de ouro:** vermelho com parcimônia — base branca/off-white + grafite; nada de grandes áreas de #FF0000
 - **Tipografia:** Sora (títulos, `font-display`) + Inter (texto, `font-sans`) via next/font
 - **Animações:** entrada por scroll com stagger (`components/motion/Reveal.tsx`), contadores (`Counter.tsx`), sempre respeitando `prefers-reduced-motion`
+- **GSAP (feito e revertido, 23/08/2026):** uma versão da `RoutesSection` com GSAP ScrollTrigger `scrub` (rota SP→GO→DF desenhada pelo scroll, caminhão na ponta, bidirecional) foi implementada, validada e **descartada a pedido do usuário** — voltou o loop original do Framer Motion e `gsap`/`@gsap/react` foram desinstalados. Se o assunto voltar, a implementação está no histórico desta data
 
 ## Arquitetura
 
