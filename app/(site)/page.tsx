@@ -7,6 +7,7 @@ import { LeanStock } from "@/components/home/LeanStock";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Segments } from "@/components/home/Segments";
 import { WhySolida } from "@/components/home/WhySolida";
+import { OperationVideo } from "@/components/home/OperationVideo";
 import { OperationGallery } from "@/components/home/OperationGallery";
 import { PriceValue } from "@/components/home/PriceValue";
 // Depoimentos oculto até os depoimentos reais serem gravados (reativar aqui e no rodapé/sitemap)
@@ -29,6 +30,7 @@ export default function Home() {
       <HowItWorks />
       <Segments />
       <WhySolida />
+      <OperationVideo />
       <OperationGallery />
       <PriceValue />
       {/* <Testimonials /> — oculto até os depoimentos reais */}
