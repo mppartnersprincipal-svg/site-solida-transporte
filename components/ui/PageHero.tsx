@@ -12,12 +12,15 @@ export function PageHero({
   title,
   subtitle,
   image,
+  aside,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string;
   /** Caminho da foto de fundo (ex.: "/assets/hero-contato.jpg") */
   image?: string;
+  /** Elemento decorativo posicionado sobre o fundo, atrás do texto (ex.: ForkliftEnter) */
+  aside?: React.ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden bg-ink py-16 text-white sm:py-24">
@@ -37,6 +40,7 @@ export function PageHero({
           />
         </>
       ) : null}
+      {aside}
       <div
         aria-hidden
         className="absolute -top-24 right-0 size-80 rounded-full bg-brand-action/10 blur-3xl"
