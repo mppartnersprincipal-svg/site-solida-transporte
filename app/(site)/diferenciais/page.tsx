@@ -20,7 +20,7 @@ export default function DiferenciaisPage() {
         image="/assets/hero-diferenciais.jpg"
         eyebrow="Diferenciais"
         title="Oito motivos para transportar com a Sólida"
-        subtitle="Não competimos pelo frete mais barato: competimos pelo equilíbrio entre preço, segurança, previsibilidade e velocidade."
+        subtitle="Frete mais barato você encontra por aí. O que a gente oferece é prazo cumprido, carga segurada e uma empresa que atende quando você chama."
       />
 
       {/* 8 diferenciais numerados */}
@@ -54,7 +54,7 @@ export default function DiferenciaisPage() {
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-xl text-2xl font-bold sm:text-3xl text-balance">
-              Pronto para transportar com quem entrega valor de verdade?
+              Fez sentido para a sua operação? Então peça uma cotação.
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="mt-7">

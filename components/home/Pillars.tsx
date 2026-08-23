@@ -7,17 +7,17 @@ const PILLARS = [
   {
     Icon: Zap,
     title: "Rapidez",
-    text: "Sua carga em Goiás, DF ou São Paulo em poucos dias: entrega em 2 a 3 dias úteis após a coleta.",
+    text: "Entrega em 2 a 3 dias úteis após a coleta, em qualquer sentido da rota SP ⇄ GO ⇄ DF.",
   },
   {
     Icon: ShieldCheck,
     title: "Segurança",
-    text: "Trabalhamos com seguro de carga. Sua mercadoria não fica na mão de uma transportadora duvidosa.",
+    text: "Trabalhamos com seguro de carga. Se algo acontecer no caminho, você tem a quem recorrer.",
   },
   {
     Icon: CalendarClock,
     title: "Previsibilidade",
-    text: "Coleta no prazo. Entrega rápida. Informação durante todo o percurso.",
+    text: "Coleta no prazo e entrega dentro do combinado. Você consegue prometer data para o seu cliente.",
   },
   {
     Icon: Medal,
@@ -27,7 +27,7 @@ const PILLARS = [
   {
     Icon: Headset,
     title: "Atendimento",
-    text: "Atendimento próximo e humano. Você sempre sabe onde está sua carga.",
+    text: "Atendimento próximo, com gente de verdade do outro lado. Precisou de algo, é só chamar no WhatsApp.",
   },
 ];
 

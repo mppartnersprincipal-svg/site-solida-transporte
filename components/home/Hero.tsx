@@ -42,22 +42,20 @@ export function Hero() {
 
           <Reveal delay={0.1}>
             <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white text-balance sm:text-5xl lg:text-6xl">
-              Sua carga fracionada entre São Paulo, Goiás e Distrito Federal:{" "}
+              Sua carga entre São Paulo, Goiás e Distrito Federal:{" "}
               <span className="text-brand">no prazo</span>, com segurança.
             </h1>
           </Reveal>
 
           <Reveal delay={0.2}>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-              Há 32 anos movimentando cargas menores com coleta pontual, entrega
-              em 2 a 3 dias úteis e informação em todo o percurso. Você sempre
-              sabe onde está a sua mercadoria.
+              Levamos caixas e volumes menores de fabricantes e distribuidores até os lojistas. Coleta no dia combinado, entrega em 2 a 3 dias úteis e você sabendo onde a carga está em cada etapa.
             </p>
           </Reveal>
 
           <Reveal delay={0.3} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <WhatsAppCTAButton variant="whatsapp" size="lg" source="hero">
-              Falar com um especialista no WhatsApp
+              Falar com o comercial no WhatsApp
             </WhatsAppCTAButton>
             <Link href="/a-empresa" className={buttonClasses("outline-light", "lg")}>
               Conheça a Sólida

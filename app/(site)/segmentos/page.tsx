@@ -58,7 +58,7 @@ const SEGMENTS = [
   {
     Icon: Monitor,
     label: "Equipamentos de informática",
-    text: "Mercadoria de alto valor que não pode ficar na mão de transportadora duvidosa.",
+    text: "Mercadoria cara demais para viajar sem seguro e sem cuidado no manuseio.",
   },
   {
     Icon: UtensilsCrossed,

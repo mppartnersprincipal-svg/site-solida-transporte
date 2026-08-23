@@ -13,6 +13,7 @@ import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { ForkliftEnter } from "@/components/motion/ForkliftEnter";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ const FLOW = [
   {
     Icon: Store,
     title: "Lojista",
-    text: "Seus clientes recebem em 2 a 3 dias úteis, com informação em todo o percurso.",
+    text: "Seus clientes recebem em 2 a 3 dias úteis e conseguem programar a loja com base nesse prazo.",
   },
 ];
 
@@ -50,22 +51,22 @@ const STEPS = [
   {
     Icon: Clock,
     title: "Coleta pontual",
-    text: "Buscamos sua mercadoria no prazo combinado. Coleta é compromisso, não promessa.",
+    text: "Se a coleta ficou marcada para hoje, ela sai hoje. Você programa a expedição sem susto.",
   },
   {
     Icon: Boxes,
     title: "Consolidação e transporte",
-    text: "Sua carga fracionada segue nos corredores SP ⇄ GO ⇄ DF com segurança e rastreabilidade.",
+    text: "Sua carga segue nos corredores SP ⇄ GO ⇄ DF, com seguro e rastreio do início ao fim.",
   },
   {
     Icon: PackageCheck,
     title: "Distribuição aos destinatários",
-    text: "Entregamos aos seus destinatários em 2 a 3 dias úteis após a coleta.",
+    text: "Seus destinatários recebem em 2 a 3 dias úteis após a coleta.",
   },
   {
     Icon: Eye,
     title: "Acompanhamento e transparência",
-    text: "Você acompanha coleta, andamento, ocorrências e a situação do transporte do início ao fim.",
+    text: "Você acompanha a carga do início ao fim e fica sabendo de qualquer ocorrência na hora.",
   },
 ];
 
@@ -76,7 +77,8 @@ export default function ComoFuncionaPage() {
         image="/assets/hero-como-funciona.jpg"
         eyebrow="Como funciona"
         title="Como funciona a nossa operação de cargas fracionadas"
-        subtitle="Do fabricante ao lojista, sem complicação: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF e entrega com acompanhamento em 2 a 3 dias úteis."
+        subtitle="Você despacha, a gente coleta, consolida e entrega ao lojista em 2 a 3 dias úteis, com você acompanhando cada etapa."
+        aside={<ForkliftEnter />}
       />
 
       {/* Fluxo Fabricante → Sólida → Lojista */}
@@ -151,7 +153,7 @@ export default function ComoFuncionaPage() {
                 2 a 3 <span className="text-brand">dias úteis</span>
               </p>
               <p className="mt-2 text-sm text-white/70">
-                Entrega após a coleta, com informação em todo o percurso.
+                É o prazo de entrega depois da coleta, em qualquer sentido da rota.
               </p>
             </div>
           </Reveal>
@@ -164,7 +166,7 @@ export default function ComoFuncionaPage() {
           <SectionHeading
             eyebrow="Conteúdo rápido"
             title="FOB x CIF: quem paga o frete?"
-            subtitle="Dois modelos, uma diferença essencial, e o motivo de o FOB combinar com o perfil da Sólida."
+            subtitle="Na prática, muda quem escolhe a transportadora. Entenda a diferença e por que o FOB combina com a Sólida."
           />
           <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
             <Reveal>
@@ -209,7 +211,7 @@ export default function ComoFuncionaPage() {
           </Reveal>
           <Reveal delay={0.1} className="mt-7">
             <WhatsAppCTAButton variant="whatsapp" size="lg">
-              Falar com um especialista no WhatsApp
+              Falar com o comercial no WhatsApp
             </WhatsAppCTAButton>
           </Reveal>
         </Container>

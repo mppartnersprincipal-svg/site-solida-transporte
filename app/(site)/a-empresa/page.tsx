@@ -27,25 +27,25 @@ const TIMELINE = [
     Icon: Flag,
     year: "1994",
     title: "Fundação em Goiânia",
-    text: "A Sólida nasce com um propósito simples: levar cargas fracionadas com rapidez, segurança e previsibilidade.",
+    text: "A Sólida abre as portas em Goiânia no dia 1º de julho de 1994, com o CNPJ que mantém até hoje.",
   },
   {
     Icon: Truck,
     year: "Expansão",
     title: "Filiais em São Paulo e Brasília",
-    text: "A operação se consolida nos corredores SP ⇄ GO ⇄ DF, com unidades próprias nas três praças.",
+    text: "A operação se consolida nos corredores SP ⇄ GO ⇄ DF, com unidades nas três praças.",
   },
   {
     Icon: Warehouse,
     year: "Estrutura",
     title: "Sede, capital e frota próprios",
-    text: "Investimento contínuo em estrutura e capacidade operacional para atender a demanda com regularidade.",
+    text: "Capital, sede e frota próprios: a estrutura cresce com investimento da própria empresa.",
   },
   {
     Icon: MapPinned,
     year: "Hoje",
     title: "Mais de 12 agências nos principais polos",
-    text: "Três décadas depois, seguimos com o mesmo CNPJ e a mesma obsessão: você sempre sabe onde está a sua carga.",
+    text: "Três décadas depois, seguimos com o mesmo CNPJ e o mesmo jeito de trabalhar: você sempre sabe onde a sua carga está.",
   },
 ];
 
@@ -56,7 +56,7 @@ export default function AEmpresaPage() {
         image="/assets/hero-a-empresa.jpg"
         eyebrow="A Empresa"
         title="32 anos movimentando o comércio entre SP, Goiás e DF."
-        subtitle="A Sólida Transporte nasceu com um propósito simples: levar cargas fracionadas com rapidez, segurança e previsibilidade. Mais de três décadas depois, seguimos com o mesmo CNPJ desde a fundação: sinal de solidez, estabilidade e compromisso com quem confia na gente."
+        subtitle="A Sólida nasceu para transportar cargas fracionadas com prazo que dá para confiar. Mais de três décadas depois, seguimos com o mesmo CNPJ da fundação, coisa rara num setor em que transportadora abre e fecha toda hora."
       />
 
       {/* Missão + estrutura própria */}
@@ -71,10 +71,7 @@ export default function AEmpresaPage() {
               e lojistas
             </h2>
             <p className="mt-5 text-base leading-relaxed text-ink-body sm:text-lg">
-              Por meio de um transporte rápido, seguro e transparente. Capital,
-              sede e frota próprios: estrutura e capacidade operacional para
-              atender sua demanda com regularidade: matriz em Goiânia e filiais
-              em São Paulo e no Distrito Federal.
+              Fazemos isso com transporte rápido, seguro e transparente, apoiado em capital, sede e frota próprios. A matriz fica em Goiânia; as filiais, em São Paulo e no Distrito Federal.
             </p>
             <ul className="mt-6 flex flex-wrap gap-2.5">
               {SEALS.map(({ Icon, label }) => (
@@ -141,8 +138,7 @@ export default function AEmpresaPage() {
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-xl text-2xl font-bold sm:text-3xl text-balance">
-              Quer uma transportadora com história para contar, e prazo para
-              cumprir?
+              Quer ver essa história funcionando na sua operação? Mande a próxima carga com a gente.
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="mt-7">

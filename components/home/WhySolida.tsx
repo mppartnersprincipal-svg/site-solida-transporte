@@ -16,17 +16,17 @@ export const DIFFERENTIALS = [
   {
     Icon: Award,
     title: "32 anos de mercado",
-    text: "Experiência e especialização no mesmo tipo de operação.",
+    text: "Três décadas fazendo o mesmo tipo de operação, na mesma rota.",
   },
   {
     Icon: BadgeCheck,
     title: "Mesmo CNPJ desde a fundação",
-    text: "Solidez, segurança e credibilidade.",
+    text: "Empresa que não troca de nome nem de CNPJ para recomeçar do zero.",
   },
   {
     Icon: Clock,
     title: "Rapidez na coleta",
-    text: "Alta previsibilidade; não costumamos atrasar a coleta.",
+    text: "Não costumamos atrasar coleta. Agendou, pode programar a expedição.",
   },
   {
     Icon: Zap,
@@ -36,22 +36,22 @@ export const DIFFERENTIALS = [
   {
     Icon: Warehouse,
     title: "Estrutura e frota próprias",
-    text: "Capacidade real para atender a demanda.",
+    text: "Capital, sede e frota próprios, com estrutura para atender a sua demanda.",
   },
   {
     Icon: ShieldCheck,
     title: "Seguro de carga",
-    text: "Sua mercadoria protegida.",
+    text: "Trabalhamos com seguro de carga para proteger a sua mercadoria.",
   },
   {
     Icon: HeartHandshake,
     title: "Atendimento próximo",
-    text: "Suporte humano e contato direto com a empresa.",
+    text: "Contato direto com a nossa equipe, da cotação à entrega.",
   },
   {
     Icon: Eye,
     title: "Transparência total",
-    text: "Você acompanha localização, andamento, coleta, ocorrências e situação do transporte.",
+    text: "Você sabe onde a carga está e é avisado de qualquer ocorrência no caminho.",
   },
 ];
 

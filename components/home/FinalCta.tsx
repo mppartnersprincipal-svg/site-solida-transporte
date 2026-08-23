@@ -31,8 +31,7 @@ export function FinalCta() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mx-auto mt-4 max-w-xl text-base text-white/70 sm:text-lg">
-            Fale agora com nosso time comercial pelo WhatsApp e receba sua
-            cotação.
+            Mande no WhatsApp o que você envia e para onde. O comercial responde com a cotação, sem formulário no meio do caminho.
           </p>
         </Reveal>
         <Reveal delay={0.2} className="mt-8">

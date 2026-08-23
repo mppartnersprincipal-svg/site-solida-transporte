@@ -5,15 +5,15 @@ import { Reveal } from "@/components/motion/Reveal";
 const STEPS = [
   {
     title: "Coleta pontual",
-    text: "Buscamos sua mercadoria no prazo combinado. Coleta é compromisso, não promessa.",
+    text: "Se a coleta ficou marcada para hoje, ela sai hoje. Você programa a expedição sem susto.",
   },
   {
     title: "Transporte especializado",
-    text: "Sua carga fracionada segue nos corredores SP ⇄ GO ⇄ DF com segurança e rastreabilidade.",
+    text: "Sua carga segue nos corredores SP ⇄ GO ⇄ DF, com seguro e rastreio do início ao fim.",
   },
   {
     title: "Entrega com acompanhamento",
-    text: "Entregamos aos seus destinatários em 2 a 3 dias úteis, com informação em todo o percurso.",
+    text: "Seus destinatários recebem em 2 a 3 dias úteis. Se houver qualquer ocorrência no caminho, você fica sabendo na hora.",
   },
 ];
 

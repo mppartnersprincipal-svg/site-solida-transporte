@@ -17,11 +17,7 @@ export function PriceValue() {
                   O frete mais barato pode sair caro
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-ink-body">
-                  Transportadoras que competem só por preço podem esconder
-                  riscos: ausência de seguro de carga, frota insuficiente,
-                  atrasos e até troca constante de CNPJ. A Sólida entrega o
-                  equilíbrio entre preço, segurança, previsibilidade e
-                  velocidade.
+                  Transportadora que só compete por preço costuma cortar de onde você não vê: carga sem seguro, frota que não dá conta da demanda, atraso que vira rotina. Algumas chegam a trocar de CNPJ para deixar problemas para trás. A Sólida prefere cobrar um preço justo e cumprir o combinado.
                 </p>
               </div>
             </div>
