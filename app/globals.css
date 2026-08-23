@@ -166,26 +166,6 @@
   }
 }
 
-/*
-  Intro de vídeo da Home (components/home/IntroVideo.tsx).
-  O overlay nasce oculto (display:none, fora de layer — vence as utilities);
-  o script inline do IntroGate marca html[data-intro="1"] antes do primeiro
-  paint APENAS na 1ª visita da sessão e nunca com prefers-reduced-motion.
-  Visitante recorrente, navegação client-side ou sem JS jamais veem a intro.
-*/
-#intro-overlay {
-  display: none;
-}
-
-html[data-intro] #intro-overlay {
-  display: flex;
-}
-
-/* Scroll travado enquanto a intro está na tela (destrava ao remover o atributo) */
-html[data-intro] {
-  overflow: hidden;
-}
-
 /* Acessibilidade: respeita usuários que preferem menos movimento (plano §8.1) */
 @media (prefers-reduced-motion: reduce) {
   *,

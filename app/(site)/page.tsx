@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { IntroGate } from "@/components/home/IntroGate";
 import { Hero } from "@/components/home/Hero";
 import { RoutesSection } from "@/components/home/RoutesSection";
 import { Pillars } from "@/components/home/Pillars";
@@ -22,7 +21,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <IntroGate />
       <Hero />
       <RoutesSection />
       <Pillars />
