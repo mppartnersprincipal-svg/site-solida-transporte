@@ -41,7 +41,7 @@ components/ui/      Container, Button (variants: primary/secondary/outline-light
 components/motion/  Reveal, Counter
 components/layout/  Header, Footer, WhatsAppFloat, CookieBanner, WhatsAppIcon, SocialIcons, nav-links
 components/whatsapp/ WhatsAppProvider (contexto+modal), WhatsAppModal, WhatsAppCTAButton
-components/home/    11 seções da Home
+components/home/    13 seções da Home (inclui Solutions — split Armazenagem/Transporte ref. site antigo — e OperationGallery, mosaico de fotos reais)
 lib/whatsapp.ts     números e assuntos da Central de WhatsApp (§6.2 do plano)
 lib/supabase/       client.ts (browser), server.ts (RSC/actions), proxy.ts (sessão)
 proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
@@ -113,12 +113,32 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **GOLIVE.md** na raiz do projeto: passo a passo Vercel (import + 4 env vars: SUPABASE_URL/ANON_KEY/SITE_URL/GTM_ID — GA4/PIXEL diretos ficam de fora), apontamento de DNS (CNAME www → cname.vercel-dns.com; A @ → 76.76.21.21), checklist completo de conferência (WhatsApp, blog/admin, SEO, LGPD, GTM, performance, responsivo/a11y) e pós-go-live (Search Console, CWV, funil GA4)
 - **Copy com dados validados:** BLOQUEADO no usuário — tabela de pendências no fim do GOLIVE.md (números WhatsApp, seguro, cidades, timeline, CNPJ/DPO, redes, depoimentos). Quando os dados chegarem, atualizar: lib/whatsapp.ts, lib/units.ts, lib/seo.ts, lib/testimonials.ts, /a-empresa (timeline), /politica-de-privacidade, footer/contato (redes)
 
+## Revisão de copy — humanização (23/08/2026)
+
+- Passada completa da skill **humanizer** em toda a copy pública (Home, A Empresa, Como Funciona, Segmentos, Diferenciais, Depoimentos, Footer, SEO description) — 45 trechos reescritos para o tom do ICP B2B (quem toca operação/logística)
+- Removidos: regra de três em série ("rapidez, segurança e previsibilidade" repetida 6+ vezes), punchlines fabricadas ("Coleta é compromisso, não promessa"), "transportadora duvidosa" (3×), cadeias de dois-pontos, fragmentos corporativos vagos, CTAs genéricos, "especialista"/"obsessão"
+- Mantidos: números concretos (32 anos, 2 a 3 dias úteis, mesmo CNPJ), headlines de marca ("Quem transporta com a Sólida, fica."), estrutura das seções
+- Build validado após a revisão
+
+## Fact-check da copy contra o briefing (23/08/2026)
+
+- Toda a copy pública auditada contra as duas fontes: **Anotações IMPORTANTES Brifeing.pdf** (14 págs) e **solidatransportedocumentacaocompleta.md** (auditoria do site antigo)
+- **Confirmados pelas fontes:** 32 anos, mesmo CNPJ desde a abertura, seguro de carga (existência), 2–3 dias úteis, não atrasa coleta, rotas SP⇄GO⇄DF (bidirecionais), 9 segmentos, listas evita/não transporta, argumento estoque enxuto, riscos do frete barato, FOB/CIF, fluxo Fabricante→Sólida→Lojista + 3 exemplos, capital/sede/frota próprios (verbatim), +12 agências nos principais polos, fundação 1º/07/1994 em Goiânia, endereços/telefones/e-mails das 3 unidades, todos os números de WhatsApp, rastreamento na frota, armazenagem como serviço
+- **12 correções de overclaim** (afirmava mais que as fontes): "toda carga viaja segurada"→"trabalhamos com seguro de carga"; "galpões próprios nas três praças, sem depender de terceiros"→verbatim "capital, sede e frota próprios"; "nenhuma etapa na mão de terceiros" removido; rota inicial inventada na timeline 1994 → data real de fundação; "estamos gravando depoimentos"/"Vídeo em gravação"→"em breve" (gravação ainda não começou); "unidades próprias"→"unidades"; "alta temporada"→"demanda"
+- Build validado
+
+## Depoimentos ocultos (23/08/2026)
+
+- A pedido do usuário, a seção Depoimentos foi **oculta até existirem depoimentos reais**: `<Testimonials />` comentado na Home, link removido do FOOTER_LINKS, entrada comentada no sitemap e `robots: noindex` em /depoimentos (página segue acessível por URL direta)
+- **Para reativar:** descomentar nesses 4 pontos e preencher `lib/testimonials.ts`
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
-- Confirmar números de WhatsApp por assunto (§6.2 veio do site antigo)
+- Confirmar números de WhatsApp por assunto (conferidos contra a auditoria em 23/08 — todos batem com o site antigo; falta confirmar se seguem ativos)
+- Confirmar cobertura/apólice do seguro de carga e se a armazenagem está disponível nas 3 praças (copy do split Armazenagem cita Goiânia/Brasília/São Paulo)
 - Número/responsável de rastreamento e jurídico (hoje roteados para coleta GO / comercial GO)
-- Datas/marcos reais da timeline de `/a-empresa` (1994 é derivado dos "32 anos")
+- Marcos intermediários da timeline de `/a-empresa` (fundação confirmada pela auditoria: 1º/07/1994; marcos "Expansão/Estrutura/Hoje" seguem narrativos)
 - CNPJ e e-mail do encarregado (DPO) na Política de Privacidade + revisão jurídica
 - Endereços/telefones das unidades (vieram da auditoria do site antigo; CEP de SP corrigido para 07.177-020)
 - Depoimentos reais (gravação), fotos novas da operação, logo vetorial em alta

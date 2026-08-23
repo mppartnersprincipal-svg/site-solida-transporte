@@ -10,6 +10,8 @@ import { TESTIMONIALS } from "@/lib/testimonials";
 export const metadata: Metadata = {
   title: "Depoimentos",
   alternates: { canonical: "/depoimentos" },
+  // Página fora da navegação e do sitemap enquanto os depoimentos são placeholder
+  robots: { index: false, follow: true },
   description:
     "Quem transporta com a Sólida, fica. Depoimentos de distribuidores, indústrias e comércios B2B que confiam suas cargas fracionadas à Sólida há anos.",
 };
@@ -21,7 +23,7 @@ export default function DepoimentosPage() {
         image="/assets/hero-depoimentos.jpg"
         eyebrow="Depoimentos"
         title="Quem transporta com a Sólida, fica."
-        subtitle="Clientes com anos de parceria contam o que mudou na operação deles com uma logística rápida, segura e previsível."
+        subtitle="Clientes antigos contam o que mudou na operação deles depois que passaram a despachar com a Sólida."
       />
 
       <section className="bg-surface py-16 sm:py-24">
@@ -54,7 +56,7 @@ export default function DepoimentosPage() {
                     <span className="flex flex-col items-center gap-2 text-white/40">
                       <Play className="size-9" />
                       <span className="text-xs font-semibold tracking-wide uppercase">
-                        Vídeo em gravação
+                        Vídeo em breve
                       </span>
                     </span>
                   </div>
@@ -124,9 +126,7 @@ export default function DepoimentosPage() {
           <Reveal className="mt-10">
             <p className="mx-auto max-w-2xl rounded-2xl border border-dashed border-line bg-surface-alt px-6 py-5 text-center text-sm text-ink-muted">
               <strong className="font-semibold text-ink">Em breve:</strong>{" "}
-              estamos gravando os depoimentos dos nossos clientes mais antigos.
-              As histórias reais de quem transporta com a Sólida há anos entram
-              aqui nesta página.
+              os depoimentos dos nossos clientes mais antigos entram aqui assim que forem gravados. Histórias de quem transporta com a Sólida há anos.
             </p>
           </Reveal>
         </Container>
@@ -142,8 +142,7 @@ export default function DepoimentosPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-3 max-w-xl text-white/75">
-              Fale com nosso time comercial e descubra como a Sólida pode dar
-              mais velocidade e previsibilidade à sua logística.
+              Chame o comercial no WhatsApp e conte como a sua operação funciona hoje. A gente diz onde consegue ajudar.
             </p>
           </Reveal>
           <Reveal delay={0.2} className="mt-7">
