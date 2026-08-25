@@ -27,7 +27,7 @@ export function FinalCta() {
       <Container className="relative text-center">
         <Reveal>
           <h2 className="mx-auto max-w-2xl text-3xl font-bold text-white text-balance sm:text-4xl">
-            Precisa transportar entre SP, Goiás e DF?
+            Precisa transportar entre SP, Goiás, DF e Rio de Janeiro?
           </h2>
         </Reveal>
         <Reveal delay={0.1}>

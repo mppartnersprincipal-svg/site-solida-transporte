@@ -8,7 +8,8 @@
 ## O que é
 
 Novo site institucional da **Sólida Transporte** — transportadora especializada em
-cargas fracionadas entre São Paulo, Goiás e Distrito Federal (32 anos de mercado).
+cargas fracionadas entre São Paulo, Goiás, Distrito Federal e a **cidade** do Rio de Janeiro (32 anos de mercado).
+**A Sólida NÃO faz armazenagem** — é só transportadora; o galpão é apenas ponto de chegada e despacho.
 Plano completo em `../PLANONOVOSITESOLIDA.md` (copy, sitemap, paleta, roadmap).
 Briefing e auditoria do site atual em `../Briefing Solida Transporte/` e
 `../solidatransportedoc/`. Fotos e logos originais em `../assets/`.
@@ -42,7 +43,7 @@ components/ui/      Container, Button (variants: primary/secondary/outline-light
 components/motion/  Reveal, Counter
 components/layout/  Header, Footer, WhatsAppFloat, CookieBanner, WhatsAppIcon, SocialIcons, nav-links
 components/whatsapp/ WhatsAppProvider (contexto+modal), WhatsAppModal, WhatsAppCTAButton
-components/home/    13 seções da Home (inclui Solutions — split Armazenagem/Transporte ref. site antigo — e OperationGallery, mosaico de fotos reais)
+components/home/    12 seções da Home (inclui OperationGallery, mosaico de fotos reais; a seção Solutions Armazenagem/Transporte foi REMOVIDA em 25/08/2026)
 lib/whatsapp.ts     números e assuntos da Central de WhatsApp (§6.2 do plano)
 lib/supabase/       client.ts (browser), server.ts (RSC/actions), proxy.ts (sessão)
 proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
@@ -168,3 +169,9 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 
 - `npm run dev` — porta 3000 (cai para 3001 se o outro projeto estiver rodando)
 - `npm run build` — validar sempre antes de commitar fase
+
+### Ajustes de conteúdo — 25/08/2026
+
+- **Sem armazenagem:** seção `Solutions` (cards Armazenagem/Transporte) removida da Home e arquivo deletado. Galpão descrito apenas como ponto de chegada e despacho (OperationGallery, CompanyCarousel).
+- **Cobertura:** cidade do Rio de Janeiro (só a capital) incluída em Hero, RoutesSection (nó RJ), Pillars, HowItWorks, FinalCta, Footer, `lib/seo.ts`, títulos em `app/layout.tsx`, A Empresa, Como Funciona, Segmentos, Privacidade e CTA do blog.
+- **Pendente validar com a Sólida:** qual número da Central de WhatsApp atende cotação/coleta no RJ (`lib/whatsapp.ts` continua só com GO/DF/SP).

@@ -54,7 +54,7 @@ export function Footer() {
             className="h-auto w-36"
           />
           <p className="mt-4 text-sm leading-relaxed">
-            Transportadora de cargas fracionadas entre São Paulo, Goiás e Distrito Federal. Há 32 anos na estrada, com o mesmo CNPJ desde a fundação.
+            Transportadora de cargas fracionadas entre São Paulo, Goiás, Distrito Federal e a cidade do Rio de Janeiro. Há 32 anos na estrada, com o mesmo CNPJ desde a fundação.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1 text-xs font-medium text-white/80">

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "Segmentos",
   alternates: { canonical: "/segmentos" },
   description:
-    "Segmentos que a Sólida atende melhor: acessórios para celular, autopeças, cosméticos, suplementação, informática, alimentos, vinhos e mais, sempre em cargas fracionadas entre SP, GO e DF.",
+    "Segmentos que a Sólida atende melhor: acessórios para celular, autopeças, cosméticos, suplementação, informática, alimentos, vinhos e mais, sempre em cargas fracionadas entre SP, GO, DF e a cidade do RJ.",
 };
 
 const SEGMENTS = [
@@ -37,7 +37,7 @@ const SEGMENTS = [
   {
     Icon: Bike,
     label: "Acessórios para motos",
-    text: "Volumes menores, muitos destinatários e demanda contínua nas três praças.",
+    text: "Volumes menores, muitos destinatários e demanda contínua em todas as praças atendidas.",
   },
   {
     Icon: Sparkles,

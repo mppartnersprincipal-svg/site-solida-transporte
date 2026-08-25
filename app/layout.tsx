@@ -18,7 +18,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sólida Transporte | Cargas fracionadas SP, GO e DF",
+    default: "Sólida Transporte | Cargas fracionadas SP, GO, DF e RJ",
     template: "%s | Sólida Transporte",
   },
   description: SITE_DESCRIPTION,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE_NAME,
     locale: "pt_BR",
-    title: "Sólida Transporte | Cargas fracionadas SP, GO e DF",
+    title: "Sólida Transporte | Cargas fracionadas SP, GO, DF e RJ",
     description: SITE_DESCRIPTION,
     images: [
       {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sólida Transporte | Cargas fracionadas SP, GO e DF",
+    title: "Sólida Transporte | Cargas fracionadas SP, GO, DF e RJ",
     description: SITE_DESCRIPTION,
     images: ["/assets/hero-sede.jpg"],
   },

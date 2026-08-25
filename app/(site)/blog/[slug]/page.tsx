@@ -162,7 +162,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                 className="absolute -top-16 right-0 size-56 rounded-full bg-brand-action/15 blur-3xl"
               />
               <h2 className="relative text-2xl font-bold text-white text-balance sm:text-3xl">
-                Precisa transportar entre SP, Goiás e DF?
+                Precisa transportar entre SP, Goiás, DF e Rio de Janeiro?
               </h2>
               <p className="relative mx-auto mt-3 max-w-xl text-white/75">
                 Fale agora com nosso time comercial pelo WhatsApp e receba sua

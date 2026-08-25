@@ -9,7 +9,7 @@ const STEPS = [
   },
   {
     title: "Transporte especializado",
-    text: "Sua carga segue nos corredores SP ⇄ GO ⇄ DF, com seguro e rastreio do início ao fim.",
+    text: "Sua carga segue nos corredores SP ⇄ GO ⇄ DF e na cidade do Rio de Janeiro, com seguro e rastreio do início ao fim.",
   },
   {
     title: "Entrega com acompanhamento",

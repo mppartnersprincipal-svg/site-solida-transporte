@@ -8,7 +8,7 @@ const PHOTOS = [
   {
     src: "/assets/op-galpao.jpg",
     alt: "Interior do galpão da Sólida com cargas organizadas em pallets",
-    caption: "Galpão próprio em Goiânia",
+    caption: "Galpão de chegada e despacho em Goiânia",
     span: "md:col-span-2 md:row-span-2",
   },
   {
@@ -44,7 +44,7 @@ export function OperationGallery() {
         <SectionHeading
           eyebrow="Por dentro da operação"
           title="Galpão, frota e equipe próprios"
-          subtitle="Quem coleta, armazena e entrega a sua carga é a própria Sólida."
+          subtitle="Quem coleta, despacha e entrega a sua carga é a própria Sólida. Nosso galpão é ponto de chegada e despacho: a mercadoria passa por ele, não fica parada."
         />
         <ul className="grid auto-rows-[200px] grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:auto-rows-[220px]">
           {PHOTOS.map((p, i) => (

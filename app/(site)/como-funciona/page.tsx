@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "Como Funciona",
   alternates: { canonical: "/como-funciona" },
   description:
-    "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF e entrega em 2 a 3 dias úteis.",
+    "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF, atendimento à cidade do Rio de Janeiro e entrega em 2 a 3 dias úteis.",
 };
 
 const FLOW = [
@@ -32,7 +32,7 @@ const FLOW = [
   {
     Icon: Truck,
     title: "Sólida",
-    text: "Coletamos, consolidamos e transportamos suas cargas fracionadas nos corredores SP ⇄ GO ⇄ DF.",
+    text: "Coletamos, consolidamos e transportamos suas cargas fracionadas nos corredores SP ⇄ GO ⇄ DF e na cidade do Rio de Janeiro.",
   },
   {
     Icon: Store,
@@ -56,7 +56,7 @@ const STEPS = [
   {
     Icon: Boxes,
     title: "Consolidação e transporte",
-    text: "Sua carga segue nos corredores SP ⇄ GO ⇄ DF, com seguro e rastreio do início ao fim.",
+    text: "Sua carga segue nos corredores SP ⇄ GO ⇄ DF e na cidade do Rio de Janeiro, com seguro e rastreio do início ao fim.",
   },
   {
     Icon: PackageCheck,
@@ -178,7 +178,7 @@ export default function ComoFuncionaPage() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-body">
                   Quem compra escolhe a transportadora e assume o frete a partir
                   da coleta. É o modelo ideal para lojistas e distribuidores que
-                  compram com frequência nos corredores SP ⇄ GO ⇄ DF: eles
+                  compram com frequência nos corredores SP ⇄ GO ⇄ DF e no Rio de Janeiro: eles
                   ganham controle sobre prazo, custo e qualidade do transporte.
                   Por isso o FOB combina com o perfil da Sólida.
                 </p>

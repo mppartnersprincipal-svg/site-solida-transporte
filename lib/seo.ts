@@ -9,7 +9,7 @@ export const SITE_URL =
 export const SITE_NAME = "Sólida Transporte";
 
 export const SITE_DESCRIPTION =
-  "Transportadora de cargas fracionadas entre São Paulo, Goiás e Distrito Federal. Coleta no prazo e entrega em 2 a 3 dias úteis, há 32 anos com o mesmo CNPJ.";
+  "Transportadora de cargas fracionadas entre São Paulo, Goiás, Distrito Federal e a cidade do Rio de Janeiro. Coleta no prazo e entrega em 2 a 3 dias úteis, há 32 anos com o mesmo CNPJ.";
 
 // TODO: validar URL de LinkedIn com a Sólida (Facebook veio da auditoria)
 export const SOCIAL_URLS = [

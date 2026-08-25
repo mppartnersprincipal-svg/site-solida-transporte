@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "A Empresa",
   alternates: { canonical: "/a-empresa" },
   description:
-    "Há 32 anos a Sólida Transporte movimenta cargas fracionadas entre SP, Goiás e DF: mesmo CNPJ desde a fundação, estrutura e frota próprias.",
+    "Há 32 anos a Sólida Transporte movimenta cargas fracionadas entre SP, Goiás, DF e a cidade do Rio de Janeiro: mesmo CNPJ desde a fundação, estrutura e frota próprias.",
 };
 
 const SEALS = [
@@ -59,7 +59,7 @@ export default function AEmpresaPage() {
       <PageHero
         image="/assets/hero-a-empresa.jpg"
         eyebrow="A Empresa"
-        title="32 anos movimentando o comércio entre SP, Goiás e DF."
+        title="32 anos movimentando o comércio entre SP, Goiás, DF e Rio de Janeiro."
         subtitle="A Sólida nasceu para transportar cargas fracionadas com prazo que dá para confiar. Mais de três décadas depois, seguimos com o mesmo CNPJ da fundação, coisa rara num setor em que transportadora abre e fecha toda hora."
       />
 
@@ -75,7 +75,7 @@ export default function AEmpresaPage() {
               e lojistas
             </h2>
             <p className="mt-5 text-base leading-relaxed text-ink-body sm:text-lg">
-              Fazemos isso com transporte rápido, seguro e transparente, apoiado em capital, sede e frota próprios. A matriz fica em Goiânia; as filiais, em São Paulo e no Distrito Federal.
+              Fazemos isso com transporte rápido, seguro e transparente, apoiado em capital, sede e frota próprios. A matriz fica em Goiânia; as filiais, em São Paulo e no Distrito Federal. Atendemos também a cidade do Rio de Janeiro.
             </p>
             <ul className="mt-6 flex flex-wrap gap-2.5">
               {SEALS.map(({ Icon, label }) => (

@@ -12,7 +12,7 @@ const TRUST_ITEMS = [
   { Icon: Timer, label: "32 anos de mercado" },
   { Icon: BadgeCheck, label: "Mesmo CNPJ desde a fundação" },
   { Icon: ShieldCheck, label: "Seguro de carga" },
-  { Icon: Route, label: "Rotas SP ⇄ GO ⇄ DF" },
+  { Icon: Route, label: "Rotas SP ⇄ GO ⇄ DF e cidade do RJ" },
 ];
 
 export function Hero() {
@@ -47,7 +47,7 @@ export function Hero() {
           <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white text-balance [contain:layout_paint_style] sm:text-5xl lg:text-6xl">
             <TypeReveal
               segments={[
-                { text: "Sua carga entre São Paulo, Goiás e Distrito Federal: " },
+                { text: "Sua carga entre São Paulo, Goiás, Distrito Federal e Rio de Janeiro: " },
                 { text: "no prazo", className: "text-brand" },
                 { text: ", com segurança." },
               ]}

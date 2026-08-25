@@ -19,7 +19,7 @@ const SLIDES = [
   {
     src: "/assets/op-galpao.jpg",
     alt: "Interior do galpão da Sólida com cargas organizadas em pallets",
-    caption: "Galpão em Goiânia",
+    caption: "Galpão de chegada e despacho em Goiânia",
   },
   {
     src: "/assets/op-equipe.jpg",

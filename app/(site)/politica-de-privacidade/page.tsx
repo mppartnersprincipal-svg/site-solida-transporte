@@ -33,8 +33,8 @@ export default function PoliticaDePrivacidadePage() {
             <h2 className={heading}>1. Quem somos</h2>
             <p className={paragraph}>
               A <strong>Sólida Transporte</strong> é uma transportadora
-              especializada em cargas fracionadas entre São Paulo, Goiás e
-              Distrito Federal, com matriz em Goiânia-GO (Av. Desvio Bucareste,
+              especializada em cargas fracionadas entre São Paulo, Goiás,
+              Distrito Federal e a cidade do Rio de Janeiro, com matriz em Goiânia-GO (Av. Desvio Bucareste,
               550, Jd. Novo Mundo) e filiais em Guarulhos-SP e Brasília-DF. Para
               os fins desta política, a Sólida atua como{" "}
               <strong>controladora</strong> dos dados pessoais tratados por meio

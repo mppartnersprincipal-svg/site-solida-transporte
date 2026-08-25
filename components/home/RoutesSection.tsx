@@ -8,6 +8,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 
 const CITIES = [
+  { code: "RJ", name: "Rio de Janeiro (cidade)" },
   { code: "SP", name: "São Paulo" },
   { code: "GO", name: "Goiás" },
   { code: "DF", name: "Distrito Federal" },
@@ -26,10 +27,10 @@ export function RoutesSection() {
         <SectionHeading
           eyebrow="Rotas de atuação"
           title="Especialistas na rota que o seu negócio usa"
-          subtitle="São Paulo ⇄ Goiás e São Paulo ⇄ Distrito Federal. Concentramos nossa operação nesses corredores para entregar mais rápido e com mais previsibilidade do que quem tenta atender o Brasil inteiro."
+          subtitle="São Paulo ⇄ Goiás, São Paulo ⇄ Distrito Federal e a cidade do Rio de Janeiro. Concentramos nossa operação nesses corredores para entregar mais rápido e com mais previsibilidade do que quem tenta atender o Brasil inteiro."
         />
 
-        {/* Barra de rotas SP ⇄ GO ⇄ DF com caminhão animado */}
+        {/* Barra de rotas RJ · SP ⇄ GO ⇄ DF com caminhão animado */}
         <Reveal>
           <div className="relative mx-auto max-w-3xl px-2 py-8">
             <div className="relative flex items-center justify-between">
@@ -45,7 +46,7 @@ export function RoutesSection() {
                     className="absolute -top-3 text-brand-action"
                     initial={{ left: "2%", scaleX: 1 }}
                     animate={{
-                      // ida SP → DF, pausa e volta DF → SP com o caminhão espelhado
+                      // ida RJ → DF, pausa e volta DF → RJ com o caminhão espelhado
                       left: ["2%", "90%", "90%", "2%", "2%"],
                       scaleX: [1, 1, -1, -1, 1],
                     }}

@@ -7,7 +7,7 @@ const PILLARS = [
   {
     Icon: Zap,
     title: "Rapidez",
-    text: "Entrega em 2 a 3 dias úteis após a coleta, em qualquer sentido da rota SP ⇄ GO ⇄ DF.",
+    text: "Entrega em 2 a 3 dias úteis após a coleta, em qualquer sentido das rotas SP ⇄ GO ⇄ DF e na cidade do Rio de Janeiro.",
   },
   {
     Icon: ShieldCheck,
@@ -22,7 +22,7 @@ const PILLARS = [
   {
     Icon: Medal,
     title: "Experiência",
-    text: "32 anos transportando cargas entre Goiás, DF e São Paulo.",
+    text: "32 anos transportando cargas entre Goiás, DF e São Paulo, e também na cidade do Rio de Janeiro.",
   },
   {
     Icon: Headset,
