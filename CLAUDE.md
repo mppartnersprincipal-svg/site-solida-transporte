@@ -61,7 +61,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 | 2 | Páginas institucionais (A Empresa, Como Funciona, Segmentos, Diferenciais, Contato, Privacidade, Cookies) | ✅ concluída |
 | 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | ✅ concluída |
 | 4 | Depoimentos, SEO, analytics, acessibilidade, QA | ✅ concluída |
-| 5 | Conteúdo e go-live (posts, redirects 301, domínio) | 🔶 dev concluído — aguardando ações do usuário (seed, Vercel, DNS) |
+| 5 | Conteúdo e go-live (posts, redirects 301, domínio) | ✅ concluída — **site no ar em 25/08/2026** |
 
 ### Fase 0 — concluída (21/08/2026)
 
@@ -114,6 +114,15 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **Git/GitHub:** push feito para `github.com/mppartnersprincipal-svg/site-solida-transporte` (PÚBLICO — repo definitivo escolhido pelo usuário; o privado `solida-site` criado antes ficou órfão e pode ser apagado). Branch master; commit único cobre Fases 3–5
 - **GOLIVE.md** na raiz do projeto: passo a passo Vercel (import + 4 env vars: SUPABASE_URL/ANON_KEY/SITE_URL/GTM_ID — GA4/PIXEL diretos ficam de fora), apontamento de DNS (CNAME www → cname.vercel-dns.com; A @ → 76.76.21.21), checklist completo de conferência (WhatsApp, blog/admin, SEO, LGPD, GTM, performance, responsivo/a11y) e pós-go-live (Search Console, CWV, funil GA4)
 - **Copy com dados validados:** BLOQUEADO no usuário — tabela de pendências no fim do GOLIVE.md (números WhatsApp, seguro, cidades, timeline, CNPJ/DPO, redes, depoimentos). Quando os dados chegarem, atualizar: lib/whatsapp.ts, lib/units.ts, lib/seo.ts, lib/testimonials.ts, /a-empresa (timeline), /politica-de-privacidade, footer/contato (redes)
+
+### Go-live — concluído (25/08/2026)
+
+- **Produção:** `https://www.solidatransporte.com.br` na Vercel (projeto `site-solida-transporte`, repo GitHub público de mesmo nome; raiz → 308 para www). Env vars na Vercel: SUPABASE_URL, SUPABASE_ANON_KEY, SITE_URL, GTM_ID (GA4/PIXEL diretos NÃO cadastrados — entram pelo GTM)
+- **DNS na KingHost** (zona do `.com.br`; nameservers e e-mail continuam lá — NÃO trocar NS): A `@` → 216.198.79.1; AAAA `@` removido; CNAME `www` → 7f6902d9908dc9b9.vercel-dns-017.com; TXT `@` google-site-verification adicionado. MX/SPF/DKIM/DMARC e subdomínios (mail, smtp, imap, webmail, cotacao, mysql…) intocados
+- `solidatransporte.com` (sem .br) é outro domínio, no HostGator, suspenso — não usado
+- **Supabase:** migrations 0001 e 0002 rodadas (blog com 10 posts públicos no sitemap)
+- **Search Console:** propriedade de Domínio `solidatransporte.com.br` verificada por TXT; `sitemap.xml` enviado com sucesso (19 URLs). Os 16 sitemaps Yoast do site antigo (404 hoje) devem ser removidos do painel; ~212 posts/tags/categorias antigos viram 404 (decisão consciente)
+- **Ainda pendente (usuário):** configurar GA4 + Meta Pixel dentro do GTM-MKR53GH3; PageSpeed na URL real; testar e-mail @solidatransporte.com.br após a troca de DNS; avaliar despublicar o post "case-de-sucesso-…bsoft-tms…" (case de terceiro migrado); dados a validar com a Sólida (LinkedIn `#`, CNPJ/DPO, seguro, timeline, WhatsApp)
 
 ## Revisão de copy — humanização (23/08/2026)
 

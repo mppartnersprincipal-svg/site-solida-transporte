@@ -102,8 +102,8 @@ Marque cada item antes de apontar o domínio.
 
 ## 5. Pós-go-live (primeira semana)
 
-- [ ] Cadastrar o site no **Google Search Console** (propriedade de domínio)
-      e enviar o `sitemap.xml`
+- [x] Cadastrar o site no **Google Search Console** (propriedade de domínio)
+      e enviar o `sitemap.xml` — feito 25/08/2026
 - [ ] Conferir no Search Console se os redirects 301 estão sendo seguidos
 - [ ] Medir Core Web Vitals reais no PageSpeed depois de 1–2 dias de cache
 - [ ] Acompanhar o funil no GA4: `whatsapp_central_open` → `whatsapp_click`
