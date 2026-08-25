@@ -7,7 +7,6 @@ import { LeanStock } from "@/components/home/LeanStock";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Segments } from "@/components/home/Segments";
 import { WhySolida } from "@/components/home/WhySolida";
-import { OperationVideo } from "@/components/home/OperationVideo";
 import { OperationGallery } from "@/components/home/OperationGallery";
 import { PriceValue } from "@/components/home/PriceValue";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
@@ -28,7 +27,6 @@ export default function Home() {
       <HowItWorks />
       <Segments />
       <WhySolida />
-      <OperationVideo />
       <OperationGallery />
       <PriceValue />
       <BlogTeaser />
