@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Award, BadgeCheck, Flag, MapPinned, ShieldCheck, Truck, Warehouse } from "lucide-react";
+import { Award, BadgeCheck, ExternalLink, Flag, MapPin, MapPinned, ShieldCheck, Truck, Warehouse } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -8,6 +8,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { CompanyCarousel } from "@/components/empresa/CompanyCarousel";
 import { Counter } from "@/components/motion/Counter";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
+import { MATRIZ_MAP_EMBED, MATRIZ_MAPS_URL, UNITS } from "@/lib/units";
 
 export const metadata: Metadata = {
   title: "A Empresa",
@@ -49,6 +50,8 @@ const TIMELINE = [
     text: "Três décadas depois, seguimos com o mesmo CNPJ e o mesmo jeito de trabalhar: você sempre sabe onde a sua carga está.",
   },
 ];
+
+const MATRIZ = UNITS.find((u) => u.role === "Matriz") ?? UNITS[0];
 
 export default function AEmpresaPage() {
   return (
@@ -143,6 +146,43 @@ export default function AEmpresaPage() {
           />
           <Reveal className="mx-auto max-w-5xl">
             <CompanyCarousel />
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* Onde estamos – Matriz */}
+      <section className="bg-surface-alt py-16 sm:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Onde estamos"
+            title="Matriz em Goiânia"
+          />
+          <Reveal className="mx-auto max-w-5xl">
+            <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+              <iframe
+                src={MATRIZ_MAP_EMBED}
+                title="Mapa da matriz da Sólida Transporte em Goiânia"
+                className="h-80 w-full sm:h-[420px]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                <p className="flex items-start gap-3 text-sm leading-relaxed text-ink-body">
+                  <MapPin className="mt-0.5 size-5 shrink-0 text-brand-action" aria-hidden />
+                  <span>{MATRIZ.address}</span>
+                </p>
+                <a
+                  href={MATRIZ_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-action hover:text-brand-hover"
+                >
+                  Abrir no Google Maps
+                  <ExternalLink className="size-4" aria-hidden />
+                </a>
+              </div>
+            </div>
           </Reveal>
         </Container>
       </section>

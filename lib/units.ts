@@ -15,6 +15,10 @@ export type Unit = {
   mapsUrl: string;
 };
 
+const MATRIZ_MAPS_CID = "18042131085687874547";
+/** Link da matriz no Google Maps (abre a ficha da empresa). */
+export const MATRIZ_MAPS_URL = `https://maps.google.com/?cid=${MATRIZ_MAPS_CID}`;
+
 export const UNITS: Unit[] = [
   {
     city: "Goiânia - GO",
@@ -25,7 +29,7 @@ export const UNITS: Unit[] = [
     phoneHref: "tel:+556232068100",
     email: "comercial@solidatransporte.com.br",
     waHref: waLink(WHATSAPP_NUMBERS.goianiaComercial, "Olá! Vim pelo site da Sólida."),
-    mapsUrl: "https://goo.gl/maps/GfSiSHx1zmYypUocA",
+    mapsUrl: MATRIZ_MAPS_URL,
   },
   {
     city: "Guarulhos - SP",
@@ -55,10 +59,6 @@ export const UNITS: Unit[] = [
   },
 ];
 
-/** Endereço da matriz para o mapa embutido na página de Contato. */
+/** Ficha da matriz no Google Maps (CID do perfil "Sólida Transporte"). */
 export const MATRIZ_MAP_EMBED =
-  "https://www.google.com/maps?q=" +
-  encodeURIComponent(
-    "Av. Desvio Bucareste, 550, Jardim Novo Mundo, Goiânia - GO, 74703-100"
-  ) +
-  "&output=embed";
+  `https://www.google.com/maps?cid=${MATRIZ_MAPS_CID}&hl=pt-BR&output=embed`;
