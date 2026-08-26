@@ -8,7 +8,6 @@ import {
   PackageSearch,
   Phone,
   Receipt,
-  Scale,
   Truck,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -39,7 +38,6 @@ const SUBJECT_ICONS: Record<string, React.ComponentType<{ className?: string }>>
   coleta: Truck,
   rastreamento: PackageSearch,
   financeiro: Receipt,
-  juridico: Scale,
   outros: MessageCircle,
 };
 

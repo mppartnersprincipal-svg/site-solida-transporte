@@ -120,7 +120,7 @@ Itens já sinalizados no site que dependem de confirmação do cliente —
 | Item | Onde está no site |
 |---|---|
 | Números de WhatsApp por assunto | Central (modal, /contato, footer) — vieram do site antigo |
-| Número/responsável de rastreamento e jurídico | Hoje roteados p/ coleta GO e comercial GO |
+| Número/responsável de jurídico | Hoje roteado p/ comercial GO (rastreamento confirmado: Luana, 62 3206-3513) |
 | Cobertura do seguro de carga (RCTR-C/RCF-DC, limites) | Home, Diferenciais + rascunho do blog |
 | Cidades atendidas em GO/DF e regiões de SP | Seção de rotas (Home, Como Funciona) |
 | Marcos reais da história (timeline 1994→hoje) | /a-empresa |

@@ -62,29 +62,17 @@ export const WA_SUBJECTS: WaSubject[] = [
     id: "coleta",
     label: "Solicitar coleta",
     description: "Agende a coleta da sua mercadoria",
-    options: [
-      {
-        label: "Goiás / Distrito Federal",
-        href: waLink(
-          WHATSAPP_NUMBERS.coletaGO,
-          "Olá! Quero solicitar uma coleta. Endereço de coleta: ___"
-        ),
-      },
-      {
-        label: "São Paulo",
-        href: waLink(
-          WHATSAPP_NUMBERS.coletaSP,
-          "Olá! Quero solicitar uma coleta. Endereço de coleta: ___"
-        ),
-      },
-    ],
+    href: waLink(
+      WHATSAPP_NUMBERS.coletaSP,
+      "Olá! Quero solicitar uma coleta. Endereço de coleta: ___"
+    ),
   },
   {
     id: "rastreamento",
     label: "Rastrear uma carga",
     description: "Acompanhe onde está a sua mercadoria",
     href: waLink(
-      WHATSAPP_NUMBERS.coletaGO,
+      WHATSAPP_NUMBERS.goianiaComercial,
       "Olá! Quero rastrear uma carga. Nota fiscal ou CT-e: ___"
     ),
   },
@@ -95,16 +83,6 @@ export const WA_SUBJECTS: WaSubject[] = [
     href: waLink(
       WHATSAPP_NUMBERS.financeiro,
       "Olá! Preciso de ajuda com uma fatura/boleto."
-    ),
-  },
-  {
-    id: "juridico",
-    label: "Jurídico",
-    description: "Assuntos jurídicos e contratuais",
-    // TODO: validar número do responsável jurídico com a Sólida
-    href: waLink(
-      WHATSAPP_NUMBERS.goianiaComercial,
-      "Olá! Preciso falar sobre um assunto jurídico."
     ),
   },
   {

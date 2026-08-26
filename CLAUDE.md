@@ -24,6 +24,7 @@ assunto** (Central de WhatsApp). Sem formulário de cotação, sem guerra de pre
 - Deploy previsto: Vercel
 - **Atenção (Next 16):** `middleware.ts` virou **`proxy.ts`**; `cookies()` é async; docs locais em `node_modules/next/dist/docs/`
 - **Atenção (Tailwind v4):** não existe `tailwind.config.ts` — tokens em `app/globals.css` via `@theme`; estilos base DEVEM ficar em `@layer base` (fora de layer eles vencem as utilities)
+- **Prazo de entrega (regra do cliente, 26/08/2026):** 2 a 3 dias úteis = capital e região metropolitana; interior = 3 a 4 dias úteis após a coleta (alguns interiores têm prazo maior). Toda copy nova deve seguir isso — nunca citar "2 a 3 dias" sem a qualificação
 - lucide-react **não tem ícones de marcas** — WhatsApp/Instagram/LinkedIn/Facebook são SVGs inline em `components/layout/`
 
 ## Design system
@@ -168,7 +169,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
 - Confirmar números de WhatsApp por assunto (conferidos contra a auditoria em 23/08 — todos batem com o site antigo; falta confirmar se seguem ativos)
 - Confirmar cobertura/apólice do seguro de carga e se a armazenagem está disponível nas 3 praças (copy do split Armazenagem cita Goiânia/Brasília/São Paulo)
-- Número/responsável de rastreamento e jurídico (hoje roteados para coleta GO / comercial GO)
+- Número/responsável de jurídico (hoje roteado para comercial GO). Rastreamento confirmado em 26/08/2026: Luana (62) 3206-3513
 - Marcos intermediários da timeline de `/a-empresa` (fundação confirmada pela auditoria: 1º/07/1994; marcos "Expansão/Estrutura/Hoje" seguem narrativos)
 - CNPJ e e-mail do encarregado (DPO) na Política de Privacidade + revisão jurídica
 - Endereços/telefones das unidades (vieram da auditoria do site antigo; CEP de SP corrigido para 07.177-020)
