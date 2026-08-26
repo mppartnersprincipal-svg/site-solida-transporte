@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 export const metadata: Metadata = {
   title: "Política de Cookies",
@@ -73,12 +74,13 @@ export default function PoliticaDeCookiesPage() {
                 Política de Privacidade
               </a>
               . Dúvidas? Fale com a gente pelo e-mail{" "}
-              <a
+              <TrackedLink
                 href="mailto:comercial@solidatransporte.com.br"
+                track={{ kind: "email", email: "comercial@solidatransporte.com.br", source: "politica-cookies" }}
                 className="font-semibold text-brand-action underline-offset-2 hover:underline"
               >
                 comercial@solidatransporte.com.br
-              </a>
+              </TrackedLink>
               .
             </p>
           </article>

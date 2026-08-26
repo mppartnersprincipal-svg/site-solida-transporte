@@ -23,6 +23,7 @@ import {
 import { WA_SUBJECTS } from "@/lib/whatsapp";
 import { MATRIZ_MAP_EMBED, UNITS } from "@/lib/units";
 import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { LOCAL_BUSINESS_JSONLD } from "@/lib/seo";
 
@@ -144,20 +145,22 @@ export default function ContatoPage() {
                     {unit.address}
                   </p>
                   <div className="mt-4 flex flex-1 flex-col gap-2 text-sm">
-                    <a
+                    <TrackedLink
                       href={unit.phoneHref}
+                      track={{ kind: "phone", phone: unit.phoneHref.replace("tel:", ""), label: unit.city, source: "contato" }}
                       className="inline-flex items-center gap-2.5 text-ink-body transition-colors hover:text-ink"
                     >
                       <Phone className="size-4 text-ink-muted" aria-hidden />
                       {unit.phoneLabel}
-                    </a>
-                    <a
+                    </TrackedLink>
+                    <TrackedLink
                       href={`mailto:${unit.email}`}
+                      track={{ kind: "email", email: unit.email, source: "contato" }}
                       className="inline-flex items-center gap-2.5 break-all text-ink-body transition-colors hover:text-ink"
                     >
                       <Mail className="size-4 shrink-0 text-ink-muted" aria-hidden />
                       {unit.email}
-                    </a>
+                    </TrackedLink>
                     <WaTrackedLink
                       href={unit.waHref}
                       subject="unidade"
@@ -169,15 +172,16 @@ export default function ContatoPage() {
                       WhatsApp da unidade
                     </WaTrackedLink>
                   </div>
-                  <a
+                  <TrackedLink
                     href={unit.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    track={{ kind: "maps", unit: unit.city }}
                     className="mt-5 inline-flex items-center gap-1.5 self-start rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-action"
                   >
                     Ver no mapa
                     <ChevronRight className="size-4" aria-hidden />
-                  </a>
+                  </TrackedLink>
                 </Reveal>
             ))}
           </ul>
@@ -209,16 +213,17 @@ export default function ContatoPage() {
           <Reveal delay={0.1} className="mt-6">
             <div className="flex justify-center gap-4">
               {SOCIALS.map(({ label, href, Icon }) => (
-                <a
+                <TrackedLink
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
+                  track={{ kind: "social", network: label, source: "contato" }}
                   className="flex size-12 items-center justify-center rounded-full border border-line text-ink-body transition-colors hover:border-ink hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-action"
                 >
                   <Icon className="size-5" />
-                </a>
+                </TrackedLink>
               ))}
             </div>
           </Reveal>

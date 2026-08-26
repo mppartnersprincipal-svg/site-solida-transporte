@@ -8,6 +8,7 @@ import {
   GA4_ID,
   GTM_ID,
   META_PIXEL_ID,
+  pushConsent,
   readConsent,
 } from "@/lib/analytics";
 
@@ -16,9 +17,14 @@ import {
  * e apenas se as chaves existirem no .env. Sem chave e sem consentimento,
  * não renderiza nada.
  *
- * Caminho principal: GTM (NEXT_PUBLIC_GTM_ID) — GA4 e Meta Pixel são
- * configurados dentro do container. Os eventos do site chegam via dataLayer:
- * "page_view", "whatsapp_central_open" e "whatsapp_click" (lib/analytics.ts).
+ * Caminho principal: GTM (NEXT_PUBLIC_GTM_ID) — GA4, Google Ads e Meta Pixel
+ * são configurados dentro do container (ver gtm/TRACKING.md). Os eventos do
+ * site chegam via dataLayer (catálogo em lib/analytics.ts).
+ *
+ * Consent Mode v2: o `default` (negado) entra no dataLayer no primeiro render;
+ * ao aceitar, um `update` (concedido) é enviado ANTES do gtm.js carregar —
+ * assim as tags Google com verificação de consentimento disparam normalmente.
+ *
  * GA4_ID/META_PIXEL_ID diretos continuam suportados como fallback, mas não
  * devem ser preenchidos junto com o GTM (mediria em dobro).
  */
@@ -27,26 +33,30 @@ export function Analytics() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const sync = () => setConsented(readConsent()?.accepted === true);
+    // Consent Mode: padrão negado até o usuário decidir
+    pushConsent("default", false);
+    const sync = () => {
+      const accepted = readConsent()?.accepted === true;
+      if (accepted) pushConsent("update", true);
+      setConsented(accepted);
+    };
     sync();
     window.addEventListener(CONSENT_EVENT, sync);
     return () => window.removeEventListener(CONSENT_EVENT, sync);
   }, []);
 
-  // Pageview em navegações SPA (o load inicial é enviado pelos snippets;
-  // no GTM, use o evento "page_view" ou o trigger de History Change)
+  // Pageview em navegações SPA e no load inicial (a Google tag no GTM fica
+  // com send_page_view=false e uma tag GA4 dispara no evento "page_view")
   useEffect(() => {
     if (!consented) return;
+    const params = {
+      page_path: pathname,
+      page_location: window.location.href,
+      page_title: document.title,
+    };
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "page_view",
-      page_path: pathname,
-      page_location: window.location.href,
-    });
-    window.gtag?.("event", "page_view", {
-      page_path: pathname,
-      page_location: window.location.href,
-    });
+    window.dataLayer.push({ event: "page_view", ...params });
+    window.gtag?.("event", "page_view", params);
     window.fbq?.("track", "PageView");
     // pathname na dependência: dispara a cada troca de rota
   }, [pathname, consented]);

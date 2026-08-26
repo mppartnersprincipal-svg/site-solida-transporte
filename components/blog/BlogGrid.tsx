@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { trackBlogFilter, trackBlogLoadMore } from "@/lib/analytics";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -36,6 +37,7 @@ export function BlogGrid({
 
   function selectCategory(next: string | null) {
     if (next === category) return;
+    trackBlogFilter(next);
     setCategory(next);
     startTransition(async () => {
       if (next === null) {
@@ -53,6 +55,7 @@ export function BlogGrid({
   }
 
   function loadMore() {
+    trackBlogLoadMore(category, posts.length);
     startTransition(async () => {
       const result = await fetchPublishedPosts(createClient(), {
         category,

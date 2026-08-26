@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { PostCard } from "@/components/blog/PostCard";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
+import { PostViewTracker } from "@/components/analytics/PostViewTracker";
 import {
   formatPostDate,
   getPostBySlug,
@@ -65,6 +66,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
 
   return (
     <article>
+      <PostViewTracker slug={post.slug} title={post.title} category={post.category} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

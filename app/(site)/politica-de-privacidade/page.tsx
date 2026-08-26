@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -123,12 +124,13 @@ export default function PoliticaDePrivacidadePage() {
               Para exercer os seus direitos ou tirar dúvidas sobre esta
               política, fale com o nosso encarregado de proteção de dados pelo
               e-mail{" "}
-              <a
+              <TrackedLink
                 href="mailto:comercial@solidatransporte.com.br"
+                track={{ kind: "email", email: "comercial@solidatransporte.com.br", source: "politica-privacidade" }}
                 className="font-semibold text-brand-action underline-offset-2 hover:underline"
               >
                 comercial@solidatransporte.com.br
-              </a>
+              </TrackedLink>
               .
             </p>
 

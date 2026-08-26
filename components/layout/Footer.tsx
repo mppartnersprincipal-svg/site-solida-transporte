@@ -11,6 +11,7 @@ import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
 import { FOOTER_LINKS } from "@/components/layout/nav-links";
 import { WA_SUBJECTS, WHATSAPP_NUMBERS, waLink } from "@/lib/whatsapp";
 import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 const UNITS = [
   {
@@ -137,14 +138,17 @@ export function Footer() {
           </ul>
           <div className="mt-6 flex gap-3">
             {SOCIALS.map(({ label, href, Icon }) => (
-              <a
+              <TrackedLink
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
+                track={{ kind: "social", network: label, source: "footer" }}
                 className="flex size-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
               >
                 <Icon className="size-4.5" />
-              </a>
+              </TrackedLink>
             ))}
           </div>
         </div>

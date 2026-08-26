@@ -164,6 +164,15 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
   (IntroGate/IntroVideo, vídeos comprimidos, aprendizados de LCP/TBT no corpo
   do commit e na história dessa data)
 
+### Trackeamento GTM + GA4 + Google Ads — 26/08/2026
+
+- **Guia completo em `gtm/TRACKING.md`** (criar propriedade GA4, ações de conversão no Ads, importar container, testar, publicar). Container importável em `gtm/gtm-container-solida.json`, gerado por `gtm/gen-container.mjs` (20 tags, 16 gatilhos, 22 variáveis — **não editar o JSON à mão**, regenerar). Após importar, o usuário preenche 5 constantes `CONST - *` (ID GA4, ID Ads e 3 rótulos de conversão)
+- **Catálogo de eventos do dataLayer** documentado no topo de `lib/analytics.ts`: `page_view` (com `page_title`), `cookie_consent`, `whatsapp_central_open`, `whatsapp_click` (conversão principal), `phone_click` (conversão secundária), `email_click`, `social_click`, `maps_click`, `blog_post_view`, `blog_filter`, `blog_load_more`. Scroll/outbound/download vêm de gatilhos nativos do GTM
+- **Consent Mode v2** (`pushConsent` em `lib/analytics.ts`): `default=denied` no mount do `Analytics`, `update=granted` antes do gtm.js quando há aceite. Push é um objeto `arguments` (helper `toArguments`) — GTM não reconhece consent como objeto simples. Regra mantida: nada carrega sem aceite
+- **Google Tag no GTM usa `send_page_view=false`** — o site envia o próprio `page_view` (load + SPA). Se alguém criar uma tag GA4 à mão com pageview automático, mede em dobro
+- Novos componentes: `components/analytics/TrackedLink.tsx` (tel/mailto/social/maps — prop `track={{kind,...}}`) e `PostViewTracker.tsx` (dispara `blog_post_view` no post). Usados em /contato, Footer, políticas e `/blog/[slug]`. Links de WhatsApp continuam com `WaTrackedLink`
+- **Padrão para novos links:** wa.me → `WaTrackedLink`; tel/mailto/rede/mapa → `TrackedLink`; ação nova → adicionar função em `lib/analytics.ts`, linha no catálogo, gatilho+tag no `gen-container.mjs` e linha na tabela do `TRACKING.md`
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria

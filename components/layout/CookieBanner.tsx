@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { readConsent, writeConsent } from "@/lib/analytics";
+import { readConsent, trackConsent, writeConsent } from "@/lib/analytics";
 
 /**
  * Banner de consentimento de cookies (LGPD). O aceite libera o carregamento
@@ -24,6 +24,7 @@ export function CookieBanner() {
   }, []);
 
   const decide = (accepted: boolean) => {
+    trackConsent(accepted);
     writeConsent(accepted);
     setVisible(false);
   };
