@@ -44,7 +44,7 @@ export function OperationGallery() {
         <SectionHeading
           eyebrow="Por dentro da operação"
           title="Galpão, frota e equipe próprios"
-          subtitle="Quem coleta, despacha e entrega a sua carga é a própria Sólida. Nosso galpão é ponto de chegada e despacho: a mercadoria passa por ele, não fica parada."
+          subtitle="Do início ao fim, a operação é feita com frota e equipe próprias. Em algumas regiões do interior, contamos com parceiros homologados e certificados, com quem mantemos parceria de longa data."
         />
         <ul className="grid auto-rows-[200px] grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:auto-rows-[220px]">
           {PHOTOS.map((p, i) => (

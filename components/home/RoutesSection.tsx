@@ -7,10 +7,11 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 
+// Ordem visual: RJ isolado (só entregas locais) e SP no centro dos corredores GO ⇄ SP ⇄ DF
 const CITIES = [
-  { code: "RJ", name: "Rio de Janeiro (cidade)" },
-  { code: "SP", name: "São Paulo" },
+  { code: "RJ", name: "Rio de Janeiro (só na cidade)" },
   { code: "GO", name: "Goiás" },
+  { code: "SP", name: "São Paulo" },
   { code: "DF", name: "Distrito Federal" },
 ];
 
@@ -27,32 +28,35 @@ export function RoutesSection() {
         <SectionHeading
           eyebrow="Rotas de atuação"
           title="Especialistas na rota que o seu negócio usa"
-          subtitle="São Paulo ⇄ Goiás, São Paulo ⇄ Distrito Federal e a cidade do Rio de Janeiro. Concentramos nossa operação nesses corredores para entregar mais rápido e com mais previsibilidade do que quem tenta atender o Brasil inteiro."
+          subtitle="Atendemos apenas dois corredores rodoviários: São Paulo ⇄ Goiás e São Paulo ⇄ Distrito Federal, além de entregas dentro da cidade do Rio de Janeiro. Não interligamos Goiás a Distrito Federal nem Rio de Janeiro a São Paulo. Concentramos nossa operação nessas rotas para entregar mais rápido e com mais previsibilidade do que quem tenta atender o Brasil inteiro."
         />
 
-        {/* Barra de rotas RJ · SP ⇄ GO ⇄ DF com caminhão animado */}
+        {/* Barra de rotas: RJ isolado (só entregas locais) · GO ⇄ SP ⇄ DF com caminhão saindo de SP */}
         <Reveal>
           <div className="relative mx-auto max-w-3xl px-2 py-8">
-            <div className="relative flex items-center justify-between">
+            <div className="relative grid grid-cols-4">
               {/* Linha do trajeto + caminhão percorrendo */}
               <div
                 ref={trackRef}
                 aria-hidden
-                className="absolute inset-x-8 top-1/2 -translate-y-1/2 sm:inset-x-10"
+                // 4 colunas iguais → centros em 12,5% / 37,5% / 62,5% / 87,5%; top = metade do círculo (size-14/16)
+                className="absolute inset-x-[12.5%] top-7 -translate-y-1/2 sm:top-8"
               >
-                <div className="h-0.5 bg-line" />
+                {/* Linha contínua de ponta a ponta, atrás dos círculos */}
+                <div className="h-1 w-full rounded-full bg-brand-action/30" />
                 {!reduceMotion && inView && (
                   <motion.span
-                    className="absolute -top-3 text-brand-action"
-                    initial={{ left: "2%", scaleX: 1 }}
+                    className="absolute -top-3.5 text-brand-action"
+                    initial={{ left: "60%", scaleX: 1 }}
                     animate={{
-                      // ida RJ → DF, pausa e volta DF → RJ com o caminhão espelhado
-                      left: ["2%", "90%", "90%", "2%", "2%"],
-                      scaleX: [1, 1, -1, -1, 1],
+                      // SP → DF, volta a SP, SP → GO e volta a SP. Sempre parte de SP:
+                      // GO e DF não se conectam entre si, e o RJ fica fora do trajeto
+                      left: ["60%", "90%", "90%", "60%", "60%", "31%", "31%", "60%", "60%"],
+                      scaleX: [1, 1, -1, -1, -1, -1, 1, 1, 1],
                     }}
                     transition={{
-                      duration: 11,
-                      times: [0, 0.45, 0.5, 0.95, 1],
+                      duration: 16,
+                      times: [0, 0.22, 0.25, 0.47, 0.5, 0.72, 0.75, 0.97, 1],
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
@@ -63,11 +67,11 @@ export function RoutesSection() {
               </div>
 
               {CITIES.map((city) => (
-                <div key={city.code} className="relative flex flex-col items-center gap-2">
+                <div key={city.code} className="relative z-10 flex flex-col items-center gap-2">
                   <span className="flex size-14 items-center justify-center rounded-full border-2 border-brand-action bg-surface text-base font-bold text-ink shadow-sm sm:size-16">
                     {city.code}
                   </span>
-                  <span className="text-xs font-medium text-ink-muted sm:text-sm">
+                  <span className="text-center text-xs font-medium text-ink-muted sm:text-sm">
                     {city.name}
                   </span>
                 </div>

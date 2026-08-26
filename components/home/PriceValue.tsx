@@ -17,7 +17,10 @@ export function PriceValue() {
                   O frete mais barato pode sair caro
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-ink-body">
-                  Transportadora que só compete por preço costuma cortar de onde você não vê: carga sem seguro, frota que não dá conta da demanda, atraso que vira rotina. Algumas chegam a trocar de CNPJ para deixar problemas para trás. A Sólida prefere cobrar um preço justo e cumprir o combinado.
+                  Quem escolhe uma transportadora apenas pelo menor preço pode acabar pagando caro: carga sem seguro, frota insuficiente e atrasos que se tornam rotina. Em alguns casos, até CNPJs são trocados para deixar problemas para trás.
+                </p>
+                <p className="mt-4 text-base leading-relaxed text-ink-body">
+                  Na Sólida, acreditamos em outro caminho: preço justo, estrutura própria, segurança e compromisso com o que foi combinado.
                 </p>
               </div>
             </div>
