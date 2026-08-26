@@ -1,25 +1,220 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BarChart3 } from "lucide-react";
-import { buttonClasses } from "@/components/ui/Button";
+import {
+  getByChannel,
+  getByDevice,
+  getDaily,
+  getKpis,
+  getPhone,
+  getRange,
+  getTopPages,
+  getWhatsApp,
+  previousRange,
+  type SearchParams,
+} from "@/lib/analytics-queries";
+import {
+  fmtDuration,
+  fmtInt,
+  fmtPct,
+  labelChannel,
+  labelDevice,
+  labelPage,
+  labelSubject,
+} from "@/lib/analytics-types";
+import { DashboardFilters } from "@/components/dashboard/DashboardFilters";
+import { KpiGrid } from "@/components/dashboard/KpiGrid";
+import { ChartCard } from "@/components/dashboard/ChartCard";
+import { EmptyState } from "@/components/dashboard/EmptyState";
+import { DataTable, InlineBar } from "@/components/dashboard/DataTable";
+import { DailyAreaChart } from "@/components/dashboard/charts/DailyAreaChart";
+import { DonutChart } from "@/components/dashboard/charts/DonutChart";
+import { HorizontalBars } from "@/components/dashboard/charts/HorizontalBars";
+import { CHANNEL_COLORS, DEVICE_COLORS } from "@/components/dashboard/charts/chartTheme";
 
-export const metadata: Metadata = {
-  title: "Dashboard | Área administrativa",
-};
+export const metadata: Metadata = { title: "Dashboard | Área administrativa" };
+export const dynamic = "force-dynamic";
 
-// Placeholder da Fase D1 — o painel completo entra na Fase D2.
-export default function DashboardPlaceholder() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const sp = await searchParams;
+  const range = getRange(sp);
+  const prev = previousRange(range);
+
+  const [kpis, prevKpis, daily, byChannel, byDevice, topPages, whatsapp, phone] =
+    await Promise.all([
+      getKpis(range),
+      getKpis(prev),
+      getDaily(range),
+      getByChannel(range),
+      getByDevice(range),
+      getTopPages(range, 12),
+      getWhatsApp(range),
+      getPhone(range),
+    ]);
+
+  const hasData = kpis.sessions > 0;
+
+  // Agregações leves para os donuts
+  const waBySubject = Object.values(
+    whatsapp.reduce<Record<string, { name: string; value: number }>>((acc, r) => {
+      const key = r.subject ?? "—";
+      acc[key] ??= { name: labelSubject(key), value: 0 };
+      acc[key].value += Number(r.clicks);
+      return acc;
+    }, {})
+  );
+  const phoneByUnit = Object.values(
+    phone.reduce<Record<string, { name: string; value: number }>>((acc, r) => {
+      const key = r.label ?? r.phone ?? "—";
+      acc[key] ??= { name: key, value: 0 };
+      acc[key].value += Number(r.clicks);
+      return acc;
+    }, {})
+  );
+  const maxViews = Math.max(0, ...topPages.map((p) => Number(p.views)));
+
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-4 py-16 text-center">
-      <BarChart3 aria-hidden className="size-12 text-ink-muted/40" />
-      <h1 className="mt-4 text-2xl font-bold text-ink">Dashboard em construção</h1>
-      <p className="mx-auto mt-2 max-w-md text-sm text-ink-muted">
-        A coleta de dados já está ativa no site. Os gráficos e relatórios entram na
-        próxima fase.
-      </p>
-      <Link href="/admin" className={`${buttonClasses("primary", "md")} mt-6`}>
-        Ir para os posts do blog
-      </Link>
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold sm:text-3xl">Dashboard</h1>
+          <p className="mt-1 text-sm text-ink-muted">
+            Comportamento dos visitantes · {range.label}
+            {range.channel ? ` · ${labelChannel(range.channel)}` : ""}
+          </p>
+        </div>
+      </div>
+
+      <DashboardFilters period={range.period} channel={range.channel} de={range.de} ate={range.ate} />
+
+      <KpiGrid kpis={kpis} previous={prevKpis} />
+
+      {!hasData ? (
+        <EmptyState
+          title="Nenhuma visita registrada no período"
+          hint="Os dados aparecem aqui assim que alguém acessar o site. Tente outro período ou remova o filtro de origem."
+        />
+      ) : null}
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <ChartCard
+            id="visitas"
+            title="Visitas por dia"
+            description="Sessões (área) e cliques no WhatsApp (linha verde, eixo da direita)"
+            className="h-full"
+          >
+            {hasData ? <DailyAreaChart data={daily} /> : <EmptyState compact hint="" />}
+          </ChartCard>
+        </div>
+        <ChartCard
+          id="origem"
+          title="De onde vêm as visitas"
+          description={
+            range.channel
+              ? "Todas as origens no período (este gráfico ignora o filtro de origem)"
+              : "Google Ads × orgânico × direto × redes"
+          }
+          className="h-full"
+        >
+          <DonutChart
+            totalLabel="visitas"
+            data={byChannel.map((c) => ({
+              name: labelChannel(c.channel),
+              value: Number(c.sessions),
+              color: CHANNEL_COLORS[c.channel],
+              hint: `${fmtInt(c.wa_clicks)} cliques no WhatsApp`,
+            }))}
+          />
+        </ChartCard>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <ChartCard id="dispositivo" title="Dispositivo" description="Celular, computador ou tablet" className="h-full">
+          <DonutChart
+            totalLabel="visitas"
+            data={byDevice.map((d) => ({
+              name: labelDevice(d.device),
+              value: Number(d.sessions),
+              color: DEVICE_COLORS[d.device],
+            }))}
+          />
+        </ChartCard>
+        <ChartCard
+          id="whatsapp-assunto"
+          title="WhatsApp por assunto"
+          description="Qual botão da Central foi clicado"
+          className="h-full"
+        >
+          <DonutChart totalLabel="cliques" data={waBySubject} emptyTitle="Nenhum clique no WhatsApp" />
+        </ChartCard>
+        <ChartCard
+          id="telefone-unidade"
+          title="Telefone por unidade"
+          description="Cliques em ligar (página Contato)"
+          className="h-full md:col-span-2 xl:col-span-1"
+        >
+          <DonutChart totalLabel="cliques" data={phoneByUnit} emptyTitle="Nenhum clique em telefone" />
+        </ChartCard>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-5">
+        <div className="lg:col-span-2">
+          <ChartCard id="paginas" title="Páginas mais vistas" description="Top 10 por visualizações" className="h-full">
+            <HorizontalBars
+              valueLabel="Visualizações"
+              data={topPages.map((p) => ({ name: labelPage(p.path, p.title), value: Number(p.views) }))}
+            />
+          </ChartCard>
+        </div>
+        <div className="lg:col-span-3">
+          <ChartCard
+            id="paginas-tempo"
+            title="Tempo e leitura por página"
+            description="Quanto tempo o visitante fica e até onde rola cada página"
+            className="h-full"
+          >
+            {topPages.length ? (
+              <DataTable
+                rows={topPages}
+                rowKey={(p) => p.path}
+                dense
+                columns={[
+                  {
+                    key: "page",
+                    header: "Página",
+                    render: (p) => (
+                      <div className="min-w-40">
+                        <p className="truncate font-semibold text-ink" title={p.path}>
+                          {labelPage(p.path, p.title)}
+                        </p>
+                        <p className="truncate text-xs text-ink-muted">{p.path}</p>
+                      </div>
+                    ),
+                  },
+                  {
+                    key: "views",
+                    header: "Views",
+                    align: "right",
+                    render: (p) => (
+                      <div className="min-w-24">
+                        <span className="font-semibold text-ink">{fmtInt(p.views)}</span>
+                        <InlineBar value={Number(p.views)} max={maxViews} />
+                      </div>
+                    ),
+                  },
+                  { key: "time", header: "Tempo médio", align: "right", render: (p) => fmtDuration(p.avg_ms) },
+                  { key: "scroll", header: "Scroll médio", align: "right", render: (p) => fmtPct(p.avg_scroll, 0) },
+                ]}
+              />
+            ) : (
+              <EmptyState compact hint="" />
+            )}
+          </ChartCard>
+        </div>
+      </div>
     </div>
   );
 }
