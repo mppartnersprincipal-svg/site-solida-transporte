@@ -92,12 +92,12 @@ medido (decisão do projeto — sem cookies de medição sem consentimento).
 2. Arquivo: `gtm/gtm-container-solida.json` (esta pasta)
 3. Espaço de trabalho: **Novo** (ex.: "GA4 + Ads") · Opção: **Mesclar → Sobrescrever tags/gatilhos/variáveis conflitantes**
 4. Confirme. Você verá **20 tags, 16 gatilhos, 22 variáveis**.
-5. Em **Variáveis → Variáveis definidas pelo usuário**, confira as 5 constantes (**já preenchidas no JSON em 26/08/2026** — GA4 `G-TQHKY7G5TL`, Ads `AW-17712344467` + 3 rótulos; só ajustar se algum ID mudar):
+5. Em **Variáveis → Variáveis definidas pelo usuário**, confira as 5 constantes (**já preenchidas no JSON em 26/08/2026** — GA4 `G-TQHKY7G5TL`, Ads `17712344467` (sem o prefixo AW- — o GTM adiciona sozinho) + 3 rótulos; só ajustar se algum ID mudar):
 
    | Variável | Valor |
    |---|---|
    | `CONST - GA4 Measurement ID` | `G-…` (passo 1.3) |
-   | `CONST - Google Ads Conversion ID` | `AW-…` (passo 2.2) |
+   | `CONST - Google Ads Conversion ID` | só o número do `AW-…` (passo 2.2), **sem o prefixo AW-** |
    | `CONST - Ads Label - whatsapp_click` | rótulo da ação "WhatsApp – clique" |
    | `CONST - Ads Label - phone_click` | rótulo de "Telefone – clique" |
    | `CONST - Ads Label - whatsapp_central_open` | rótulo de "WhatsApp – abriu a Central" |

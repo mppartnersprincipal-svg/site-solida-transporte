@@ -65,7 +65,7 @@ function adsConversion(name, labelVar, triggerName) {
 
 // ---------- Variáveis ----------
 constant("CONST - GA4 Measurement ID", "G-TQHKY7G5TL");
-constant("CONST - Google Ads Conversion ID", "AW-17712344467");
+constant("CONST - Google Ads Conversion ID", "17712344467");
 constant("CONST - Ads Label - whatsapp_click", "Oz1PCK7MqugcEJPb8_1B");
 constant("CONST - Ads Label - phone_click", "S1OrCLHSqugcEJPb8_1B");
 constant("CONST - Ads Label - whatsapp_central_open", "v3B3CKyEtOgcEJPb8_1B");
