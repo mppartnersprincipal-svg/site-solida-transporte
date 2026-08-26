@@ -495,6 +495,13 @@ begin
 end;
 $$;
 
+-- Security definer só para o servidor: trigger e purge nunca via /rest/v1/rpc
+revoke all on function public.analytics_bump_session() from public, anon, authenticated;
+revoke all on function public.analytics_purge(integer) from public, anon, authenticated;
+grant execute on function public.analytics_purge(integer) to service_role;
+-- pré-existente da 0001 (trigger de updated_at do blog): mesmo tratamento
+revoke all on function public.set_updated_at() from public, anon, authenticated;
+
 -- ---------- Opcional: limpeza mensal automática ----------
 -- Habilitar pg_cron em Database → Extensions e rodar:
 -- select cron.schedule('analytics-purge', '0 4 1 * *', 'select public.analytics_purge(13)');
