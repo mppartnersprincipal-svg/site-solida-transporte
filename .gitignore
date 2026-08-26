@@ -43,3 +43,6 @@ next-env.d.ts
 # manter o exemplo de env versionado
 !.env.example
 .gstack/
+
+# exports de Search Console / dados do cliente ficam fora do repo
+*Performance-on-Search*
