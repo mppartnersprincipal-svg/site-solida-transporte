@@ -7,7 +7,7 @@ const PILLARS = [
   {
     Icon: Zap,
     title: "Rapidez",
-    text: "Entrega em 2 a 3 dias úteis após a coleta, em qualquer sentido das rotas SP ⇄ GO ⇄ DF e na cidade do Rio de Janeiro.",
+    text: "Entrega em 2 a 3 dias úteis após a coleta em capitais e regiões metropolitanas (3 a 4 no interior), em qualquer sentido das rotas SP ⇄ GO ⇄ DF e na cidade do Rio de Janeiro.",
   },
   {
     Icon: ShieldCheck,

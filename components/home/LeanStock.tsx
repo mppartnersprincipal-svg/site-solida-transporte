@@ -22,7 +22,7 @@ export function LeanStock() {
             Rapidez que enxuga o seu estoque
           </h2>
           <p className="mt-5 text-base leading-relaxed text-ink-body sm:text-lg">
-            Com reposição chegando em 2 a 3 dias úteis, seu cliente não precisa comprar estoque para o mês inteiro. Ele pede menos por vez, pede mais vezes e para de empatar dinheiro em mercadoria parada na prateleira.
+            Com reposição chegando em poucos dias úteis, seu cliente não precisa comprar estoque para o mês inteiro. Ele pede menos por vez, pede mais vezes e para de empatar dinheiro em mercadoria parada na prateleira.
           </p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {BULLETS.map((bullet, i) => (
@@ -48,7 +48,8 @@ export function LeanStock() {
             <p className="text-2xl font-bold">
               2 a 3 <span className="text-base font-semibold text-brand">dias úteis</span>
             </p>
-            <p className="text-xs text-white/70">entrega após a coleta</p>
+            <p className="text-xs text-white/70">capital e região metropolitana</p>
+            <p className="text-xs text-white/70">interior: 3 a 4 dias úteis</p>
           </div>
         </Reveal>
       </Container>

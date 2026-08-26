@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "Como Funciona",
   alternates: { canonical: "/como-funciona" },
   description:
-    "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF, atendimento à cidade do Rio de Janeiro e entrega em 2 a 3 dias úteis.",
+    "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF, atendimento à cidade do Rio de Janeiro e entrega em 2 a 3 dias úteis em capitais e regiões metropolitanas (3 a 4 no interior).",
 };
 
 const FLOW = [
@@ -37,7 +37,7 @@ const FLOW = [
   {
     Icon: Store,
     title: "Lojista",
-    text: "Seus clientes recebem em 2 a 3 dias úteis e conseguem programar a loja com base nesse prazo.",
+    text: "Seus clientes recebem em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior) e conseguem programar a loja com base nesse prazo.",
   },
 ];
 
@@ -50,8 +50,8 @@ const EXAMPLES = [
 const STEPS = [
   {
     Icon: Clock,
-    title: "Coleta pontual",
-    text: "Se a coleta ficou marcada para hoje, ela sai hoje. Você programa a expedição sem susto.",
+    title: "Coleta agendada",
+    text: "Você agenda a coleta e nossa equipe busca a mercadoria na sua indústria dentro do prazo combinado, com toda a documentação conferida antes de sair.",
   },
   {
     Icon: Boxes,
@@ -61,7 +61,7 @@ const STEPS = [
   {
     Icon: PackageCheck,
     title: "Distribuição aos destinatários",
-    text: "Seus destinatários recebem em 2 a 3 dias úteis após a coleta.",
+    text: "Seus destinatários recebem em 2 a 3 dias úteis após a coleta em capitais e regiões metropolitanas, ou 3 a 4 no interior.",
   },
   {
     Icon: Eye,
@@ -77,7 +77,7 @@ export default function ComoFuncionaPage() {
         image="/assets/hero-como-funciona.jpg"
         eyebrow="Como funciona"
         title="Como funciona a nossa operação de cargas fracionadas"
-        subtitle="Você despacha, a gente coleta, consolida e entrega ao lojista em 2 a 3 dias úteis, com você acompanhando cada etapa."
+        subtitle="Você despacha, a gente coleta, consolida e entrega ao lojista em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior), com você acompanhando cada etapa."
         aside={<ForkliftEnter />}
       />
 
@@ -153,7 +153,13 @@ export default function ComoFuncionaPage() {
                 2 a 3 <span className="text-brand">dias úteis</span>
               </p>
               <p className="mt-2 text-sm text-white/70">
-                É o prazo de entrega depois da coleta, em qualquer sentido da rota.
+                Capital e região metropolitana, em qualquer sentido da rota.
+              </p>
+              <p className="mt-4 text-xl font-bold">
+                3 a 4 <span className="text-brand">dias úteis</span>
+              </p>
+              <p className="mt-1 text-sm text-white/70">
+                Interior. Prazo contado após a coleta; algumas cidades do interior têm prazo maior.
               </p>
             </div>
           </Reveal>

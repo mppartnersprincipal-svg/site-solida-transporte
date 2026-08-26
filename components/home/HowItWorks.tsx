@@ -4,8 +4,8 @@ import { Reveal } from "@/components/motion/Reveal";
 
 const STEPS = [
   {
-    title: "Coleta pontual",
-    text: "Se a coleta ficou marcada para hoje, ela sai hoje. Você programa a expedição sem susto.",
+    title: "Coleta agendada",
+    text: "Você agenda a coleta e nossa equipe busca a mercadoria na sua indústria dentro do prazo combinado, com toda a documentação conferida antes de sair.",
   },
   {
     title: "Transporte especializado",
@@ -13,7 +13,7 @@ const STEPS = [
   },
   {
     title: "Entrega com acompanhamento",
-    text: "Seus destinatários recebem em 2 a 3 dias úteis. Se houver qualquer ocorrência no caminho, você fica sabendo na hora.",
+    text: "Seus destinatários recebem em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior). Se houver qualquer ocorrência no caminho, você fica sabendo na hora.",
   },
 ];
 
