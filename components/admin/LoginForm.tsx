@@ -33,7 +33,7 @@ export function LoginForm() {
     }
 
     // Navegação completa: garante que o servidor (proxy) enxergue a sessão
-    window.location.assign("/admin");
+    window.location.assign("/dashboard");
   }
 
   const inputClasses =

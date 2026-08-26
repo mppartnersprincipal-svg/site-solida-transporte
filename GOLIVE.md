@@ -29,6 +29,7 @@ Marque cada item antes de apontar o domínio.
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | (chave pública do painel Supabase) |
    | `NEXT_PUBLIC_SITE_URL` | `https://www.solidatransporte.com.br` |
    | `NEXT_PUBLIC_GTM_ID` | `GTM-MKR53GH3` |
+   | `SUPABASE_SERVICE_ROLE_KEY` | (Supabase → Project Settings → API Keys → `service_role`) — **sem** `NEXT_PUBLIC_`; alimenta o `/dashboard` (coleta first-party). Exige a migration `supabase/migrations/0003_analytics.sql` rodada no SQL Editor |
 
    (deixe `NEXT_PUBLIC_GA4_ID` e `NEXT_PUBLIC_META_PIXEL_ID` **sem cadastrar** —
    GA4 e Pixel entram pelo GTM; cadastrá-los mediria em dobro)

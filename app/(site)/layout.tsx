@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Analytics } from "@/components/analytics/Analytics";
+import { Collector } from "@/components/analytics/Collector";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ORGANIZATION_JSONLD } from "@/lib/seo";
 
@@ -25,6 +26,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <WhatsAppFloat />
       <CookieBanner />
       <Analytics />
+      <Collector />
       <JsonLd data={ORGANIZATION_JSONLD} />
     </WhatsAppProvider>
   );

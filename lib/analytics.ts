@@ -22,6 +22,8 @@
  * - blog_load_more       { post_category, loaded_count }
  */
 
+import { collect } from "@/lib/tracker";
+
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
@@ -60,10 +62,19 @@ export function writeConsent(accepted: boolean) {
   window.dispatchEvent(new Event(CONSENT_EVENT));
 }
 
-/** Empurra um evento para o dataLayer (consumido pelas tags no GTM). */
+/**
+ * Empurra um evento para o dataLayer (consumido pelas tags no GTM) e para o
+ * coletor first-party do /dashboard (lib/tracker.ts). O GTM só existe após o
+ * consentimento; o coletor é anônimo e sempre ativo. `page_view` NÃO passa
+ * por aqui — o Collector cuida dele por conta própria.
+ */
 function pushDataLayer(payload: Record<string, unknown>) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(payload);
+  const { event, ...rest } = payload;
+  if (typeof event === "string" && event !== "page_view") {
+    collect(event, rest as Parameters<typeof collect>[1]);
+  }
 }
 
 /**

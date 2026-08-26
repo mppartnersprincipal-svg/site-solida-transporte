@@ -27,6 +27,13 @@ O site já empurra todos os eventos para o `dataLayer` (código em
 Além desses, o container adiciona (sem código): **scroll depth** (25/50/75/90%),
 **cliques de saída** (`click_outbound`) e **downloads** (`file_download`).
 
+**Medição first-party (dashboard `/dashboard`):** além do GTM, o site grava
+os mesmos eventos (mais `page_view`, `page_leave` com tempo/scroll e `click`
+genérico) de forma **anônima** em tabelas próprias do Supabase, via
+`lib/tracker.ts` → `POST /api/collect`. Isso **não muda nada no container**:
+GA4, Google Ads e Meta continuam configurados aqui exatamente como antes.
+Detalhes em `CLAUDE.md` (Fase D1).
+
 **LGPD / Consent Mode v2:** nada carrega antes do "Aceitar" no banner. O site
 envia `consent default = denied` no primeiro render e `consent update = granted`
 antes do gtm.js quando o usuário aceita. Quem clica "Só o essencial" não é

@@ -46,8 +46,12 @@ components/layout/  Header, Footer, WhatsAppFloat, CookieBanner, WhatsAppIcon, S
 components/whatsapp/ WhatsAppProvider (contexto+modal), WhatsAppModal, WhatsAppCTAButton
 components/home/    12 seções da Home (inclui OperationGallery, mosaico de fotos reais; a seção Solutions Armazenagem/Transporte foi REMOVIDA em 25/08/2026)
 lib/whatsapp.ts     números e assuntos da Central de WhatsApp (§6.2 do plano)
-lib/supabase/       client.ts (browser), server.ts (RSC/actions), proxy.ts (sessão)
-proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
+lib/supabase/       client.ts (browser), server.ts (RSC/actions), public.ts (ISR), proxy.ts (sessão), admin.ts (SERVICE ROLE, server-only)
+lib/tracker.ts      coletor first-party anônimo (browser) → POST /api/collect
+lib/attribution.ts  classifyChannel(): google_ads / google_organic / other_search / social / referral / direct
+app/api/collect/    Route Handler que grava analytics_sessions/analytics_events (service role)
+app/(admin)/dashboard/  painel de comportamento dos visitantes (Fases D1–D4)
+proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /dashboard (convenção Next 16)
 ```
 
 - CTAs de WhatsApp abrem o **modal da Central** via `useWhatsApp()` (provider no layout do grupo site) ou o componente pronto `WhatsAppCTAButton`
@@ -63,6 +67,10 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 | 3 | Blog + admin (tabelas/RLS/Storage, login, editor, ISR) | ✅ concluída |
 | 4 | Depoimentos, SEO, analytics, acessibilidade, QA | ✅ concluída |
 | 5 | Conteúdo e go-live (posts, redirects 301, domínio) | ✅ concluída — **site no ar em 25/08/2026** |
+| D1 | Dashboard: schema Supabase + ingestão `/api/collect` + coletor first-party | ✅ concluída (26/08/2026) — **aguarda migration 0003 + service role key** |
+| D2 | Dashboard: shell (abas Posts/Dashboard), filtros, KPIs, gráficos principais | ⏳ aguardando "ok" |
+| D3 | Dashboard: botões nomeados, jornadas, heatmap, geografia, campanhas, blog, funil, ao vivo | ⏳ |
+| D4 | Dashboard: QA, performance, políticas LGPD, docs, deploy | ⏳ |
 
 ### Fase 0 — concluída (21/08/2026)
 
@@ -187,6 +195,21 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **Histórico do git reescrito em 26/08/2026** (`git filter-repo`, force-push autorizado pelo usuário) para apagar o export do Search Console que tinha entrado por engano no repo público. Regra: exports/dados do cliente ficam na raiz do projeto, fora de `solida-site/` (`.gitignore` cobre `*Performance-on-Search*`)
 - **Decisões do usuário sobre pendências (26/08/2026):** Meta Pixel será criado e adicionado no GTM pelo próprio usuário; LinkedIn, CNPJ/DPO, depoimentos reais e timeline NÃO serão adicionados; **único dado que ainda entra: número de WhatsApp do RJ** (usuário vai fornecer) → aplicar em `lib/whatsapp.ts` (opção RJ em cotação/coleta) e revisar footer/contato
 - **PageSpeed real (26/08/2026, mobile, Moto G Power emulado):** Desempenho 95, A11y 96, Práticas 100, SEO 100 — FCP 1,0s, **LCP 2,6s** (0,1s acima da meta; é a foto do hero), TBT 60ms, CLS 0,073. Decisão: não otimizar agora; reavaliar com dado de campo (CrUX) no Search Console → Core Web Vitals em ~28 dias. Se o LCP de campo ficar ruim, pré-carregar variante menor do hero (`sizes` mais justo)
+
+## Dashboard `/dashboard` — comportamento dos visitantes (plano aprovado 26/08/2026)
+
+**Decisões do usuário:** coleta **first-party no Supabase** (GTM/GA4/Ads intocados); coleta **sempre ativa e anônima** (sem cookie, sem IP, sem ID persistente — só `sessionStorage`, renova após 30 min parado); **sem** API de custo do Ads (pago × orgânico vem de gclid/utm/referrer); `/dashboard` usa o **mesmo login** do `/admin`. Requisito reforçado: **todo clique com o NOME do botão e de onde veio** (ex.: "Google Ads · campanha X → Home → Central aberta (flutuante) → Pedir cotação › Goiânia") — seções "Botões da Central" e "Jornadas" na D3. Gráficos: Recharts (entra na D2).
+
+### Fase D1 — concluída (26/08/2026)
+
+- **Migration `supabase/migrations/0003_analytics.sql`** (usuário roda no SQL Editor): `analytics_sessions` (id gerado no browser, landing, referrer_host, `channel`, utm_*, has_gclid, device/browser/os, country/region/city dos headers da Vercel, tela, contadores, `converted`) + `analytics_events` (session_id, ts, name, path, title, `params jsonb`); trigger `analytics_bump_session` mantém contadores; RLS: `select` só `authenticated`, **sem** policy de escrita (só service role grava). **17 funções** `analytics_*` (kpis, daily, heatmap, by_channel, by_device, top_pages, geo, campaigns, whatsapp, phone, clicks, blog, funnel, buttons, journeys, recent, purge) — execute só p/ `authenticated`/`service_role`; datas em America/Sao_Paulo. Retenção: `analytics_purge(13)` (pg_cron opcional, comentado no fim do SQL)
+- **`app/api/collect/route.ts`** (nodejs): body `text/plain` `{v, sid, s?, e[]}` via sendBeacon; valida tamanho/nomes, descarta bots (regex + `userAgent().isBot`), rate limit em memória por sid e por hash de IP (nunca gravado), geo de `x-vercel-ip-*`, device/browser/os via `userAgent()` do `next/server` (só famílias), `classifyChannel()` de `lib/attribution.ts`; responde 204 e grava em `after()` com `lib/supabase/admin.ts` (service role). Sem `SUPABASE_SERVICE_ROLE_KEY` → 204 sem gravar. Se o 1º lote da sessão se perdeu (FK 23503), cria sessão-esqueleto `direct` e regrava
+- **`lib/tracker.ts`** + **`components/analytics/Collector.tsx`** (montado em `app/(site)/layout.tsx`, nunca no `(admin)`): não roda em /admin, /dashboard, /login, /api, `navigator.webdriver` ou UA de bot; fila com flush em 10 eventos / 5 s / `visibilitychange→hidden` / `pagehide`; eventos: `page_view` {sw, sh, ref_host}, `page_leave` {duration_ms = tempo VISÍVEL, max_scroll_pct}, `click` em `a,button,[role=button],[data-track],input[type=submit],summary` {tag, text≤80, href (interno path+hash / externo host / "wa.me" / tel: / mailto:), track = data-track ?? id ?? aria-label, section, x_pct, y_pct}
+- **`lib/analytics.ts`:** `pushDataLayer()` agora também chama `collect()` para todo evento exceto `page_view` → whatsapp_central_open, whatsapp_click, phone_click, email/social/maps_click, blog_* e cookie_consent chegam no Supabase sem mudar os call sites. GTM continua condicionado ao consentimento
+- **Auth/rotas:** `proxy.ts` matcher inclui `/dashboard/:path*`; `lib/supabase/proxy.ts` protege `/dashboard` e manda `/login` logado → `/dashboard`; `LoginForm` idem; `robots.ts` disallow `/dashboard` e `/api/`. Placeholder `app/(admin)/dashboard/page.tsx` ("em construção") até a D2
+- Dep nova: `server-only`. Docs: `.env.example` (`SUPABASE_SERVICE_ROLE_KEY`), `GOLIVE.md` (5ª env var na Vercel), `gtm/TRACKING.md` (nota: container não muda)
+- **QA:** tsc ok, lint só com os 5 avisos pré-existentes, build ok (31 rotas, blog segue ISR, `/api/collect` ƒ). Smoke em `next start`: 204 lote válido, 204 bot, 400 body inválido, `/dashboard` → 307 `/login`. **Playwright (Chromium, UA Android, `navigator.webdriver` mascarado):** lote com `s` {gclid:true, utm campanha/termo}, `page_view`, `click` "Falar no WhatsApp", `whatsapp_central_open`, `click` no assunto, `whatsapp_click` {unidade/Goiânia - GO/footer}, `page_leave` {3035 ms, 93 %}. Lembrete p/ testes headless: o coletor se desliga com `navigator.webdriver=true` (proteção contra bots) — mascarar no `addInitScript`
+- **Pendente do usuário antes da D2 valer em produção:** (1) rodar `0003_analytics.sql` no SQL Editor; (2) copiar a `service_role` key para `SUPABASE_SERVICE_ROLE_KEY` no `.env.local` e na Vercel (Production + Preview). Sem isso o site funciona igual, só não grava
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 

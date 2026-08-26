@@ -42,8 +42,9 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // /admin/* exige login; /login redireciona quem já está logado
-  if (pathname.startsWith("/admin") && !user) {
+  // /admin/* e /dashboard/* exigem login; /login redireciona quem já está logado
+  const isPrivate = pathname.startsWith("/admin") || pathname.startsWith("/dashboard");
+  if (isPrivate && !user) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
     return NextResponse.redirect(redirectUrl);
@@ -51,7 +52,7 @@ export async function updateSession(request: NextRequest) {
 
   if (pathname === "/login" && user) {
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = "/admin";
+    redirectUrl.pathname = "/dashboard";
     return NextResponse.redirect(redirectUrl);
   }
 
