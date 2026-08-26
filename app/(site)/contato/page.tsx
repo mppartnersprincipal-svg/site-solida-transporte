@@ -73,7 +73,8 @@ export default function ContatoPage() {
               const Icon = SUBJECT_ICONS[subject.id] ?? MessageCircle;
               return (
                 <Reveal key={subject.id} delay={i * 0.07} as="li" className="h-full rounded-2xl border border-line bg-white p-6">
-                    <div className="flex items-start gap-4">
+                    {/* id = âncora dos redirects do site antigo (/contato#rastreamento etc.) */}
+                    <div id={subject.id} className="flex scroll-mt-28 items-start gap-4">
                       <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-whatsapp/10 text-whatsapp">
                         <Icon className="size-6" aria-hidden />
                       </span>
