@@ -16,6 +16,12 @@
 
 const ENDPOINT = "/api/collect";
 const SESSION_KEY = "solida-s";
+/** Identificador persistente (novo × recorrente). NÃO existe para quem recusou no banner. */
+const VISITOR_KEY = "solida-v";
+const VISITOR_TTL_MS = 13 * 30 * 24 * 60 * 60 * 1000;
+// Mesmos valores de lib/analytics.ts (não importar — evita ciclo de import)
+const CONSENT_KEY = "solida-cookie-consent";
+const CONSENT_EVENT = "solida-consent-change";
 const SESSION_TTL_MS = 30 * 60 * 1000;
 const FLUSH_EVERY_MS = 5000;
 const FLUSH_AT = 10;
@@ -36,8 +42,41 @@ type StoredSession = {
     sw: number;
     sh: number;
     lang: string;
+    /** visitor id persistente (ausente se o visitante recusou) */
+    vid?: string;
   } | null;
 };
+
+/** true = clicou "Só o essencial" no banner (recusa explícita). */
+function consentRefused(): boolean {
+  try {
+    const raw = localStorage.getItem(CONSENT_KEY);
+    if (!raw) return false;
+    return (JSON.parse(raw) as { accepted?: boolean }).accepted === false;
+  } catch {
+    return false;
+  }
+}
+
+/** Lê/cria o identificador persistente; null se recusou (e apaga o existente). */
+function visitorId(): string | null {
+  try {
+    if (consentRefused()) {
+      localStorage.removeItem(VISITOR_KEY);
+      return null;
+    }
+    const raw = localStorage.getItem(VISITOR_KEY);
+    if (raw) {
+      const v = JSON.parse(raw) as { id: string; at: number };
+      if (v?.id && Date.now() - v.at < VISITOR_TTL_MS) return v.id;
+    }
+    const id = crypto.randomUUID();
+    localStorage.setItem(VISITOR_KEY, JSON.stringify({ id, at: Date.now() }));
+    return id;
+  } catch {
+    return null;
+  }
+}
 
 let started = false;
 let enabled = false;
@@ -88,6 +127,7 @@ function newSession(): StoredSession {
     const v = q.get("utm_" + k);
     if (v) utm[k] = v.slice(0, 150);
   }
+  const vid = visitorId();
   return {
     id: crypto.randomUUID(),
     last: Date.now(),
@@ -99,8 +139,24 @@ function newSession(): StoredSession {
       sw: window.screen?.width ?? 0,
       sh: window.screen?.height ?? 0,
       lang: navigator.language || "",
+      ...(vid ? { vid } : {}),
     },
   };
+}
+
+/** Banner respondido: se recusou, apaga o identificador persistente na hora. */
+function onConsentChange() {
+  if (consentRefused()) {
+    try {
+      localStorage.removeItem(VISITOR_KEY);
+    } catch {
+      // sem storage
+    }
+    if (session?.init?.vid) {
+      delete session.init.vid;
+      writeSession(session);
+    }
+  }
 }
 
 function ensureSession(): StoredSession {
@@ -264,7 +320,8 @@ function onClick(e: MouseEvent) {
   const track = el.getAttribute("data-track") || el.id || el.getAttribute("aria-label");
   if (track) d.track = track.slice(0, 120);
 
-  const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+  // innerText respeita a quebra entre elementos (evita "cotaçãoFale com…")
+  const text = (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
   if (text) d.text = text.slice(0, 80);
 
   const rawHref = (el as HTMLAnchorElement).getAttribute?.("href");
@@ -324,6 +381,7 @@ export function initTracker() {
   document.addEventListener("visibilitychange", onVisibilityChange);
   window.addEventListener("pagehide", onPageHide);
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener(CONSENT_EVENT, onConsentChange);
 }
 
 export function isCollecting() {

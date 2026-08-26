@@ -62,6 +62,17 @@ export default function PoliticaDePrivacidadePage() {
                 </a>
                 ).
               </li>
+              <li>
+                <strong>Estatísticas de navegação anônimas:</strong> páginas
+                visitadas, tempo em cada página, cliques em botões, origem da
+                visita, tipo de dispositivo e cidade aproximada, registrados sem
+                cookies, sem endereço IP e sem dados que identifiquem você. Um
+                código aleatório, sem dados pessoais, pode ficar no seu
+                navegador por até 13 meses apenas para distinguir visitas novas
+                de recorrentes — ele não é usado se você escolher &ldquo;Só o
+                essencial&rdquo; no aviso de cookies. Base legal: legítimo
+                interesse (art. 7º, IX, da LGPD). Retenção: 13 meses.
+              </li>
             </ul>
 
             <h2 className={heading}>3. Para que usamos os seus dados</h2>

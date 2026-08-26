@@ -1,6 +1,7 @@
 "use client";
 
 import { trackWhatsAppClick } from "@/lib/analytics";
+import { labelSource, labelSubject } from "@/lib/analytics-types";
 
 /**
  * Link de WhatsApp (wa.me) com evento de analytics no clique.
@@ -28,6 +29,7 @@ export function WaTrackedLink({
       rel="noopener noreferrer"
       className={className}
       onClick={() => trackWhatsAppClick({ subject, option, source })}
+      data-track={`WhatsApp: ${labelSubject(subject)}${option ? ` › ${option}` : ""} (${labelSource(source)})`}
       {...rest}
     >
       {children}

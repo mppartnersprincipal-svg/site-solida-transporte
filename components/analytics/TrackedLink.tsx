@@ -23,8 +23,18 @@ export function TrackedLink({
   children,
   ...rest
 }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { track: Kind }) {
+  const name =
+    track.kind === "phone"
+      ? `Telefone: ${track.label ?? track.phone}`
+      : track.kind === "email"
+        ? `E-mail: ${track.email}`
+        : track.kind === "social"
+          ? `Rede social: ${track.network}`
+          : `Mapa: ${track.unit}`;
+
   return (
     <a
+      data-track={name}
       {...rest}
       onClick={(e) => {
         switch (track.kind) {

@@ -33,6 +33,7 @@ type Incoming = {
     sw?: number;
     sh?: number;
     lang?: string;
+    vid?: string;
   };
   e?: Array<{ n?: string; p?: string; t?: string; d?: Record<string, unknown> }>;
 };
@@ -190,6 +191,8 @@ export async function POST(request: NextRequest) {
       screen_w: int(s.sw, 10000),
       screen_h: int(s.sh, 10000),
       lang: str(s.lang, 10),
+      // identificador persistente (novo × recorrente) — null se o visitante recusou
+      visitor_id: typeof s.vid === "string" && UUID_RE.test(s.vid) ? s.vid.toLowerCase() : null,
     };
   }
 

@@ -146,6 +146,7 @@ export function BlogGrid({
             size="lg"
             onClick={loadMore}
             disabled={isPending}
+            data-track="Blog: Carregar mais artigos"
           >
             {isPending ? (
               <>

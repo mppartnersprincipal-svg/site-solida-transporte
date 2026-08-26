@@ -74,6 +74,19 @@ export type BlogRow = {
   avg_scroll: number;
 };
 export type FunnelRow = { step: string; sessions: number };
+export type VisitorRow = { kind: "new" | "returning" | "unknown"; sessions: number; wa_clicks: number };
+export type ConsentRow = { choice: "accepted" | "essential" | "none"; sessions: number };
+
+export const VISITOR_LABELS: Record<string, string> = {
+  new: "Primeira visita",
+  returning: "Já visitou antes",
+  unknown: "Sem identificação (recusou)",
+};
+export const CONSENT_LABELS: Record<string, string> = {
+  accepted: "Aceitou cookies",
+  essential: "Só o essencial",
+  none: "Não respondeu",
+};
 export type ButtonRow = {
   kind: "whatsapp_click" | "phone_click" | "maps_click";
   subject: string | null;
@@ -105,6 +118,7 @@ export type JourneyRow = {
   landing_path: string;
   referrer_host: string | null;
   converted: boolean;
+  is_returning: boolean;
   trail: TrailEvent[];
 };
 export type RecentRow = {

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
 import { useWhatsApp } from "@/components/whatsapp/WhatsAppProvider";
+import { labelSource } from "@/lib/analytics-types";
 
 /** CTA reutilizável: abre a Central de WhatsApp (modal de assuntos). */
 export function WhatsAppCTAButton({
@@ -24,7 +25,13 @@ export function WhatsAppCTAButton({
   const { open } = useWhatsApp();
 
   return (
-    <Button variant={variant} size={size} className={className} onClick={() => open(source)}>
+    <Button
+      variant={variant}
+      size={size}
+      className={className}
+      onClick={() => open(source)}
+      data-track={`Abrir Central: ${labelSource(source)}`}
+    >
       {withIcon && <WhatsAppIcon className="size-4.5" />}
       {children}
     </Button>

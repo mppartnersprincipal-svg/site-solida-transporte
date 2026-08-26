@@ -52,6 +52,20 @@ export default function PoliticaDeCookiesPage() {
                 de campanhas. Esses cookies só são utilizados mediante o seu
                 consentimento no aviso exibido no site.
               </li>
+              <li>
+                <strong>Medição própria, anônima e sem cookies:</strong> para
+                entender como o site é usado, registramos em servidores
+                próprios estatísticas de navegação — páginas visitadas, tempo
+                de leitura, cliques em botões, origem da visita (por exemplo,
+                anúncio ou busca), tipo de dispositivo e cidade aproximada. Não
+                gravamos o seu endereço IP nem qualquer dado que permita
+                identificá-lo. Um código temporário existe apenas enquanto a
+                aba está aberta. Para saber se uma visita é de alguém que já
+                esteve aqui, guardamos no seu navegador um código aleatório,
+                sem nenhum dado pessoal, por até 13 meses — ele não é criado
+                (e é apagado, se existir) quando você escolhe{" "}
+                <strong>&ldquo;Só o essencial&rdquo;</strong> no aviso.
+              </li>
             </ul>
 
             <h2 className={heading}>3. Como gerenciar cookies</h2>

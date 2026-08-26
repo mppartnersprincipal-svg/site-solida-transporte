@@ -7,6 +7,7 @@ import type {
   CampaignRow,
   ChannelRow,
   ClickRow,
+  ConsentRow,
   DailyRow,
   DeviceRow,
   FunnelRow,
@@ -17,6 +18,7 @@ import type {
   PageRow,
   PhoneRow,
   RecentRow,
+  VisitorRow,
   WhatsAppRow,
 } from "@/lib/analytics-types";
 
@@ -169,3 +171,24 @@ export const getJourneys = (r: Range, onlyConverted = true, limit = 50) =>
     p_limit: limit,
   });
 export const getRecent = (limit = 50) => rpc<RecentRow>("analytics_recent", { p_limit: limit });
+export const getVisitors = (r: Range) => rpc<VisitorRow>("analytics_visitors", base(r));
+export const getConsent = (r: Range) =>
+  rpc<ConsentRow>("analytics_consent", {
+    p_from: r.from.toISOString(),
+    p_to: r.to.toISOString(),
+  });
+
+/** Monta a query string atual com alterações (para links que preservam os filtros). */
+export function withParams(sp: SearchParams, changes: Record<string, string | null>): string {
+  const p = new URLSearchParams();
+  for (const [k, v] of Object.entries(sp)) {
+    const val = Array.isArray(v) ? v[0] : v;
+    if (val) p.set(k, val);
+  }
+  for (const [k, v] of Object.entries(changes)) {
+    if (v === null) p.delete(k);
+    else p.set(k, v);
+  }
+  const qs = p.toString();
+  return qs ? `?${qs}` : "";
+}

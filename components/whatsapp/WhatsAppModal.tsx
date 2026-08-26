@@ -145,6 +145,7 @@ export function WhatsAppModal({
                     target="_blank"
                     rel="noopener noreferrer"
                     className={itemClasses}
+                    data-track={`Central: ${activeSubject.label} › ${option.label}`}
                     onClick={() => {
                       trackWhatsAppClick({
                         subject: activeSubject.id,
@@ -192,6 +193,7 @@ export function WhatsAppModal({
                     <button
                       key={subject.id}
                       className={itemClasses}
+                      data-track={`Central: ${subject.label}`}
                       onClick={() => setActiveSubject(subject)}
                     >
                       {inner}
@@ -203,6 +205,7 @@ export function WhatsAppModal({
                       target="_blank"
                       rel="noopener noreferrer"
                       className={itemClasses}
+                      data-track={`Central: ${subject.label}`}
                       onClick={() => {
                         trackWhatsAppClick({ subject: subject.id, source: "modal" });
                         onClose();

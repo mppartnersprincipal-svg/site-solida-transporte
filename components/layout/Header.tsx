@@ -110,6 +110,7 @@ export function Header() {
             size="md"
             onClick={() => open("header")}
             className="max-sm:hidden"
+            data-track="Abrir Central: Botão do cabeçalho"
           >
             <WhatsAppIcon className="size-4" />
             Falar no WhatsApp
@@ -119,6 +120,7 @@ export function Header() {
           <button
             onClick={() => open("header-mobile")}
             aria-label="Falar no WhatsApp"
+            data-track="Abrir Central: Ícone do cabeçalho (celular)"
             className="inline-flex size-11 items-center justify-center rounded-full bg-whatsapp text-white transition-colors hover:bg-whatsapp-hover sm:hidden cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"
           >
             <WhatsAppIcon className="size-5" />
@@ -201,6 +203,7 @@ export function Header() {
                 variant="whatsapp"
                 size="lg"
                 className="w-full"
+                data-track="Abrir Central: Menu (celular)"
                 onClick={() => {
                   setDrawerOpen(false);
                   open("menu-mobile");

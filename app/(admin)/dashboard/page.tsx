@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import {
   getByChannel,
   getByDevice,
@@ -21,14 +22,25 @@ import {
   labelSubject,
 } from "@/lib/analytics-types";
 import { DashboardFilters } from "@/components/dashboard/DashboardFilters";
+import { SectionNav } from "@/components/dashboard/SectionNav";
 import { KpiGrid } from "@/components/dashboard/KpiGrid";
 import { ChartCard } from "@/components/dashboard/ChartCard";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { DataTable, InlineBar } from "@/components/dashboard/DataTable";
+import { CardSkeleton } from "@/components/dashboard/Skeleton";
 import { DailyAreaChart } from "@/components/dashboard/charts/DailyAreaChart";
 import { DonutChart } from "@/components/dashboard/charts/DonutChart";
 import { HorizontalBars } from "@/components/dashboard/charts/HorizontalBars";
 import { CHANNEL_COLORS, DEVICE_COLORS } from "@/components/dashboard/charts/chartTheme";
+import { AudienceSection } from "@/components/dashboard/sections/AudienceSection";
+import { ButtonsSection } from "@/components/dashboard/sections/ButtonsSection";
+import { JourneysSection } from "@/components/dashboard/sections/JourneysSection";
+import { HeatmapSection } from "@/components/dashboard/sections/HeatmapSection";
+import { GeoSection } from "@/components/dashboard/sections/GeoSection";
+import { CampaignsSection } from "@/components/dashboard/sections/CampaignsSection";
+import { BlogSection } from "@/components/dashboard/sections/BlogSection";
+import { ClicksSection } from "@/components/dashboard/sections/ClicksSection";
+import { LiveSection } from "@/components/dashboard/sections/LiveSection";
 
 export const metadata: Metadata = { title: "Dashboard | Área administrativa" };
 export const dynamic = "force-dynamic";
@@ -56,7 +68,6 @@ export default async function DashboardPage({
 
   const hasData = kpis.sessions > 0;
 
-  // Agregações leves para os donuts
   const waBySubject = Object.values(
     whatsapp.reduce<Record<string, { name: string; value: number }>>((acc, r) => {
       const key = r.subject ?? "—";
@@ -77,7 +88,7 @@ export default async function DashboardPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div id="kpis" className="flex flex-wrap items-end justify-between gap-4 scroll-mt-28">
         <div>
           <h1 className="text-2xl font-bold sm:text-3xl">Dashboard</h1>
           <p className="mt-1 text-sm text-ink-muted">
@@ -86,6 +97,8 @@ export default async function DashboardPage({
           </p>
         </div>
       </div>
+
+      <SectionNav />
 
       <DashboardFilters period={range.period} channel={range.channel} de={range.de} ate={range.ate} />
 
@@ -98,6 +111,7 @@ export default async function DashboardPage({
         />
       ) : null}
 
+      {/* Visitas por dia + origem */}
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <ChartCard
@@ -131,6 +145,12 @@ export default async function DashboardPage({
         </ChartCard>
       </div>
 
+      {/* Novo × recorrente · consentimento · funil */}
+      <Suspense fallback={<CardSkeleton height={220} />}>
+        <AudienceSection range={range} />
+      </Suspense>
+
+      {/* Dispositivo · WhatsApp por assunto · telefone */}
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <ChartCard id="dispositivo" title="Dispositivo" description="Celular, computador ou tablet" className="h-full">
           <DonutChart
@@ -142,12 +162,7 @@ export default async function DashboardPage({
             }))}
           />
         </ChartCard>
-        <ChartCard
-          id="whatsapp-assunto"
-          title="WhatsApp por assunto"
-          description="Qual botão da Central foi clicado"
-          className="h-full"
-        >
+        <ChartCard id="whatsapp-assunto" title="WhatsApp por assunto" description="Qual botão da Central foi clicado" className="h-full">
           <DonutChart totalLabel="cliques" data={waBySubject} emptyTitle="Nenhum clique no WhatsApp" />
         </ChartCard>
         <ChartCard
@@ -160,6 +175,17 @@ export default async function DashboardPage({
         </ChartCard>
       </div>
 
+      {/* Botões nomeados */}
+      <Suspense fallback={<CardSkeleton height={320} />}>
+        <ButtonsSection range={range} />
+      </Suspense>
+
+      {/* Jornadas */}
+      <Suspense fallback={<CardSkeleton height={400} />}>
+        <JourneysSection range={range} sp={sp} />
+      </Suspense>
+
+      {/* Páginas */}
       <div className="grid gap-4 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <ChartCard id="paginas" title="Páginas mais vistas" description="Top 10 por visualizações" className="h-full">
@@ -214,6 +240,36 @@ export default async function DashboardPage({
             )}
           </ChartCard>
         </div>
+      </div>
+
+      {/* Horários + geografia */}
+      <div className="grid gap-4 xl:grid-cols-2">
+        <Suspense fallback={<CardSkeleton height={220} />}>
+          <HeatmapSection range={range} />
+        </Suspense>
+        <Suspense fallback={<CardSkeleton height={220} />}>
+          <GeoSection range={range} />
+        </Suspense>
+      </div>
+
+      {/* Campanhas + blog */}
+      <div className="grid gap-4 xl:grid-cols-2">
+        <Suspense fallback={<CardSkeleton height={220} />}>
+          <CampaignsSection range={range} />
+        </Suspense>
+        <Suspense fallback={<CardSkeleton height={220} />}>
+          <BlogSection range={range} />
+        </Suspense>
+      </div>
+
+      {/* Cliques + ao vivo */}
+      <div className="grid gap-4 xl:grid-cols-2">
+        <Suspense fallback={<CardSkeleton height={320} />}>
+          <ClicksSection range={range} />
+        </Suspense>
+        <Suspense fallback={<CardSkeleton height={320} />}>
+          <LiveSection />
+        </Suspense>
       </div>
     </div>
   );
