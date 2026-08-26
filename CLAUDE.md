@@ -172,6 +172,12 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - **Google Tag no GTM usa `send_page_view=false`** — o site envia o próprio `page_view` (load + SPA). Se alguém criar uma tag GA4 à mão com pageview automático, mede em dobro
 - Novos componentes: `components/analytics/TrackedLink.tsx` (tel/mailto/social/maps — prop `track={{kind,...}}`) e `PostViewTracker.tsx` (dispara `blog_post_view` no post). Usados em /contato, Footer, políticas e `/blog/[slug]`. Links de WhatsApp continuam com `WaTrackedLink`
 - **Padrão para novos links:** wa.me → `WaTrackedLink`; tel/mailto/rede/mapa → `TrackedLink`; ação nova → adicionar função em `lib/analytics.ts`, linha no catálogo, gatilho+tag no `gen-container.mjs` e linha na tabela do `TRACKING.md`
+- **Configuração nas contas Google — CONCLUÍDA e publicada em 26/08/2026:**
+  - GA4: propriedade nova `Sólida Transporte` (ID 551826887, stream `G-TQHKY7G5TL`), vinculada à conta Ads. Eventos principais marcados: `whatsapp_click`, `phone_click`, `whatsapp_central_open`. 9 dimensões personalizadas (escopo evento): source, subject, option, page, post_category, network, unit, percent_scrolled, consent_choice
+  - Google Ads: conta antiga reaproveitada (`339-219-3354`, conversion ID `17712344467` — **sem prefixo AW- no GTM**, ele adiciona sozinho). 3 ações de conversão criadas (rótulos no `gen-container.mjs`)
+  - **Armadilha resolvida:** o `AW-17712344467` estava COMBINADO na "Tag do Google" do site antigo (`G-HJNXDMQD09`, propriedades "Site de São Paulo"/"Site DF e GO"), então o site novo mandava dados para os GA4 antigos. Foi separado numa tag própria **"Google Ads – Sólida" (`GT-MQDT5BXQ`)** com destino Ads. Tag Assistant deve mostrar `GTM-MKR53GH3 | G-TQHKY7G5TL | GT-MQDT5BXQ` — se voltar a aparecer `G-HJNXDMQD09`, a combinação voltou
+  - Container GTM publicado (versão "GA4 + Google Ads"). Validado no Tag Assistant: page_view (load + SPA), consent default→update, whatsapp_central_open, whatsapp_click, phone_click, scroll_depth, remarketing, conversion linker e as 3 conversões Ads
+  - Decisão: números de telefone do rodapé continuam abrindo WhatsApp (`whatsapp_click` subject=unidade source=footer); `tel:` real só em /contato
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
