@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Diferenciais",
   alternates: { canonical: "/diferenciais" },
   description:
-    "Oito motivos para transportar com a Sólida: 32 anos de mercado, mesmo CNPJ desde a fundação, rapidez na coleta e na entrega, frota própria, seguro de carga, atendimento próximo e transparência total.",
+    "Dez motivos para transportar com a Sólida: 32 anos de mercado, mesmo CNPJ desde a fundação, rapidez na coleta e na entrega, frota própria, seguros de carga, frota e ambiental, atendimento próximo e transparência total.",
 };
 
 export default function DiferenciaisPage() {
@@ -19,15 +19,15 @@ export default function DiferenciaisPage() {
       <PageHero
         image="/assets/hero-diferenciais.jpg"
         eyebrow="Diferenciais"
-        title="Oito motivos para transportar com a Sólida"
+        title="Dez motivos para transportar com a Sólida"
         subtitle="Frete mais barato você encontra por aí. O que a gente oferece é prazo cumprido, carga segurada e uma empresa que atende quando você chama."
       />
 
-      {/* 8 diferenciais numerados */}
+      {/* 10 diferenciais numerados */}
       <section className="bg-surface py-16 sm:py-24">
         <Container>
           <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {DIFFERENTIALS.map(({ Icon, title, text }, i) => (
+            {DIFFERENTIALS.map(({ Icon, title }, i) => (
               <Reveal key={title} delay={i * 0.07} as="li" className="group relative h-full rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-action/30 hover:shadow-lg hover:shadow-brand-action/5">
                   <span
                     aria-hidden
@@ -39,7 +39,6 @@ export default function DiferenciaisPage() {
                     <Icon className="size-6" aria-hidden />
                   </span>
                   <h2 className="mt-4 text-base font-bold">{title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">{text}</p>
                 </Reveal>
             ))}
           </ol>
