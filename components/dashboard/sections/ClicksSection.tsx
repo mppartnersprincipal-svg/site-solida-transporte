@@ -21,6 +21,7 @@ export async function ClicksSection({ range }: { range: Range }) {
       ) : (
         <DataTable
           dense
+          minWidth={360}
           rows={rows}
           rowKey={(r, i) => `${r.label}-${i}`}
           columns={[

@@ -14,16 +14,19 @@ export function DataTable<T>({
   rows,
   rowKey,
   dense = false,
+  minWidth = 520,
 }: {
   columns: Column<T>[];
   rows: T[];
   rowKey: (row: T, index: number) => string;
   dense?: boolean;
+  /** Largura mínima em px antes de rolar horizontalmente */
+  minWidth?: number;
 }) {
   const pad = dense ? "px-3 py-2" : "px-4 py-3";
   return (
     <div className="overflow-x-auto rounded-xl border border-line">
-      <table className="w-full min-w-[520px] text-left text-sm">
+      <table className="w-full text-left text-sm" style={{ minWidth }}>
         <thead className="bg-surface-alt">
           <tr className="text-xs font-semibold tracking-wide text-ink-muted uppercase">
             {columns.map((c) => (

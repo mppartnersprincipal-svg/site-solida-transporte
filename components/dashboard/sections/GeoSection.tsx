@@ -55,6 +55,7 @@ export async function GeoSection({ range }: { range: Range }) {
             {known.length ? (
               <DataTable
                 dense
+                minWidth={300}
                 rows={known.slice(0, 15)}
                 rowKey={(r) => `${r.region}-${r.city}`}
                 columns={[

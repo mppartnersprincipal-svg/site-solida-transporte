@@ -89,6 +89,20 @@ Marque cada item antes de apontar o domínio.
       evento chegar
 - [ ] GA4 em tempo real mostrando visitas após o deploy
 
+### Dashboard first-party (`/dashboard`)
+
+- [ ] `SUPABASE_SERVICE_ROLE_KEY` cadastrada na Vercel (Production + Preview) e
+      migrations `0003_analytics.sql` + `0004_analytics_visitors.sql` aplicadas
+- [ ] Abrir o site num celular, clicar num botão da Central → em até 30 s o
+      evento aparece em **Dashboard → Ao vivo** com cidade preenchida
+- [ ] `/dashboard` sem login → redireciona para `/login`; após login cai no
+      `/dashboard`; aba **Posts** continua abrindo o blog
+- [ ] Filtros (período/origem) mudam a URL; "Jornadas" mostra a trilha do clique
+- [ ] Banner "Só o essencial" → sessão continua contando, mas sem
+      "já visitou antes" (sem `solida-v` no localStorage)
+- [ ] Ao subir campanhas no Google Ads: pedir as UTMs geradas por grupo/anúncio
+      (ver `CLAUDE.md` → "UTMs do Google Ads") e conferir a seção **Campanhas**
+
 ### Performance
 - [ ] [PageSpeed Insights](https://pagespeed.web.dev) na URL de produção:
       meta **LCP < 2,5 s** no mobile (medir DEPOIS do deploy — localhost não vale)

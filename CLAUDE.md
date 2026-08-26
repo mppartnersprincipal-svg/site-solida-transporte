@@ -70,7 +70,7 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 | D1 | Dashboard: schema Supabase + ingestão `/api/collect` + coletor first-party | ✅ concluída (26/08/2026) — **aguarda migration 0003 + service role key** |
 | D2 | Dashboard: shell (abas Posts/Dashboard), filtros, KPIs, gráficos principais | ✅ concluída (26/08/2026) |
 | D3 | Dashboard: botões nomeados, jornadas, novo×recorrente, consentimento, heatmap, geografia, campanhas, blog, funil, cliques, ao vivo | ✅ concluída (26/08/2026) |
-| D4 | Dashboard: QA final, performance, docs, deploy | ⏳ aguardando "ok" |
+| D4 | Dashboard: QA final, performance, docs, deploy | ✅ concluída (26/08/2026) — **dashboard completo em produção** |
 
 ### Fase 0 — concluída (21/08/2026)
 
@@ -234,6 +234,15 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Seções novas** (`components/dashboard/sections/*`, async + `<Suspense>`): `AudienceSection` (donuts Novo × recorrente e **Cobertura de consentimento** — descrição diz o % que o GA4/Ads enxergam — + `FunnelBars` animado), **`ButtonsSection`** (cards por botão da Central com nome real + cards de telefone/mapa + 3 tabelas cruzadas: botão × origem, botão × onde foi clicado, botão × região), **`JourneysSection`** (lista de sessões: data, origem "Google Ads · campanha X · termo Y", dispositivo/browser/OS, cidade, tempo no site, "já visitou antes", trilha em chips `Home (48 s) → Abriu a Central (flutuante) → Quero fazer uma cotação (Goiânia · Central)`, `<details>` com todos os cliques; toggles via URL `?jornadas=todas` e `?botao=<subject>` — `withParams()` em `analytics-queries.ts` preserva os filtros; resumo em `lib/journey.ts`), `HeatmapSection` (grid 7×24 com `color-mix`, pico no subtítulo), `GeoSection` (estados com InlineBar — Recharts não cabia na coluna — + cidades), `CampaignsSection`, `BlogSection`, `ClicksSection` ("Tudo que foi clicado"), `LiveSection` + `LiveFeed` (client; polling 30 s via server action `getRecentEvents` em `app/(admin)/dashboard/actions.ts`, pausa com aba oculta). `SectionNav` sticky com âncoras
 - **Políticas atualizadas** (cookies §2 e privacidade §2): medição própria anônima sem cookies + código aleatório de 13 meses para novo×recorrente, não usado em "Só o essencial", base legal legítimo interesse (art. 7º, IX), retenção 13 meses
 - **QA:** tsc ok; lint só com erros pré-existentes; build ok; Playwright (usuário de QA temporário + seed de 240 sessões `qa-seed`, ambos removidos — **as sessões reais que já chegaram foram preservadas**): todas as seções renderizam, filtro de jornada por botão funciona, mobile ok (tabelas cruzadas rolam horizontalmente), `/politica-de-cookies` 200, zero erros de console. Observação: em headless, screenshots por seção incluem o header/nav sticky — cosmético
+
+### Fase D4 — concluída (26/08/2026)
+
+- **Produção validada logado** (usuário de QA temporário, apagado): `/dashboard` sem login → `/login`; login → `/dashboard`; todas as seções renderizam com os dados reais (2 visitas reais já registradas, com cidade); zero erros de console. Sessões reais preservadas
+- **Bundle público:** nenhum chunk do site contém Recharts/Tiptap/Supabase (verificado nos 12 chunks servidos pela Home em produção). Coletor = `lib/tracker.ts` **2,2 KB min+gz** + `attribution` 0,5 KB (só no servidor)
+- **Performance:** PageSpeed API pública estourou a cota diária (429) — **rodar o PageSpeed na URL real no dia seguinte** e registrar aqui (referência de 26/08 antes do coletor: mobile 95 / LCP 2,6 s / TBT 60 ms). A/B com Lighthouse local (mesma máquina, build `acf0abb` sem coletor × build atual): variação entre rodadas do MESMO build (74→52, 66→88) é maior que a diferença entre builds → impacto do coletor dentro do ruído; o coletor só registra listeners passivos após a hidratação. Lighthouse local desta máquina NÃO serve de referência absoluta (TBT inflado pelo throttle 4× da CPU)
+- **Polimento:** `DataTable` ganhou `minWidth` (tabelas estreitas de Geo/Cliques não forçam scroll); `GOLIVE.md` ganhou o checklist "Dashboard first-party" (§4)
+- **Como repetir o QA do dashboard:** `scratchpad/qa-user.cjs create|delete` (usa a service role do `.env.local` para criar/apagar `qa-dashboard@solidatransporte.com.br`), seed SQL marcado `utm_content='qa-seed'` (histórico de 26/08), Playwright com `executablePath` do Chromium do `ms-playwright` e `navigator.webdriver` mascarado quando o alvo é o coletor
+- **Próximos passos naturais (não iniciados):** gerar UTMs quando as campanhas forem criadas; Realtime do Supabase no "Ao vivo" (hoje polling 30 s); export CSV das tabelas; alerta por e-mail/WhatsApp quando um lead clicar em "Pedir cotação"; página de detalhe por jornada
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
