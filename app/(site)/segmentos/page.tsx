@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import {
   Bike,
-  Cog,
+  Boxes,
+  Car,
+  Cpu,
+  CupSoda,
   Dumbbell,
-  Home,
+  Factory,
   Monitor,
   Smartphone,
   Sparkles,
   UtensilsCrossed,
-  Wine,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
@@ -20,18 +22,18 @@ export const metadata: Metadata = {
   title: "Segmentos",
   alternates: { canonical: "/segmentos" },
   description:
-    "Segmentos que a Sólida atende melhor: acessórios para celular, autopeças, cosméticos, suplementação, informática, alimentos, vinhos e mais, sempre em cargas fracionadas entre SP, GO, DF e a cidade do RJ.",
+    "Segmentos que a Sólida atende melhor: eletrônicos, acessórios automotivos, cosméticos, suplementação, informática, alimentos, bebidas, indústria e mais, sempre em cargas fracionadas entre SP, GO, DF e a cidade do RJ.",
 };
 
 const SEGMENTS = [
   {
     Icon: Smartphone,
-    label: "Acessórios para celular",
+    label: "Eletrônicos",
     text: "Giro alto e reposição constante: revendedores não podem esperar semanas pela mercadoria.",
   },
   {
-    Icon: Cog,
-    label: "Autopeças",
+    Icon: Car,
+    label: "Acessórios para automóveis",
     text: "Reposição rápida para as lojas não perderem venda: peça parada é carro parado no cliente.",
   },
   {
@@ -45,8 +47,8 @@ const SEGMENTS = [
     text: "Produtos de valor agregado que exigem manuseio cuidadoso e prazo confiável.",
   },
   {
-    Icon: Home,
-    label: "Automação residencial",
+    Icon: Cpu,
+    label: "Automações em geral",
     text: "Equipamentos sensíveis que precisam chegar íntegros e no prazo da instalação.",
   },
   {
@@ -65,9 +67,19 @@ const SEGMENTS = [
     text: "Reposição frequente e previsível para o varejo não trabalhar com estoque parado.",
   },
   {
-    Icon: Wine,
-    label: "Vinhos",
+    Icon: CupSoda,
+    label: "Bebidas",
     text: "Carga frágil e valiosa: seguro de carga e cuidado no manuseio fazem a diferença.",
+  },
+  {
+    Icon: Factory,
+    label: "Indústria",
+    text: "Insumos e peças em lotes menores para manter a linha rodando sem estoque excessivo.",
+  },
+  {
+    Icon: Boxes,
+    label: "Outros",
+    text: "Se você envia caixas e volumes menores com recorrência, o seu segmento também cabe aqui.",
   },
 ];
 

@@ -1,13 +1,15 @@
 import {
   Bike,
-  Cog,
+  Boxes,
+  Car,
+  Cpu,
+  CupSoda,
   Dumbbell,
-  Home,
+  Factory,
   Monitor,
   Smartphone,
   Sparkles,
   UtensilsCrossed,
-  Wine,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -16,15 +18,17 @@ import { Reveal } from "@/components/motion/Reveal";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 const SEGMENTS = [
-  { Icon: Smartphone, label: "Acessórios para celular" },
-  { Icon: Cog, label: "Autopeças" },
+  { Icon: Smartphone, label: "Eletrônicos" },
+  { Icon: Car, label: "Acessórios para automóveis" },
   { Icon: Bike, label: "Acessórios para motos" },
   { Icon: Sparkles, label: "Cosméticos" },
-  { Icon: Home, label: "Automação residencial" },
+  { Icon: Cpu, label: "Automações em geral" },
   { Icon: Dumbbell, label: "Suplementação animal e alimentar" },
   { Icon: Monitor, label: "Equipamentos de informática" },
   { Icon: UtensilsCrossed, label: "Alimentos" },
-  { Icon: Wine, label: "Vinhos" },
+  { Icon: CupSoda, label: "Bebidas" },
+  { Icon: Factory, label: "Indústria" },
+  { Icon: Boxes, label: "Outros" },
 ];
 
 export function Segments() {
