@@ -184,7 +184,7 @@ proxy.ts            protege /admin/*, redireciona /login (convenção Next 16)
 - Search Console já verificado (propriedade de domínio), sitemap enviado, home indexada. Site antigo deixou ~1.060 URLs indexadas que vão cair como 404 (esperado)
 - **Export de Desempenho (3 meses) em `../solidatransporte.com.br-Performance-on-Search-2026-08-26/` (raiz do projeto, FORA do repo público)** (466 URLs, 2.432 cliques — 87% são busca de marca "solida transportes"). Cruzamento com o site novo revelou 404 em páginas com tráfego → `next.config.ts` ganhou `LEGACY_PAGES` (rastreamento 604 cliques → `/contato#rastreamento`, cotação, coleta, fatura → âncoras da Central; os cards de /contato têm `id={subject.id}` + `scroll-mt-28`) e `LEGACY_POST_SLUGS` (26 posts antigos com ≥3 cliques → `/blog`)
 - **Candidatos a remigrar por tráfego** (conteúdo antigo NÃO está no repo — só via Wayback Machine): ICMS interestadual (61 cliques), tipos de tratores (39), CIOT frota própria (32), 12 tipos de caminhões (28, 15k impressões), CT-e Sebrae (24), Renavam (14), consulta CT-e (12, 22k impressões). Decisão pendente do usuário
-- PageSpeed real ainda não medido (cota da API esgotada; rodar em pagespeed.web.dev)
+- **PageSpeed real (26/08/2026, mobile, Moto G Power emulado):** Desempenho 95, A11y 96, Práticas 100, SEO 100 — FCP 1,0s, **LCP 2,6s** (0,1s acima da meta; é a foto do hero), TBT 60ms, CLS 0,073. Decisão: não otimizar agora; reavaliar com dado de campo (CrUX) no Search Console → Core Web Vitals em ~28 dias. Se o LCP de campo ficar ruim, pré-carregar variante menor do hero (`sizes` mais justo)
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
