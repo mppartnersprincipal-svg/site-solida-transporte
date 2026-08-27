@@ -180,6 +180,7 @@ export const SOURCE_LABELS: Record<string, string> = {
   cta: "CTA no meio da página",
   modal: "Central de WhatsApp",
   contato: "Página Contato",
+  "a-empresa": "Página A Empresa",
   footer: "Rodapé",
 };
 
@@ -192,7 +193,7 @@ export const EVENT_LABELS: Record<string, string> = {
   phone_click: "Clicou no telefone",
   email_click: "Clicou no e-mail",
   social_click: "Clicou em rede social",
-  maps_click: "Abriu o mapa",
+  maps_click: "Abriu / mexeu no mapa",
   blog_post_view: "Leu post do blog",
   blog_filter: "Filtrou o blog",
   blog_load_more: "Carregou mais posts",

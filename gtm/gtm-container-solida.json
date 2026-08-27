@@ -685,6 +685,36 @@
                   {
                     "type": "TEMPLATE",
                     "key": "parameter",
+                    "value": "source"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - source}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "via"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - via}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
                     "value": "page"
                   },
                   {
@@ -2260,6 +2290,30 @@
         "accountId": "0",
         "containerId": "0",
         "variableId": "19",
+        "name": "DLV - via",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "via"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "dataLayerVersion",
+            "value": "2"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "20",
         "name": "DLV - post_slug",
         "type": "v",
         "parameter": [
@@ -2283,7 +2337,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "variableId": "20",
+        "variableId": "21",
         "name": "DLV - post_title",
         "type": "v",
         "parameter": [
@@ -2307,7 +2361,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "variableId": "21",
+        "variableId": "22",
         "name": "DLV - post_category",
         "type": "v",
         "parameter": [
@@ -2331,7 +2385,7 @@
       {
         "accountId": "0",
         "containerId": "0",
-        "variableId": "22",
+        "variableId": "23",
         "name": "DLV - loaded_count",
         "type": "v",
         "parameter": [

@@ -49,7 +49,12 @@ export function summarizeTrail(trail: TrailEvent[]): JourneyStep[] {
         steps.push({ kind: "phone", label: `Ligou: ${p.label ?? p.phone ?? ""}`, ts: e.ts });
         break;
       case "maps_click":
-        steps.push({ kind: "maps", label: `Mapa: ${p.unit ?? ""}`, ts: e.ts });
+        steps.push({
+          kind: "maps",
+          label: `${p.via === "embed" ? "Mexeu no mapa" : "Abriu o mapa"}: ${p.unit ?? ""}`,
+          detail: labelSource(String(p.source ?? "")),
+          ts: e.ts,
+        });
         break;
       case "email_click":
         steps.push({ kind: "email", label: "E-mail", detail: String(p.email ?? ""), ts: e.ts });

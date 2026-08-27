@@ -16,7 +16,7 @@
  * - phone_click          { phone, label, source, page }  — CONVERSÃO SECUNDÁRIA
  * - email_click          { email, source, page }
  * - social_click         { network, source, page }
- * - maps_click           { unit, page }
+ * - maps_click           { unit, source, via, page }    — via: link ("Ver no mapa") | embed (mexeu no mapa)
  * - blog_post_view       { post_slug, post_title, post_category }
  * - blog_filter          { post_category }
  * - blog_load_more       { post_category, loaded_count }
@@ -195,10 +195,22 @@ export function trackSocialClick({ network, source }: { network: string; source:
   window.gtag?.("event", "social_click", params);
 }
 
-/** Clique em "Ver no mapa" de uma unidade. */
-export function trackMapsClick(unit: string) {
+/**
+ * Mapa de uma unidade: `via: "link"` = clique em "Ver no mapa"/"Abrir no Google
+ * Maps"; `via: "embed"` = interagiu com o mapa incorporado (iframe). source =
+ * página/bloco onde aconteceu (contato, a-empresa).
+ */
+export function trackMapsClick({
+  unit,
+  source,
+  via = "link",
+}: {
+  unit: string;
+  source: string;
+  via?: "link" | "embed";
+}) {
   if (typeof window === "undefined") return;
-  const params = withPage({ unit });
+  const params = withPage({ unit, source, via });
   pushDataLayer({ event: "maps_click", ...params });
   window.gtag?.("event", "maps_click", params);
 }

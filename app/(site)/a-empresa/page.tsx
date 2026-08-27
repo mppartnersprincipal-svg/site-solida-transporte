@@ -8,7 +8,9 @@ import { Reveal } from "@/components/motion/Reveal";
 import { CompanyCarousel } from "@/components/empresa/CompanyCarousel";
 import { Counter } from "@/components/motion/Counter";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
-import { MATRIZ_MAP_EMBED, MATRIZ_MAPS_URL, UNITS } from "@/lib/units";
+import { BRASILIA_MAP_EMBED, BRASILIA_MAPS_URL, GUARULHOS_MAP_EMBED, GUARULHOS_MAPS_URL, MATRIZ_MAP_EMBED, MATRIZ_MAPS_URL, UNITS } from "@/lib/units";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
+import { TrackedMapEmbed } from "@/components/analytics/TrackedMapEmbed";
 
 export const metadata: Metadata = {
   title: "A Empresa",
@@ -48,12 +50,14 @@ const TIMELINE = [
   {
     Icon: MapPinned,
     year: "Hoje",
-    title: "Mais de 12 agências nos principais polos",
+    title: "Matriz em Goiânia, filiais em São Paulo e Brasília",
     text: "Três décadas depois, seguimos com o mesmo CNPJ e o mesmo jeito de trabalhar: você sempre sabe onde a sua carga está.",
   },
 ];
 
 const MATRIZ = UNITS.find((u) => u.role === "Matriz") ?? UNITS[0];
+const GUARULHOS = UNITS.find((u) => u.city.startsWith("Guarulhos")) ?? UNITS[1];
+const BRASILIA = UNITS.find((u) => u.city.startsWith("Brasília")) ?? UNITS[2];
 
 export default function AEmpresaPage() {
   return (
@@ -152,40 +156,75 @@ export default function AEmpresaPage() {
         </Container>
       </section>
 
-      {/* Onde estamos – Matriz */}
+      {/* Onde estamos – Matriz e filiais */}
       <section className="bg-surface-alt py-16 sm:py-24">
         <Container>
           <SectionHeading
             eyebrow="Onde estamos"
-            title="Matriz em Goiânia"
+            title="Matriz em Goiânia, filiais em Guarulhos e Brasília"
           />
-          <Reveal className="mx-auto max-w-5xl">
-            <div className="overflow-hidden rounded-2xl border border-line bg-surface">
-              <iframe
-                src={MATRIZ_MAP_EMBED}
-                title="Mapa da matriz da Sólida Transporte em Goiânia"
-                className="h-80 w-full sm:h-[420px]"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-              <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-                <p className="flex items-start gap-3 text-sm leading-relaxed text-ink-body">
-                  <MapPin className="mt-0.5 size-5 shrink-0 text-brand-action" aria-hidden />
-                  <span>{MATRIZ.address}</span>
-                </p>
-                <a
-                  href={MATRIZ_MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-action hover:text-brand-hover"
-                >
-                  Abrir no Google Maps
-                  <ExternalLink className="size-4" aria-hidden />
-                </a>
-              </div>
-            </div>
-          </Reveal>
+          <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                label: "Matriz · Goiânia - GO",
+                unit: MATRIZ.city,
+                embed: MATRIZ_MAP_EMBED,
+                title: "Mapa da matriz da Sólida Transporte em Goiânia",
+                address: MATRIZ.address,
+                href: MATRIZ_MAPS_URL,
+              },
+              {
+                label: "Filial São Paulo · Guarulhos - SP",
+                unit: GUARULHOS.city,
+                embed: GUARULHOS_MAP_EMBED,
+                title: "Mapa da filial da Sólida Transporte em Guarulhos",
+                address: GUARULHOS.address,
+                href: GUARULHOS_MAPS_URL,
+              },
+              {
+                label: "Filial Distrito Federal · Brasília - DF",
+                unit: BRASILIA.city,
+                embed: BRASILIA_MAP_EMBED,
+                title: "Mapa da filial da Sólida Transporte em Brasília",
+                address: BRASILIA.address,
+                href: BRASILIA_MAPS_URL,
+              },
+            ].map((unit, i) => (
+              <Reveal key={unit.label} delay={i * 0.1}>
+                <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+                  <TrackedMapEmbed
+                    unit={unit.unit}
+                    source="a-empresa"
+                    src={unit.embed}
+                    title={unit.title}
+                    className="h-72 w-full sm:h-80"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                  <div className="flex flex-col gap-4 p-5 sm:p-6">
+                    <p className="text-xs font-semibold tracking-[0.18em] uppercase text-brand-action">
+                      {unit.label}
+                    </p>
+                    <p className="flex items-start gap-3 text-sm leading-relaxed text-ink-body">
+                      <MapPin className="mt-0.5 size-5 shrink-0 text-brand-action" aria-hidden />
+                      <span>{unit.address}</span>
+                    </p>
+                    <TrackedLink
+                      href={unit.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      track={{ kind: "maps", unit: unit.unit, source: "a-empresa" }}
+                      className="inline-flex items-center gap-2 self-start text-sm font-semibold text-brand-action hover:text-brand-hover"
+                    >
+                      Abrir no Google Maps
+                      <ExternalLink className="size-4" aria-hidden />
+                    </TrackedLink>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </Container>
       </section>
 

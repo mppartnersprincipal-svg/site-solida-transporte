@@ -19,7 +19,7 @@ O site já empurra todos os eventos para o `dataLayer` (código em
 | `phone_click` | Clique em `tel:` (/contato) | `phone`, `label` (cidade), `source`, `page` | Conversão Ads (ligação) |
 | `email_click` | Clique em `mailto:` | `email`, `source`, `page` | GA4 |
 | `social_click` | Instagram / Facebook / LinkedIn | `network`, `source` (footer, contato), `page` | GA4 |
-| `maps_click` | "Ver no mapa" de uma unidade | `unit`, `page` | GA4 |
+| `maps_click` | "Ver no mapa"/"Abrir no Google Maps" de uma unidade **ou** interação com o mapa incorporado (iframe) | `unit`, `source` (contato, a-empresa), `via` (`link` \| `embed`), `page` | GA4 |
 | `blog_post_view` | Abriu um post | `post_slug`, `post_title`, `post_category` | GA4 (conteúdo) |
 | `blog_filter` | Filtrou categoria no /blog | `post_category` | GA4 |
 | `blog_load_more` | "Carregar mais artigos" | `post_category`, `loaded_count` | GA4 |
@@ -67,6 +67,7 @@ medido (decisão do projeto — sem cookies de medição sem consentimento).
    | Telefone | `phone` |
    | Rede social | `network` |
    | Unidade | `unit` |
+   | Forma de abrir o mapa | `via` |
    | Categoria do post | `post_category` |
    | Slug do post | `post_slug` |
    | Percentual de rolagem | `percent_scrolled` |

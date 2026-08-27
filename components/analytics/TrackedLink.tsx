@@ -11,7 +11,7 @@ type Kind =
   | { kind: "phone"; phone: string; label?: string; source: string }
   | { kind: "email"; email: string; source: string }
   | { kind: "social"; network: string; source: string }
-  | { kind: "maps"; unit: string };
+  | { kind: "maps"; unit: string; source: string };
 
 /**
  * Link comum com evento de analytics no clique (tel:, mailto:, redes sociais,
@@ -48,7 +48,7 @@ export function TrackedLink({
             trackSocialClick({ network: track.network, source: track.source });
             break;
           case "maps":
-            trackMapsClick(track.unit);
+            trackMapsClick({ unit: track.unit, source: track.source, via: "link" });
             break;
         }
         onClick?.(e);

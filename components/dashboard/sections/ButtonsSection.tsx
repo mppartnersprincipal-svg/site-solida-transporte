@@ -37,7 +37,7 @@ function pivot(rows: ButtonRow[], colKey: (r: ButtonRow) => string): { rows: Piv
 function buttonName(r: ButtonRow) {
   if (r.kind === "whatsapp_click") return labelSubject(r.subject);
   if (r.kind === "phone_click") return `Telefone: ${r.subject ?? "—"}`;
-  return `Mapa: ${r.subject ?? "—"}`;
+  return `${r.option === "embed" ? "Mapa interativo" : "Mapa"}: ${r.subject ?? "—"}`;
 }
 
 function PivotTable({ title, data, colLabel }: { title: string; data: ReturnType<typeof pivot>; colLabel: (c: string) => string }) {
@@ -146,7 +146,7 @@ export async function ButtonsSection({ range }: { range: Range }) {
                         {name.startsWith("Mapa") ? "Mapa" : "Ligação"}
                       </span>
                     </div>
-                    <p className="text-sm leading-snug font-semibold text-ink">{name.replace(/^(Telefone|Mapa): /, "")}</p>
+                    <p className="text-sm leading-snug font-semibold text-ink">{name.replace(/^(Telefone|Mapa interativo|Mapa): /, "")}</p>
                     <p className="font-display text-3xl font-bold tabular-nums text-ink">{fmtInt(clicks)}</p>
                   </div>
                 </Reveal>

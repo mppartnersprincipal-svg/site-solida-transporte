@@ -21,7 +21,8 @@ import {
   LinkedInIcon,
 } from "@/components/layout/SocialIcons";
 import { WA_SUBJECTS } from "@/lib/whatsapp";
-import { MATRIZ_MAP_EMBED, UNITS } from "@/lib/units";
+import { BRASILIA_MAP_EMBED, GUARULHOS_MAP_EMBED, MATRIZ_MAP_EMBED, UNITS } from "@/lib/units";
+import { TrackedMapEmbed } from "@/components/analytics/TrackedMapEmbed";
 import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -177,7 +178,7 @@ export default function ContatoPage() {
                     href={unit.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    track={{ kind: "maps", unit: unit.city }}
+                    track={{ kind: "maps", unit: unit.city, source: "contato" }}
                     className="mt-5 inline-flex items-center gap-1.5 self-start rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-action"
                   >
                     Ver no mapa
@@ -187,17 +188,54 @@ export default function ContatoPage() {
             ))}
           </ul>
 
-          {/* Mapa da matriz */}
+          {/* Mapas: matriz e filiais */}
           <Reveal delay={0.15} className="mt-10">
-            <div className="overflow-hidden rounded-2xl border border-line">
-              <iframe
-                src={MATRIZ_MAP_EMBED}
-                title="Mapa da matriz da Sólida Transporte em Goiânia"
-                className="h-80 w-full"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <TrackedMapEmbed
+                  unit="Goiânia - GO"
+                  source="contato"
+                  src={MATRIZ_MAP_EMBED}
+                  title="Mapa da matriz da Sólida Transporte em Goiânia"
+                  className="h-80 w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+                <figcaption className="border-t border-line px-4 py-3 text-sm font-semibold text-ink">
+                  Matriz · Goiânia - GO
+                </figcaption>
+              </figure>
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <TrackedMapEmbed
+                  unit="Guarulhos - SP"
+                  source="contato"
+                  src={GUARULHOS_MAP_EMBED}
+                  title="Mapa da filial da Sólida Transporte em Guarulhos"
+                  className="h-80 w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+                <figcaption className="border-t border-line px-4 py-3 text-sm font-semibold text-ink">
+                  Filial São Paulo · Guarulhos - SP
+                </figcaption>
+              </figure>
+              <figure className="overflow-hidden rounded-2xl border border-line">
+                <TrackedMapEmbed
+                  unit="Brasília - DF"
+                  source="contato"
+                  src={BRASILIA_MAP_EMBED}
+                  title="Mapa da filial da Sólida Transporte em Brasília"
+                  className="h-80 w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+                <figcaption className="border-t border-line px-4 py-3 text-sm font-semibold text-ink">
+                  Filial Distrito Federal · Brasília - DF
+                </figcaption>
+              </figure>
             </div>
           </Reveal>
         </Container>

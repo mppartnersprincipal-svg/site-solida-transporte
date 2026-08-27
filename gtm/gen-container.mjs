@@ -71,7 +71,7 @@ constant("CONST - Ads Label - phone_click", "S1OrCLHSqugcEJPb8_1B");
 constant("CONST - Ads Label - whatsapp_central_open", "v3B3CKyEtOgcEJPb8_1B");
 [
   "source", "subject", "option", "page", "page_path", "page_location", "page_title",
-  "consent_choice", "phone", "label", "email", "network", "unit",
+  "consent_choice", "phone", "label", "email", "network", "unit", "via",
   "post_slug", "post_title", "post_category", "loaded_count",
 ].forEach(dlv);
 
@@ -132,7 +132,7 @@ ga4Event("phone_click", "CE - phone_click", [
 ]);
 ga4Event("email_click", "CE - email_click", [["email", "{{DLV - email}}"], ["source", "{{DLV - source}}"], ["page", "{{DLV - page}}"]]);
 ga4Event("social_click", "CE - social_click", [["network", "{{DLV - network}}"], ["source", "{{DLV - source}}"], ["page", "{{DLV - page}}"]]);
-ga4Event("maps_click", "CE - maps_click", [["unit", "{{DLV - unit}}"], ["page", "{{DLV - page}}"]]);
+ga4Event("maps_click", "CE - maps_click", [["unit", "{{DLV - unit}}"], ["source", "{{DLV - source}}"], ["via", "{{DLV - via}}"], ["page", "{{DLV - page}}"]]);
 ga4Event("blog_post_view", "CE - blog_post_view", [
   ["post_slug", "{{DLV - post_slug}}"], ["post_title", "{{DLV - post_title}}"], ["post_category", "{{DLV - post_category}}"],
 ]);
