@@ -9,7 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 // Ordem visual: RJ isolado (só entregas locais) e SP no centro dos corredores GO ⇄ SP ⇄ DF
 const CITIES = [
-  { code: "RJ", name: "Rio de Janeiro (só na cidade)" },
+  { code: "RJ", name: "Rio de Janeiro" },
   { code: "GO", name: "Goiás" },
   { code: "SP", name: "São Paulo" },
   { code: "DF", name: "Distrito Federal" },
