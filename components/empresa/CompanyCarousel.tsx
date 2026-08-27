@@ -31,6 +31,31 @@ const SLIDES = [
     alt: "Caixas e volumes engradados prontos para despacho",
     caption: "Volumes prontos para despacho",
   },
+  {
+    src: "/assets/op-patio-frota.webp",
+    alt: "Carreta e caminhões baú da Sólida enfileirados em frente ao galpão",
+    caption: "Pátio e frota na sede em Goiânia",
+  },
+  {
+    src: "/assets/op-carregamento.webp",
+    alt: "Caixas paletizadas no galpão com carreta encostada na doca para carregamento",
+    caption: "Carregamento na doca",
+  },
+  {
+    src: "/assets/op-conferencia-patio.webp",
+    alt: "Colaborador confere documentos com prancheta diante de uma carreta da Sólida",
+    caption: "Conferência de saída",
+  },
+  {
+    src: "/assets/op-paleteira.webp",
+    alt: "Colaborador da Sólida organizando volumes em pallet com paleteira manual",
+    caption: "Separação de volumes",
+  },
+  {
+    src: "/assets/op-carreta.webp",
+    alt: "Carreta Iveco Stralis da Sólida Transporte estacionada no pátio",
+    caption: "Carreta para cargas de maior volume",
+  },
 ];
 
 const AUTOPLAY_MS = 4500;
