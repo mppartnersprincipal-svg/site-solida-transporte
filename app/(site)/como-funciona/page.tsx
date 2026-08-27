@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "Como Funciona",
   alternates: { canonical: "/como-funciona" },
   description:
-    "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF, atendimento à cidade do Rio de Janeiro e entrega em 2 a 3 dias úteis em capitais e regiões metropolitanas (3 a 4 no interior).",
+    "Como funciona a operação de cargas fracionadas da Sólida: coleta pontual, consolidação nos corredores SP ⇄ GO ⇄ DF, atendimento à cidade do Rio de Janeiro e entrega em 2 a 3 dias úteis em capitais e regiões metropolitanas (3 a 4 no interior, com prazo maior em algumas cidades).",
 };
 
 const FLOW = [
@@ -37,7 +37,7 @@ const FLOW = [
   {
     Icon: Store,
     title: "Lojista",
-    text: "Seus clientes recebem em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior) e conseguem programar a loja com base nesse prazo.",
+    text: "Seus clientes recebem em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior — algumas cidades têm prazo maior) e conseguem programar a loja com base nesse prazo.",
   },
 ];
 
@@ -61,7 +61,7 @@ const STEPS = [
   {
     Icon: PackageCheck,
     title: "Distribuição aos destinatários",
-    text: "Seus destinatários recebem em 2 a 3 dias úteis após a coleta em capitais e regiões metropolitanas, ou 3 a 4 no interior.",
+    text: "Seus destinatários recebem em 2 a 3 dias úteis após a coleta em capitais e regiões metropolitanas, ou 3 a 4 no interior — algumas cidades do interior têm prazo maior.",
   },
   {
     Icon: Eye,
@@ -77,7 +77,7 @@ export default function ComoFuncionaPage() {
         image="/assets/hero-como-funciona.jpg"
         eyebrow="Como funciona"
         title="Como funciona a nossa operação de cargas fracionadas"
-        subtitle="Você despacha, a gente coleta, consolida e entrega ao lojista em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior), com você acompanhando cada etapa."
+        subtitle="Você despacha, a gente coleta, consolida e entrega ao lojista em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior; algumas cidades têm prazo maior), com você acompanhando cada etapa."
         aside={<ForkliftEnter />}
       />
 

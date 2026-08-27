@@ -56,7 +56,7 @@ export function Hero() {
 
           <Reveal delay={0.2}>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
-              Levamos caixas e volumes menores de fabricantes e distribuidores até os lojistas. Coleta no dia combinado, entrega em 2 a 3 dias úteis em capitais e regiões metropolitanas (3 a 4 no interior) e você sabendo onde a carga está em cada etapa.
+              Levamos caixas e volumes menores de fabricantes e distribuidores até os lojistas. Coleta no dia combinado, entrega em 2 a 3 dias úteis em capitais e regiões metropolitanas (3 a 4 no interior; algumas cidades do interior têm prazo maior) e você sabendo onde a carga está em cada etapa.
             </p>
           </Reveal>
 

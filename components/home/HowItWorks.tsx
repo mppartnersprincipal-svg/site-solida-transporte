@@ -13,7 +13,7 @@ const STEPS = [
   },
   {
     title: "Entrega com acompanhamento",
-    text: "Seus destinatários recebem em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior). Se houver qualquer ocorrência no caminho, você fica sabendo na hora.",
+    text: "Seus destinatários recebem em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior — algumas cidades têm prazo maior). Se houver qualquer ocorrência no caminho, você fica sabendo na hora.",
   },
 ];
 
