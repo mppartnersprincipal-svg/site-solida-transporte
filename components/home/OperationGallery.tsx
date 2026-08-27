@@ -8,32 +8,52 @@ const PHOTOS = [
   {
     src: "/assets/op-galpao.jpg",
     alt: "Interior do galpão da Sólida com cargas organizadas em pallets",
-    caption: "Galpão de chegada e despacho em Goiânia",
     span: "md:col-span-2 md:row-span-2",
   },
   {
     src: "/assets/op-equipe.jpg",
     alt: "Equipe da Sólida conferindo mercadorias no galpão",
-    caption: "Conferência de carga",
     span: "",
   },
   {
     src: "/assets/op-frota.jpg",
     alt: "Caminhões da frota Sólida estacionados lado a lado",
-    caption: "Frota própria",
     span: "",
   },
   {
     src: "/assets/op-carga.jpg",
     alt: "Caixas e volumes engradados prontos para despacho",
-    caption: "Volumes prontos para despacho",
     span: "",
   },
   {
     src: "/assets/op-empilhadeira.jpg",
     alt: "Empilhadeira da Sólida ao lado de pallets de madeira",
-    caption: "Movimentação interna",
     span: "col-span-2 md:col-span-1",
+  },
+  {
+    src: "/assets/op-carreta.webp",
+    alt: "Carreta Iveco Stralis da Sólida Transporte estacionada no pátio",
+    span: "md:row-span-2",
+  },
+  {
+    src: "/assets/op-patio-frota.webp",
+    alt: "Carreta e caminhões baú da Sólida enfileirados em frente ao galpão",
+    span: "col-span-2",
+  },
+  {
+    src: "/assets/op-conferencia-patio.webp",
+    alt: "Colaborador confere documentos com prancheta diante de uma carreta da Sólida",
+    span: "",
+  },
+  {
+    src: "/assets/op-carregamento.webp",
+    alt: "Caixas paletizadas no galpão com carreta encostada na doca para carregamento",
+    span: "col-span-2",
+  },
+  {
+    src: "/assets/op-paleteira.webp",
+    alt: "Colaborador da Sólida organizando volumes em pallet com paleteira manual",
+    span: "",
   },
 ];
 
@@ -46,7 +66,7 @@ export function OperationGallery() {
           title="Galpão, frota e equipe próprios"
           subtitle="Do início ao fim, a operação é feita com frota e equipe próprias. Em algumas regiões do interior, contamos com parceiros homologados e certificados, com quem mantemos parceria de longa data."
         />
-        <ul className="grid auto-rows-[200px] grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:auto-rows-[220px]">
+        <ul className="grid grid-flow-dense auto-rows-[200px] grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:auto-rows-[220px]">
           {PHOTOS.map((p, i) => (
             <Reveal
               key={p.src}
@@ -61,13 +81,6 @@ export function OperationGallery() {
                 sizes="(min-width: 768px) 25vw, 50vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent"
-                aria-hidden
-              />
-              <span className="absolute inset-x-0 bottom-0 p-4 text-sm font-semibold text-white sm:text-base">
-                {p.caption}
-              </span>
             </Reveal>
           ))}
         </ul>
