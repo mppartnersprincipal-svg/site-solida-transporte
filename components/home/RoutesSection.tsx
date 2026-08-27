@@ -28,7 +28,7 @@ export function RoutesSection() {
         <SectionHeading
           eyebrow="Rotas de atuação"
           title="Especialistas na rota que o seu negócio usa"
-          subtitle="Atendemos apenas dois corredores rodoviários: São Paulo ⇄ Goiás e São Paulo ⇄ Distrito Federal, além de entregas dentro da cidade do Rio de Janeiro. Não interligamos Goiás a Distrito Federal nem Rio de Janeiro a São Paulo. Concentramos nossa operação nessas rotas para entregar mais rápido e com mais previsibilidade do que quem tenta atender o Brasil inteiro."
+          subtitle="Atendemos as seguintes rotas: São Paulo ⇄ Goiás e São Paulo ⇄ Distrito Federal. Também realizamos coletas e entregas em toda a Grande Rio. Concentramos nossa operação nessas regiões para oferecer mais agilidade, eficiência e previsibilidade em cada entrega."
         />
 
         {/* Barra de rotas: RJ isolado (só entregas locais) · GO ⇄ SP ⇄ DF com caminhão saindo de SP */}
