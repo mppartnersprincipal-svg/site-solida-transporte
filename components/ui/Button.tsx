@@ -4,7 +4,7 @@ type Variant = "primary" | "secondary" | "outline-light" | "whatsapp";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors cursor-pointer " +
+  "inline-flex max-w-full items-center justify-center gap-2 rounded-full text-center leading-snug font-semibold transition-colors cursor-pointer " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-action";
 
 const variants: Record<Variant, string> = {

@@ -39,7 +39,7 @@ export function Segments() {
           eyebrow="Segmentos"
           title="Feito para quem envia caixas e volumes menores"
         />
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {SEGMENTS.map(({ Icon, label }, i) => (
             <Reveal key={label} delay={i * 0.05} as="li" className="h-full">
               <Card3D
@@ -49,13 +49,13 @@ export function Segments() {
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-brand-action transition-transform duration-300 group-hover:scale-110">
                   <Icon className="size-5" aria-hidden />
                 </span>
-                <span className="text-sm font-semibold text-ink">{label}</span>
+                <span className="text-sm font-semibold leading-snug text-ink text-balance">{label}</span>
               </Card3D>
             </Reveal>
           ))}
         </ul>
         <Reveal delay={0.2} className="mt-10 text-center">
-          <WhatsAppCTAButton variant="primary" size="lg" withIcon={false}>
+          <WhatsAppCTAButton variant="primary" size="lg" withIcon={false} className="w-full sm:w-auto">
             Seu segmento está aqui? Fale no WhatsApp.
           </WhatsAppCTAButton>
         </Reveal>

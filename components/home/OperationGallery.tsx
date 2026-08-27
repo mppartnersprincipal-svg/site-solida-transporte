@@ -85,7 +85,7 @@ export function OperationGallery() {
           ))}
         </ul>
         <Reveal delay={0.2} className="mt-10 text-center">
-          <WhatsAppCTAButton variant="primary" size="lg" withIcon={false}>
+          <WhatsAppCTAButton variant="primary" size="lg" withIcon={false} className="w-full sm:w-auto">
             Quer conhecer a estrutura? Fale com a gente.
           </WhatsAppCTAButton>
         </Reveal>
