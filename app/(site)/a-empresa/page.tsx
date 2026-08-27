@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Award, BadgeCheck, ExternalLink, Flag, MapPin, MapPinned, ShieldCheck, Truck, Warehouse } from "lucide-react";
+import { Award, BadgeCheck, ExternalLink, Flag, Leaf, MapPin, MapPinned, ShieldCheck, Truck, Warehouse } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 const SEALS = [
   { Icon: BadgeCheck, label: "Mesmo CNPJ desde a fundação" },
   { Icon: ShieldCheck, label: "Seguro de carga" },
+  { Icon: Truck, label: "Seguro de frota" },
+  { Icon: Leaf, label: "Seguro ambiental" },
   { Icon: Award, label: "32 anos de mercado" },
 ];
 
