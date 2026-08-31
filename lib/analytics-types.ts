@@ -166,6 +166,7 @@ export const SUBJECT_LABELS: Record<string, string> = Object.fromEntries(
 );
 SUBJECT_LABELS.unidade = "WhatsApp da unidade";
 SUBJECT_LABELS.juridico = "Jurídico";
+SUBJECT_LABELS.financeiro = "Financeiro e faturas"; // removido da Central em 31/08/2026; rótulo p/ dados antigos
 
 /** source do whatsapp_click / whatsapp_central_open → onde o clique aconteceu */
 export const SOURCE_LABELS: Record<string, string> = {

@@ -21,7 +21,7 @@ const LEGACY_PAGES: Record<string, string> = {
   "rastreamento-de-mercadorias": "/contato#rastreamento", // 604 cliques/3 meses
   "cotacao-de-frete-rodoviario": "/contato#cotacao",
   "pedido-de-coleta": "/contato#coleta",
-  "pagamento-de-fatura": "/contato#financeiro",
+  "pagamento-de-fatura": "/contato", // assunto Financeiro removido da Central em 31/08/2026
 };
 
 // Posts antigos NÃO migrados mas que ainda recebiam cliques do Google

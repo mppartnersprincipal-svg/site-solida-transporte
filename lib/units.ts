@@ -1,4 +1,4 @@
-import { WHATSAPP_NUMBERS, waLink } from "@/lib/whatsapp";
+import { WA_DEFAULT_MESSAGE, WHATSAPP_NUMBERS, waLink } from "@/lib/whatsapp";
 
 /**
  * Unidades da Sólida — dados do site atual (auditoria em solidatransportedoc).
@@ -41,7 +41,7 @@ export const UNITS: Unit[] = [
     phoneLabel: "(62) 3206-8100",
     phoneHref: "tel:+556232068100",
     email: "comercial@solidatransporte.com.br",
-    waHref: waLink(WHATSAPP_NUMBERS.goianiaComercial, "Olá! Vim pelo site da Sólida."),
+    waHref: waLink(WHATSAPP_NUMBERS.goianiaComercial, WA_DEFAULT_MESSAGE),
     mapsUrl: MATRIZ_MAPS_URL,
   },
   {
@@ -52,7 +52,7 @@ export const UNITS: Unit[] = [
     phoneLabel: "(11) 3936-1258",
     phoneHref: "tel:+551139361258",
     email: "coletasp@solidatransporte.com.br",
-    waHref: waLink(WHATSAPP_NUMBERS.coletaSP, "Olá! Vim pelo site da Sólida."),
+    waHref: waLink(WHATSAPP_NUMBERS.coletaSP, WA_DEFAULT_MESSAGE),
     mapsUrl: GUARULHOS_MAPS_URL,
   },
   {
@@ -63,7 +63,7 @@ export const UNITS: Unit[] = [
     phoneLabel: "(61) 3361-7772",
     phoneHref: "tel:+556133617772",
     email: "comercialdf@solidatransporte.com.br",
-    waHref: waLink(WHATSAPP_NUMBERS.brasiliaComercial, "Olá! Vim pelo site da Sólida."),
+    waHref: waLink(WHATSAPP_NUMBERS.brasiliaComercial, WA_DEFAULT_MESSAGE),
     mapsUrl: BRASILIA_MAPS_URL,
   },
 ];

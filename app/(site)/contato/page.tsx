@@ -7,7 +7,6 @@ import {
   MessageCircle,
   PackageSearch,
   Phone,
-  Receipt,
   Truck,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -32,14 +31,13 @@ export const metadata: Metadata = {
   title: "Contato",
   alternates: { canonical: "/contato" },
   description:
-    "Fale com a Sólida Transporte pelo WhatsApp certo para o seu assunto (cotação, coleta, rastreamento, financeiro ou jurídico) ou visite nossas unidades em Goiânia, Guarulhos e Brasília.",
+    "Fale com a Sólida Transporte pelo WhatsApp certo para o seu assunto (cotação, coleta ou rastreamento) ou visite nossas unidades em Goiânia, Guarulhos e Brasília.",
 };
 
 const SUBJECT_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   cotacao: Calculator,
   coleta: Truck,
   rastreamento: PackageSearch,
-  financeiro: Receipt,
   outros: MessageCircle,
 };
 

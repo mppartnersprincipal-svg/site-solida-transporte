@@ -20,6 +20,10 @@ export function waLink(number: string, message: string) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
+/** Mensagem padrão de todos os CTAs do site (pedido do cliente, 31/08/2026). */
+export const WA_DEFAULT_MESSAGE =
+  "Olá, vim do site e gostaria de fazer uma cotação!";
+
 export type WaOption = {
   label: string;
   description?: string;
@@ -44,17 +48,11 @@ export const WA_SUBJECTS: WaSubject[] = [
     options: [
       {
         label: "Goiânia e região (Luana)",
-        href: waLink(
-          WHATSAPP_NUMBERS.goianiaComercial,
-          "Olá! Quero uma cotação de frete de [origem] para [destino]. Tipo de mercadoria: ___"
-        ),
+        href: waLink(WHATSAPP_NUMBERS.goianiaComercial, WA_DEFAULT_MESSAGE),
       },
       {
         label: "Brasília e região (Ana Paula)",
-        href: waLink(
-          WHATSAPP_NUMBERS.brasiliaComercial,
-          "Olá! Quero uma cotação de frete de [origem] para [destino]. Tipo de mercadoria: ___"
-        ),
+        href: waLink(WHATSAPP_NUMBERS.brasiliaComercial, WA_DEFAULT_MESSAGE),
       },
     ],
   },
@@ -62,33 +60,18 @@ export const WA_SUBJECTS: WaSubject[] = [
     id: "coleta",
     label: "Solicitar coleta",
     description: "Agende a coleta da sua mercadoria",
-    href: waLink(
-      WHATSAPP_NUMBERS.coletaSP,
-      "Olá! Quero solicitar uma coleta. Endereço de coleta: ___"
-    ),
+    href: waLink(WHATSAPP_NUMBERS.coletaSP, WA_DEFAULT_MESSAGE),
   },
   {
     id: "rastreamento",
     label: "Rastrear uma carga",
     description: "Acompanhe onde está a sua mercadoria",
-    href: waLink(
-      WHATSAPP_NUMBERS.goianiaComercial,
-      "Olá! Quero rastrear uma carga. Nota fiscal ou CT-e: ___"
-    ),
-  },
-  {
-    id: "financeiro",
-    label: "Financeiro e faturas",
-    description: "Boletos, faturas e pagamentos",
-    href: waLink(
-      WHATSAPP_NUMBERS.financeiro,
-      "Olá! Preciso de ajuda com uma fatura/boleto."
-    ),
+    href: waLink(WHATSAPP_NUMBERS.goianiaComercial, WA_DEFAULT_MESSAGE),
   },
   {
     id: "outros",
     label: "Falar com outro departamento",
     description: "Outros assuntos e atendimento geral",
-    href: waLink(WHATSAPP_NUMBERS.goianiaComercial, "Olá! Preciso de ajuda com: ___"),
+    href: waLink(WHATSAPP_NUMBERS.goianiaComercial, WA_DEFAULT_MESSAGE),
   },
 ];

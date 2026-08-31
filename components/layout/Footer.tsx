@@ -9,7 +9,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
 import { FOOTER_LINKS } from "@/components/layout/nav-links";
-import { WA_SUBJECTS, WHATSAPP_NUMBERS, waLink } from "@/lib/whatsapp";
+import { WA_DEFAULT_MESSAGE, WA_SUBJECTS, WHATSAPP_NUMBERS, waLink } from "@/lib/whatsapp";
 import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 
@@ -18,19 +18,19 @@ const UNITS = [
     city: "Goiânia - GO",
     role: "Matriz",
     phoneLabel: "(62) 3206-3513",
-    href: waLink(WHATSAPP_NUMBERS.goianiaComercial, "Olá! Vim pelo site da Sólida."),
+    href: waLink(WHATSAPP_NUMBERS.goianiaComercial, WA_DEFAULT_MESSAGE),
   },
   {
     city: "São Paulo - SP",
     role: "Filial",
     phoneLabel: "(11) 3936-8284",
-    href: waLink(WHATSAPP_NUMBERS.coletaSP, "Olá! Vim pelo site da Sólida."),
+    href: waLink(WHATSAPP_NUMBERS.coletaSP, WA_DEFAULT_MESSAGE),
   },
   {
     city: "Brasília - DF",
     role: "Filial",
     phoneLabel: "(61) 99653-2064",
-    href: waLink(WHATSAPP_NUMBERS.brasiliaComercial, "Olá! Vim pelo site da Sólida."),
+    href: waLink(WHATSAPP_NUMBERS.brasiliaComercial, WA_DEFAULT_MESSAGE),
   },
 ];
 
