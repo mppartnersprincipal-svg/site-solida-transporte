@@ -25,7 +25,7 @@ export const WA_DEFAULT_MESSAGE =
   "Olá, vim do site e gostaria de fazer uma cotação!";
 
 /** Portal de rastreamento de cargas (link enviado pelo cliente, 01/09/2026). */
-export const TRACKING_URL = "https://solida.transp.app/";
+export const TRACKING_URL = "https://solida.transp.app/rastreamento";
 
 export type WaOption = {
   label: string;

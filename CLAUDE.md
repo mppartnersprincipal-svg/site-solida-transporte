@@ -251,7 +251,7 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 
 ## Rastreamento → portal externo — 01/09/2026
 
-- O assunto "Rastrear uma carga" da Central agora abre **https://solida.transp.app/** (portal de rastreamento, link do cliente) em nova aba, em vez de WhatsApp. `TRACKING_URL` + flag `external: true` no `WaSubject` (`lib/whatsapp.ts`)
+- O assunto "Rastrear uma carga" da Central agora abre **https://solida.transp.app/rastreamento** (portal de rastreamento, link do cliente; URL ajustada de / para /rastreamento no mesmo dia) em nova aba, em vez de WhatsApp. `TRACKING_URL` + flag `external: true` no `WaSubject` (`lib/whatsapp.ts`)
 - **Tracking:** clique em link externo NÃO dispara `whatsapp_click` (conversão do Ads) — modal checa `subject.external`; /contato e Footer renderizam `<a>` com `data-track="Portal de rastreamento (…)"` no lugar do `WaTrackedLink`. Fica o clique genérico first-party + outbound nativo do GTM
 - Padrão: futuro assunto externo na Central = `external: true` e os três pontos de render já tratam
 

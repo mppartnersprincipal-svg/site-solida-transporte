@@ -15,7 +15,7 @@ O site já empurra todos os eventos para o `dataLayer` (código em
 | `page_view` | Todo carregamento e toda troca de rota (SPA) | `page_path`, `page_location`, `page_title` | Pageview do GA4 + remarketing Ads |
 | `cookie_consent` | Clique no banner de cookies | `consent_choice` = `accepted` \| `essential` | Taxa de aceite |
 | `whatsapp_central_open` | Abriu o modal da Central de WhatsApp | `source` (header, float, hero, cta-final, post…), `page` | Conversão **secundária** Ads |
-| `whatsapp_click` | Clique em QUALQUER link wa.me | `subject` (cotacao, coleta, outros, unidade; financeiro existiu até 31/08/2026; rastreamento até 01/09/2026 — o botão agora abre o portal https://solida.transp.app/ e NÃO dispara whatsapp_click, só o clique genérico/outbound), `option` (região/atendente), `source` (modal, footer, contato), `page` | **Conversão principal** Ads + evento-chave GA4 |
+| `whatsapp_click` | Clique em QUALQUER link wa.me | `subject` (cotacao, coleta, outros, unidade; financeiro existiu até 31/08/2026; rastreamento até 01/09/2026 — o botão agora abre o portal https://solida.transp.app/rastreamento e NÃO dispara whatsapp_click, só o clique genérico/outbound), `option` (região/atendente), `source` (modal, footer, contato), `page` | **Conversão principal** Ads + evento-chave GA4 |
 | `phone_click` | Clique em `tel:` (/contato) | `phone`, `label` (cidade), `source`, `page` | Conversão Ads (ligação) |
 | `email_click` | Clique em `mailto:` | `email`, `source`, `page` | GA4 |
 | `social_click` | Instagram / Facebook / LinkedIn | `network`, `source` (footer, contato), `page` | GA4 |
