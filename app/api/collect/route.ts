@@ -167,6 +167,7 @@ export async function POST(request: NextRequest) {
     const referrerHost = hostOf(str(s.ref, 500));
     const utmSource = str(utm.source, 100);
     const utmMedium = str(utm.medium, 100);
+    const utmTerm = str(utm.term, 150);
     const gclid = s.gclid === true;
     const h = request.headers;
     const city = h.get("x-vercel-ip-city");
@@ -175,11 +176,11 @@ export async function POST(request: NextRequest) {
       id: sid,
       landing_path: str(s.path, 300) ?? "/",
       referrer_host: referrerHost,
-      channel: classifyChannel({ gclid, utmSource, utmMedium, referrerHost, siteHost }),
+      channel: classifyChannel({ gclid, utmSource, utmMedium, utmTerm, referrerHost, siteHost }),
       utm_source: utmSource,
       utm_medium: utmMedium,
       utm_campaign: str(utm.campaign, 150),
-      utm_term: str(utm.term, 150),
+      utm_term: utmTerm,
       utm_content: str(utm.content, 150),
       has_gclid: gclid,
       device: deviceType(ua, h.get("sec-ch-ua-mobile")),

@@ -20,6 +20,8 @@ export type AttributionInput = {
   gclid: boolean;
   utmSource?: string | null;
   utmMedium?: string | null;
+  /** utm_term cru — se vier "{keyword}" é ValueTrack não substituído (teste, não clique real) */
+  utmTerm?: string | null;
   /** Host do document.referrer (sem protocolo/path) */
   referrerHost?: string | null;
   /** Host do próprio site (para ignorar referrer interno) */
@@ -38,6 +40,14 @@ export function classifyChannel(input: AttributionInput): Channel {
   const site = (input.siteHost ?? "").toLowerCase();
 
   if (input.gclid) return "google_ads";
+
+  // Teste/visualização, não clique em anúncio: link aberto de dentro do painel
+  // do Ads (referrer ads.google.com) ou UTM com ValueTrack cru ("{keyword}").
+  // Clique real sempre chega com gclid e com o {keyword} já substituído.
+  const rawValueTrack = /\{\w+\}/.test(input.utmTerm ?? "");
+  const fromAdsPanel = ref === "ads.google.com";
+  if (fromAdsPanel || rawValueTrack) return "direct";
+
   if (source.includes("google") && PAID_MEDIUMS.has(medium)) return "google_ads";
   if (medium === "social" || medium === "paidsocial") return "social";
 

@@ -244,6 +244,11 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Como repetir o QA do dashboard:** `scratchpad/qa-user.cjs create|delete` (usa a service role do `.env.local` para criar/apagar `qa-dashboard@solidatransporte.com.br`), seed SQL marcado `utm_content='qa-seed'` (histórico de 26/08), Playwright com `executablePath` do Chromium do `ms-playwright` e `navigator.webdriver` mascarado quando o alvo é o coletor
 - **Próximos passos naturais (não iniciados):** gerar UTMs quando as campanhas forem criadas; Realtime do Supabase no "Ao vivo" (hoje polling 30 s); export CSV das tabelas; alerta por e-mail/WhatsApp quando um lead clicar em "Pedir cotação"; página de detalhe por jornada
 
+## Classificação de Ads blindada contra testes — 01/09/2026
+
+- `classifyChannel()` (`lib/attribution.ts`) agora devolve `direct` quando o referrer é `ads.google.com` (link aberto de dentro do painel) ou quando `utm_term` vem com ValueTrack cru (`{keyword}`) — clique real em anúncio sempre chega com `gclid` e com o termo substituído. `/api/collect` passa `utmTerm`. Motivo: o usuário testou as URLs com UTM e o dashboard mostrou "conversões de Google Ads" antes de a campanha ativar; as 4 sessões de teste (01/09, Goiânia, desktop) foram apagadas do banco com autorização
+- Campanha real criada pelo usuário: `[MP] - [S] - São Paulo - Goiás` → UTMs `utm_campaign=mp-s-sao-paulo-goias`, `utm_content` = `sp-para-goias` | `goias-para-sp` | `sp-para-goiania` (+ sitelinks `sitelink-rotas/contato/segmentos`), destinos nas páginas `/frete/…`
+
 ## Rastreamento → portal externo — 01/09/2026
 
 - O assunto "Rastrear uma carga" da Central agora abre **https://solida.transp.app/** (portal de rastreamento, link do cliente) em nova aba, em vez de WhatsApp. `TRACKING_URL` + flag `external: true` no `WaSubject` (`lib/whatsapp.ts`)
