@@ -205,7 +205,11 @@ export function WhatsAppModal({
                       className={itemClasses}
                       data-track={`Central: ${subject.label}`}
                       onClick={() => {
-                        trackWhatsAppClick({ subject: subject.id, source: "modal" });
+                        // Link externo (portal de rastreamento) não é conversão
+                        // de WhatsApp — fica só o clique genérico/outbound.
+                        if (!subject.external) {
+                          trackWhatsAppClick({ subject: subject.id, source: "modal" });
+                        }
                         onClose();
                       }}
                     >

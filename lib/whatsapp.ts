@@ -24,6 +24,9 @@ export function waLink(number: string, message: string) {
 export const WA_DEFAULT_MESSAGE =
   "Olá, vim do site e gostaria de fazer uma cotação!";
 
+/** Portal de rastreamento de cargas (link enviado pelo cliente, 01/09/2026). */
+export const TRACKING_URL = "https://solida.transp.app/";
+
 export type WaOption = {
   label: string;
   description?: string;
@@ -38,6 +41,11 @@ export type WaSubject = {
   href?: string;
   /** Segundo nível: escolha de região/destino */
   options?: WaOption[];
+  /**
+   * Link externo (não é WhatsApp): abre em nova aba e NÃO dispara
+   * `whatsapp_click` (conversão do Ads) — só o clique genérico/outbound.
+   */
+  external?: boolean;
 };
 
 export const WA_SUBJECTS: WaSubject[] = [
@@ -65,8 +73,9 @@ export const WA_SUBJECTS: WaSubject[] = [
   {
     id: "rastreamento",
     label: "Rastrear uma carga",
-    description: "Acompanhe onde está a sua mercadoria",
-    href: waLink(WHATSAPP_NUMBERS.goianiaComercial, WA_DEFAULT_MESSAGE),
+    description: "Acompanhe sua mercadoria no portal de rastreamento",
+    href: TRACKING_URL,
+    external: true,
   },
   {
     id: "outros",

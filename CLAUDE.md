@@ -244,6 +244,20 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Como repetir o QA do dashboard:** `scratchpad/qa-user.cjs create|delete` (usa a service role do `.env.local` para criar/apagar `qa-dashboard@solidatransporte.com.br`), seed SQL marcado `utm_content='qa-seed'` (histórico de 26/08), Playwright com `executablePath` do Chromium do `ms-playwright` e `navigator.webdriver` mascarado quando o alvo é o coletor
 - **Próximos passos naturais (não iniciados):** gerar UTMs quando as campanhas forem criadas; Realtime do Supabase no "Ao vivo" (hoje polling 30 s); export CSV das tabelas; alerta por e-mail/WhatsApp quando um lead clicar em "Pedir cotação"; página de detalhe por jornada
 
+## Rastreamento → portal externo — 01/09/2026
+
+- O assunto "Rastrear uma carga" da Central agora abre **https://solida.transp.app/** (portal de rastreamento, link do cliente) em nova aba, em vez de WhatsApp. `TRACKING_URL` + flag `external: true` no `WaSubject` (`lib/whatsapp.ts`)
+- **Tracking:** clique em link externo NÃO dispara `whatsapp_click` (conversão do Ads) — modal checa `subject.external`; /contato e Footer renderizam `<a>` com `data-track="Portal de rastreamento (…)"` no lugar do `WaTrackedLink`. Fica o clique genérico first-party + outbound nativo do GTM
+- Padrão: futuro assunto externo na Central = `external: true` e os três pontos de render já tratam
+
+## Landing pages de rota `/frete/[slug]` — 31/08/2026
+
+- **Motivação:** campanhas de Google Ads por rota (relatório de palavras-chave em `../Palavras Chaves - *.pdf`: "transportadora" converte mais que "frete"; "transportadora goiânia são paulo" é a campeã — 26 conv.; a direção inversa GO→SP teve 60% de conversão nos termos de pesquisa; "sp brasilia" também converteu)
+- **6 rotas** em `lib/freight-routes.ts` (dados) + template `app/(site)/frete/[slug]/page.tsx` (SSG) + hub `app/(site)/frete/page.tsx`: `sao-paulo-para-goiania`, `goiania-para-sao-paulo`, `sao-paulo-para-goias`, `sao-paulo-para-brasilia`, `brasilia-para-sao-paulo`, `sao-paulo-para-rio-de-janeiro` (RJ = só capital, qualificado na copy). **Adicionar rota nova = adicionar objeto no array** (H1/meta/answer/steps/FAQ/related)
+- **Estrutura da página:** PageHero (H1 = palavra-chave) → parágrafo-resposta direto (GEO/AI Overviews) + variações de busca em linguagem natural + 4 selos + CTA → card de prazo (sempre qualificado: 2–3 capital/RM, 3–4 interior, após a coleta) → 3 passos da rota → unidades da rota (de `UNITS`) → FAQ em `<details>` → rotas relacionadas → CTA final. JSON-LD: Service + FAQPage + BreadcrumbList
+- **Integrações:** sitemap.ts (hub + rotas), FOOTER_LINKS ganhou "Rotas de Frete", SOURCE_LABELS ganhou `frete-topo`/`frete-cta-final` (CTAs usam `WhatsAppCTAButton` com esses sources)
+- QA: build ok (37 páginas), smoke em `next start`: 200, title/H1 com a palavra-chave, JSON-LD presente, slug inexistente 404, sitemap com 7 URLs /frete
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria

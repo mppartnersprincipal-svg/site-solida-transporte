@@ -104,6 +104,20 @@ export default function ContatoPage() {
                           </WaTrackedLink>
                         ))}
                       </div>
+                    ) : subject.external ? (
+                      <a
+                        href={subject.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-track={`Portal de rastreamento (Página Contato)`}
+                        className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-line px-4 py-3 text-sm font-semibold text-ink transition-colors hover:border-whatsapp hover:bg-whatsapp/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <PackageSearch className="size-4 text-whatsapp" aria-hidden />
+                          Acessar o portal de rastreamento
+                        </span>
+                        <ChevronRight className="size-4 shrink-0 text-ink-muted" aria-hidden />
+                      </a>
                     ) : (
                       <WaTrackedLink
                         href={subject.href ?? "#"}

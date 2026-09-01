@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ShieldCheck } from "lucide-react";
+import { MapPin, PackageSearch, ShieldCheck } from "lucide-react";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -124,15 +124,28 @@ export function Footer() {
           <ul className="flex flex-col gap-2">
             {WA_SUBJECTS.map((subject) => (
               <li key={subject.id}>
-                <WaTrackedLink
-                  href={subject.href ?? subject.options?.[0]?.href ?? "#"}
-                  subject={subject.id}
-                  source="footer"
-                  className="inline-flex items-center gap-2 text-sm transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  <WhatsAppIcon className="size-3.5 text-whatsapp" />
-                  {subject.label}
-                </WaTrackedLink>
+                {subject.external ? (
+                  <a
+                    href={subject.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track="Portal de rastreamento (Rodapé)"
+                    className="inline-flex items-center gap-2 text-sm transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <PackageSearch className="size-3.5 text-whatsapp" aria-hidden />
+                    {subject.label}
+                  </a>
+                ) : (
+                  <WaTrackedLink
+                    href={subject.href ?? subject.options?.[0]?.href ?? "#"}
+                    subject={subject.id}
+                    source="footer"
+                    className="inline-flex items-center gap-2 text-sm transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <WhatsAppIcon className="size-3.5 text-whatsapp" />
+                    {subject.label}
+                  </WaTrackedLink>
+                )}
               </li>
             ))}
           </ul>
