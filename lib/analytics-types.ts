@@ -183,6 +183,8 @@ export const SOURCE_LABELS: Record<string, string> = {
   contato: "Página Contato",
   "a-empresa": "Página A Empresa",
   footer: "Rodapé",
+  "frete-topo": "Topo da página de rota",
+  "frete-cta-final": "CTA final da página de rota",
 };
 
 export const EVENT_LABELS: Record<string, string> = {
