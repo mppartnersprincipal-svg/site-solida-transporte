@@ -22,6 +22,7 @@ const UNITS = [
   },
   {
     city: "São Paulo - SP",
+    label: "São Paulo - SP / Rio de Janeiro - RJ",
     role: "Filial",
     phoneLabel: "(11) 3936-8284",
     href: waLink(WHATSAPP_NUMBERS.coletaSP, WA_DEFAULT_MESSAGE),
@@ -98,7 +99,7 @@ export function Footer() {
                 <MapPin className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden />
                 <div className="text-sm">
                   <p className="font-medium text-white">
-                    {unit.city}{" "}
+                    {unit.label ?? unit.city}{" "}
                     <span className="font-normal text-white/50">· {unit.role}</span>
                   </p>
                   <WaTrackedLink
