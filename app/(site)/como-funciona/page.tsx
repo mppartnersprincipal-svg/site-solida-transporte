@@ -13,7 +13,6 @@ import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
-import { ForkliftEnter } from "@/components/motion/ForkliftEnter";
 import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 
 export const metadata: Metadata = {
@@ -78,7 +77,6 @@ export default function ComoFuncionaPage() {
         eyebrow="Como funciona"
         title="Como funciona a nossa operação de cargas fracionadas"
         subtitle="Você despacha, a gente coleta, consolida e entrega ao lojista em 2 a 3 dias úteis (capital e região metropolitana) ou 3 a 4 (interior; algumas cidades têm prazo maior), com você acompanhando cada etapa."
-        aside={<ForkliftEnter />}
       />
 
       {/* Fluxo Fabricante → Sólida → Lojista */}

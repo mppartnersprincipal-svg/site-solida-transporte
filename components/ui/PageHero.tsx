@@ -19,7 +19,7 @@ export function PageHero({
   subtitle?: string;
   /** Caminho da foto de fundo (ex.: "/assets/hero-contato.jpg") */
   image?: string;
-  /** Elemento decorativo posicionado sobre o fundo, atrás do texto (ex.: ForkliftEnter) */
+  /** Elemento decorativo posicionado sobre o fundo, atrás do texto */
   aside?: React.ReactNode;
 }) {
   return (
