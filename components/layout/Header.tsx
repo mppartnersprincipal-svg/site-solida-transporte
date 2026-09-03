@@ -12,12 +12,13 @@ import {
   useReducedMotion,
   useScroll,
 } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, PackageSearch, X } from "lucide-react";
 import { NAV_LINKS } from "@/components/layout/nav-links";
-import { Button } from "@/components/ui/Button";
+import { Button, buttonClasses } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
 import { useWhatsApp } from "@/components/whatsapp/WhatsAppProvider";
+import { TRACKING_URL } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -105,6 +106,31 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Rastreamento de carga — texto completo em telas largas */}
+          <a
+            href={TRACKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="Portal de rastreamento (Cabeçalho)"
+            className={cn(buttonClasses("outline-light", "md"), "hidden xl:inline-flex")}
+          >
+            <PackageSearch className="size-4" aria-hidden />
+            Rastrear carga
+          </a>
+
+          {/* Rastreamento de carga — só ícone em telas menores */}
+          <a
+            href={TRACKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Rastrear carga"
+            title="Rastrear carga"
+            data-track="Portal de rastreamento (Ícone do cabeçalho)"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white/10 xl:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <PackageSearch className="size-5" aria-hidden />
+          </a>
+
           <Button
             variant="whatsapp"
             size="md"
@@ -198,6 +224,17 @@ export function Header() {
                   ))}
                 </ul>
               </nav>
+
+              <a
+                href={TRACKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="Portal de rastreamento (Menu celular)"
+                className={cn(buttonClasses("outline-light", "lg"), "mb-3 w-full")}
+              >
+                <PackageSearch className="size-5" aria-hidden />
+                Rastrear carga
+              </a>
 
               <Button
                 variant="whatsapp"
