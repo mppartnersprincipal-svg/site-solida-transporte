@@ -24,6 +24,7 @@ import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
 import { WaTrackedLink } from "@/components/whatsapp/WaTrackedLink";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { CitiesExplorer } from "@/components/apresentacao/CitiesExplorer";
+import { CitiesPrintList } from "@/components/apresentacao/CitiesPrintList";
 import { UNITS } from "@/lib/units";
 import { SERVED_CITIES } from "@/lib/cities";
 import { TRACKING_URL } from "@/lib/whatsapp";
@@ -247,9 +248,10 @@ export default function ApresentacaoPage() {
             title={`${TOTAL_CITIES} cidades em Goiás, Distrito Federal, São Paulo e Rio de Janeiro`}
             subtitle="Escolha de onde a carga parte, busque pelo nome da cidade ou filtre por estado. Cidades do interior fora da lista podem ser atendidas sob consulta."
           />
-          <Reveal>
+          <Reveal className="print:hidden">
             <CitiesExplorer />
           </Reveal>
+          <CitiesPrintList />
         </Container>
       </section>
 

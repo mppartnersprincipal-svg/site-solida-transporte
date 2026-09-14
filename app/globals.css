@@ -213,7 +213,16 @@
 }
 
 /* Impressão: a Apresentação Comercial vira PDF pelo "Imprimir" do navegador */
+@page {
+  size: A4;
+  margin: 10mm;
+}
+
 @media print {
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   header,
   footer,
   [data-print="hide"] {
@@ -226,6 +235,26 @@
     transform: none !important;
   }
   section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  li,
+  figure,
+  img,
+  picture,
+  .rounded-2xl,
+  [class*="aspect-"] {
     break-inside: avoid;
+  }
+  #cidades {
+    break-before: page;
+  }
+  a {
+    text-decoration: none;
   }
 }
