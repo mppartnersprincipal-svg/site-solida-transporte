@@ -263,6 +263,14 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Integrações:** sitemap.ts (hub + rotas), FOOTER_LINKS ganhou "Rotas de Frete", SOURCE_LABELS ganhou `frete-topo`/`frete-cta-final` (CTAs usam `WhatsAppCTAButton` com esses sources)
 - QA: build ok (37 páginas), smoke em `next start`: 200, title/H1 com a palavra-chave, JSON-LD presente, slug inexistente 404, sitemap com 7 URLs /frete
 
+## Página `/apresentacao` — apresentação comercial + PDF — 14/09/2026
+
+- **Motivação:** substituir os 3 PDFs da pasta `../Apresentação/` (apresentação comercial de 14 páginas com imagens de IA + 2 PDFs de cidades atendidas, 39 páginas só imagem) por uma página do site que o comercial envia por link e também exporta em PDF
+- **Estrutura:** `app/(site)/apresentacao/page.tsx` (11 blocos: hero, 3 números, sobre, missão/visão/valores, serviços, cidades atendidas, prazos, horários, unidades, CTA). Fotos reais de `public/assets` (op-equipe, op-galpao, op-carga, sede-frota); nada de imagem de IA
+- **Cidades:** `lib/cities.ts` (365 cidades: 256 partindo de SP → GO/DF; 109 partindo de Goiânia → SP/RJ) gerado pelo script `../Apresentação/gerar-cidades.py` a partir da planilha `Cidades_atendidas_Sao_Paulo_e_Goiania - Excel.xlsx`. **Para atualizar a lista: edite a planilha e rode o script.** `CitiesExplorer` (client): abas por origem, busca sem acento em todas as origens, filtro por UF, agrupado por letra
+- **PDF:** `CitiesPrintList` (server, `hidden print:block`) imprime as duas origens completas em 3 colunas, ordenadas; o explorador fica `print:hidden`. CSS `@media print` em `globals.css`: `@page A4`, oculta header/footer/`[data-print="hide"]` (WhatsAppFloat, CookieBanner), remove animações do Reveal, padding reduzido, `.rounded-2xl`/`[class*="aspect-"]`/`li` sem corte entre páginas, `#cidades` começa em página nova. Gerado com Chrome headless (`--print-to-pdf`, `--virtual-time-budget=15000`) → `../Apresentação/Apresentação Comercial Sólida - Site.pdf` (12 páginas). Regenerar sempre que a página mudar
+- **Integrações:** FOOTER_LINKS, sitemap.ts, `SOURCE_LABELS` (`apresentacao`) + `PAGE_LABELS` em `analytics-types.ts`; CTAs via `WhatsAppCTAButton`/`WaTrackedLink`, rastreamento via `<a data-track>` (link externo, não conta conversão)
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
