@@ -14,6 +14,7 @@ export const FOOTER_LINKS = [
   { label: "A Empresa", href: "/a-empresa" },
   { label: "Como Funciona", href: "/como-funciona" },
   { label: "Rotas de Frete", href: "/frete" },
+  { label: "Apresentação Comercial", href: "/apresentacao" },
   { label: "Segmentos", href: "/segmentos" },
   { label: "Diferenciais", href: "/diferenciais" },
   { label: "Blog", href: "/blog" },

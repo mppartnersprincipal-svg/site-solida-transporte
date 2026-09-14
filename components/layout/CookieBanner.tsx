@@ -35,6 +35,7 @@ export function CookieBanner() {
         <motion.div
           role="region"
           aria-label="Aviso de cookies"
+          data-print="hide"
           className="fixed inset-x-4 bottom-20 z-40 mx-auto max-w-2xl rounded-2xl border border-line bg-white p-4 shadow-2xl sm:bottom-6 sm:flex sm:items-center sm:gap-6 sm:p-5"
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

@@ -211,3 +211,21 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Impressão: a Apresentação Comercial vira PDF pelo "Imprimir" do navegador */
+@media print {
+  header,
+  footer,
+  [data-print="hide"] {
+    display: none !important;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  section {
+    break-inside: avoid;
+  }
+}

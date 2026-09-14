@@ -185,6 +185,7 @@ export const SOURCE_LABELS: Record<string, string> = {
   footer: "Rodapé",
   "frete-topo": "Topo da página de rota",
   "frete-cta-final": "CTA final da página de rota",
+  apresentacao: "Apresentação Comercial",
 };
 
 export const EVENT_LABELS: Record<string, string> = {
@@ -216,6 +217,7 @@ export const PAGE_LABELS: Record<string, string> = {
   "/segmentos": "Segmentos",
   "/diferenciais": "Diferenciais",
   "/contato": "Contato",
+  "/apresentacao": "Apresentação Comercial",
   "/blog": "Blog",
   "/politica-de-privacidade": "Política de Privacidade",
   "/politica-de-cookies": "Política de Cookies",
