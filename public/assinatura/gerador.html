@@ -80,6 +80,10 @@
 
       <label>Site</label>
       <input id="SITE" value="www.solidatransporte.com.br">
+
+      <label style="display:flex;align-items:center;gap:8px;margin-top:14px;cursor:pointer;font-size:13px;color:#1F2937;">
+        <input type="checkbox" id="CAMPANHA" checked style="width:auto;margin:0;"> Incluir campanha Setembro Amarelo (imagem + texto à direita)
+      </label>
     </form>
 
     <div class="actions">
@@ -148,6 +152,14 @@ const TEMPLATE = `<table cellpadding="0" cellspacing="0" border="0" role="presen
         </tr>
       </table>
     </td>
+    <!--CAMPANHA-->
+    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
+      <img src="https://www.solidatransporte.com.br/assinatura/campanha-setembro-amarelo.jpg" width="200" height="153" alt="Setembro Amarelo" style="display:block;border:0;width:200px;height:153px;">
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:bold;color:#B58900;padding:8px 0 4px 0;">Setembro Amarelo &middot; Valoriza&ccedil;&atilde;o da vida</div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#4B5563;">Para voc&ecirc;, colega, e sua fam&iacute;lia: tem dias que pesam mais. E est&aacute; tudo bem admitir isso. <b>Voc&ecirc; n&atilde;o precisa carregar esse peso sozinho, nem voc&ecirc;, nem sua fam&iacute;lia.</b> Falar &eacute; o primeiro passo.</div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;"><b>Ligue ou chame no WhatsApp: 188</b> (CVV, 24 horas, todos os dias)<br>Ou acesse: <a href="https://brcarga.com.br/telemedicina/" target="_blank" style="color:#B58900;text-decoration:none;font-weight:bold;">brcarga.com.br/telemedicina</a></div>
+    </td>
+    <!--/CAMPANHA-->
   </tr>
 </table>`;
 
@@ -169,6 +181,10 @@ function render() {
   };
   html = html.replace(/\{\{(\w+)\}\}/g, (_, k) => map[k] ?? "");
   if (!v.RAMAL) html = html.replace(/&nbsp;&nbsp;<span style="color:#6B7280;">Ramal <\/span>/, "");
+  // Campanha sazonal: remove o bloco inteiro quando desmarcado; senão só tira os marcadores
+  html = $("CAMPANHA").checked
+    ? html.replace(/\s*<!--\/?CAMPANHA-->/g, "")
+    : html.replace(/\s*<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/, "");
   $("preview").innerHTML = html;
   $("code").value = html;
   return html;
@@ -180,6 +196,7 @@ $("UNIDADE").addEventListener("change", () => {
   render();
 });
 FIELDS.forEach((k) => $(k).addEventListener("input", render));
+$("CAMPANHA").addEventListener("change", render);
 
 function flash(msg, ok = true) {
   const s = $("status");
