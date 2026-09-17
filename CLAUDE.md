@@ -271,6 +271,15 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **PDF:** `CitiesPrintList` (server, `hidden print:block`) imprime as duas origens completas em 3 colunas, ordenadas; o explorador fica `print:hidden`. CSS `@media print` em `globals.css`: `@page A4`, oculta header/footer/`[data-print="hide"]` (WhatsAppFloat, CookieBanner), remove animações do Reveal, padding reduzido, `.rounded-2xl`/`[class*="aspect-"]`/`li` sem corte entre páginas, `#cidades` começa em página nova. Gerado com Chrome headless (`--print-to-pdf`, `--virtual-time-budget=15000`) → `../Apresentação/Apresentação Comercial Sólida - Site.pdf` (12 páginas). Regenerar sempre que a página mudar
 - **Integrações:** FOOTER_LINKS, sitemap.ts, `SOURCE_LABELS` (`apresentacao`) + `PAGE_LABELS` em `analytics-types.ts`; CTAs via `WhatsAppCTAButton`/`WaTrackedLink`, rastreamento via `<a data-track>` (link externo, não conta conversão)
 
+## Apresentação institucional em PDF (estilo Romagnole) — 17/09/2026
+
+- **Motivação:** o sócio Rodrigo reprovou o PDF exportado da página `/apresentacao` ("cartão de visita precisa de identidade mais moderna") e mandou 3 referências em `../Apresentação/Referências/` (Romagnole 2026 = guia; Gerdau e XP = inspiração). Direção aprovada pelo usuário: Romagnole adaptada às cores da Sólida, PDF 16:9, sem imagem de IA
+- **Onde:** `../Apresentação/nova-apresentacao/` (fora do git): `build.py` (prepara assets → gera `deck.html` → imprime PDF com Chrome headless, `@page 1920×1080`) + `deck.css` (design system: cabeçalho com logo + "APRESENTAÇÃO INSTITUCIONAL 2026" + nº de página, rodapé vermelho, cards cinza chanfrados, fotos chanfradas, Sora/Inter self-hosted em `assets/fonts`). **Regenerar: `python build.py`** (17 pág., ~7 MB) → `../Apresentação/Apresentação Institucional Sólida 2026.pdf`
+- **Reaproveita do site:** `lib/cities.ts` (anexos com as 365 cidades), dados de `lib/units.ts` (copiados no `UNITS` do build), ícones Lucide lidos de `node_modules/lucide-react` (Instagram é SVG inline, o Lucide não tem marcas), fotos reais de `public/assets` + `../assets/Fotos Novas`
+- **Logo:** não existe logo vetorial no projeto (todos ≤ 260 px; `public/assets/logo.svg` NÃO é o logo da Sólida). O build recorta o logo do PDF antigo renderizado a 4× e gera máscara por saturação/luminância (`_logo_alpha`) → `logo-color.png` / `logo-white.png`. Fica levemente serrilhado em tamanho grande; **pedir o vetor à Sólida** (já em pendências)
+- **Logos de clientes:** extraídos da imagem da pág. 13 do PDF antigo (`CLIENT_BOXES`, 11 recortes); qualidade média
+- Slides: capa · conteúdo · quem somos · missão/visão/valores · números (32 anos / 365 cidades / 3 unidades) · serviços · passo a passo · segmentos · cobertura (diagrama SVG dos corredores) · principais praças · prazos e horários · unidades · clientes · contato (QR via `segno` para `/apresentacao`) · encerramento · 2 anexos de cidades
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
