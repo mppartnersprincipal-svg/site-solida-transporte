@@ -280,6 +280,11 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Logos de clientes:** extraídos da imagem da pág. 13 do PDF antigo (`CLIENT_BOXES`, 11 recortes); qualidade média
 - Slides: capa · conteúdo · quem somos · missão/visão/valores · números (32 anos / 365 cidades / 3 unidades) · serviços · passo a passo · segmentos · cobertura (diagrama SVG dos corredores) · principais praças · prazos e horários · unidades · clientes · contato (QR via `segno` para `/apresentacao`) · encerramento · 2 anexos de cidades
 
+## Ficha cadastral — Setembro Amarelo (17/09/2026)
+
+- **Decisão do usuário:** a ficha cadastral que a Sólida já usa (`../Ficha Cadastral/ficha_cadastral_solida_atualizada.pdf`, Filial SP, página única rasterizada) **NÃO deve ser redesenhada**. Um redesenho no padrão da apresentação foi feito e **reprovado** no mesmo dia (arquivos `build-ficha.py`, `ficha.css`, `ficha.html`, `assets/` e `Ficha Cadastral Sólida - Filial SP.pdf` ficaram na pasta e podem ser apagados)
+- **Entrega final:** `Ficha Cadastral Sólida - Setembro Amarelo.pdf` = página 1 original intocada + página 2 com a arte `novas proporções.png` centralizada (PyMuPDF). Na página 1 não existe faixa em branco maior que ~30 px, por isso a arte foi para uma 2ª página em vez de sobrepor o conteúdo
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
