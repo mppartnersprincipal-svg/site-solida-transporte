@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gerador de assinatura — Sólida Transporte</title>
+<style>
+  :root { --red:#E10600; --ink:#0E0E0E; --body:#1F2937; --muted:#6B7280; --line:#E5E7EB; --alt:#F7F7F8; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Inter, Arial, Helvetica, sans-serif; color:var(--body); background:var(--alt); }
+  header { background:var(--ink); color:#fff; padding:18px 28px; }
+  header h1 { margin:0; font-size:18px; font-weight:700; }
+  header p { margin:4px 0 0; font-size:13px; color:#cfcfcf; }
+  main { display:grid; grid-template-columns: 360px 1fr; gap:24px; padding:24px 28px; max-width:1200px; }
+  @media (max-width: 820px) { main { grid-template-columns:1fr; } }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px; }
+  .card h2 { margin:0 0 14px; font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  label { display:block; font-size:12px; font-weight:600; color:var(--muted); margin:10px 0 4px; }
+  input, select { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:inherit; color:var(--ink); }
+  input:focus { outline:2px solid var(--red); outline-offset:1px; border-color:transparent; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .hint { font-size:11px; color:var(--muted); margin-top:3px; }
+  .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+  button { padding:11px 16px; border:0; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; }
+  .primary { background:var(--red); color:#fff; }
+  .primary:hover { background:#B00000; }
+  .ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
+  .ghost:hover { background:var(--alt); }
+  #preview { padding:26px; border:1px dashed var(--line); border-radius:10px; background:#fff; overflow:auto; }
+  #status { font-size:13px; margin-top:10px; min-height:18px; color:#0a7a3a; }
+  textarea { width:100%; height:220px; font-family:Consolas, monospace; font-size:12px; border:1px solid var(--line); border-radius:8px; padding:10px; margin-top:8px; }
+  details summary { cursor:pointer; font-size:13px; color:var(--muted); margin-top:12px; }
+  ol.steps { font-size:13px; line-height:1.55; padding-left:18px; margin:8px 0 0; }
+  ol.steps li { margin-bottom:6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Gerador de assinatura de e-mail — Sólida Transporte</h1>
+  <p>Página de uso interno. Preencha os campos, clique em <b>Copiar assinatura</b> e cole no seu programa de e-mail. Nada é enviado a lugar nenhum: tudo roda aqui no seu computador.</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Dados do colaborador</h2>
+    <form id="f" autocomplete="off" onsubmit="return false">
+      <label>Nome</label>
+      <input id="NOME" value="Nome Sobrenome">
+
+      <label>Cargo</label>
+      <input id="CARGO" value="Analista Comercial">
+
+      <label>Cidade (unidade)</label>
+      <select id="UNIDADE">
+        <option value="Goiânia - GO|(62) 3206-8100">Goiânia - GO (Matriz)</option>
+        <option value="Guarulhos - SP|(11) 3936-1258">Guarulhos - SP (Filial São Paulo)</option>
+        <option value="Brasília - DF|(61) 3361-7772">Brasília - DF (Filial Distrito Federal)</option>
+        <option value="|">Outra…</option>
+      </select>
+      <input id="CIDADE" value="Goiânia - GO" style="margin-top:6px">
+
+      <div class="row">
+        <div>
+          <label>Fone</label>
+          <input id="FONE" value="(62) 3206-8100" placeholder="(62) 3206-8100">
+        </div>
+        <div>
+          <label>Ramal</label>
+          <input id="RAMAL" value="100" placeholder="100">
+        </div>
+      </div>
+
+      <label>WhatsApp</label>
+      <input id="WHATSAPP" value="(62) 9 9999-9999" placeholder="(62) 9 9999-9999">
+      <div class="hint">O link wa.me é montado sozinho a partir dos dígitos.</div>
+
+      <label>E-mail</label>
+      <input id="EMAIL" value="nome@solidatransporte.com.br">
+
+      <label>Site</label>
+      <input id="SITE" value="www.solidatransporte.com.br">
+    </form>
+
+    <div class="actions">
+      <button class="primary" id="copy">Copiar assinatura</button>
+      <button class="ghost" id="download">Baixar arquivo .htm</button>
+    </div>
+    <div id="status"></div>
+
+    <details>
+      <summary>Ver código HTML</summary>
+      <textarea id="code" readonly></textarea>
+    </details>
+  </section>
+
+  <section>
+    <div class="card">
+      <h2>Pré-visualização</h2>
+      <div id="preview"></div>
+    </div>
+
+    <div class="card" style="margin-top:24px">
+      <h2>Como instalar</h2>
+      <ol class="steps">
+        <li><b>Gmail (navegador):</b> clique em <b>Copiar assinatura</b> → no Gmail, ⚙️ <i>Ver todas as configurações</i> → <i>Assinatura</i> → <i>Criar nova</i> → cole (Ctrl+V) na caixa → defina como padrão para novos e-mails e respostas → <i>Salvar alterações</i>.</li>
+        <li><b>Outlook (Windows / novo Outlook / web):</b> <i>Configurações</i> → <i>Contas</i> → <i>Assinaturas</i> → nova assinatura → cole (Ctrl+V) → salvar. No Outlook clássico do Windows a logo aparece <b>parada</b> (ele não anima GIF); nos demais ela anima.</li>
+        <li><b>Apple Mail (Mac):</b> <i>Mail</i> → <i>Ajustes</i> → <i>Assinaturas</i> → <b>+</b> → desmarque <i>"Usar sempre minha fonte padrão"</i> → cole (Cmd+V).</li>
+        <li><b>Celular (Gmail/Outlook app):</b> a assinatura configurada no computador vale para o app do Gmail (mesma conta). No app do Outlook e no Mail do iPhone, cole a assinatura no campo de assinatura do app.</li>
+        <li>Envie um e-mail de teste para você mesmo e confira: logo animando, links de telefone, WhatsApp, e-mail e site funcionando.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<script>
+// Mesmo template de assinatura.html (mantenha os dois iguais ao alterar o layout).
+const TEMPLATE = `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;">
+  <tr>
+    <td valign="middle" style="padding:6px 18px 6px 0;">
+      <a href="https://www.solidatransporte.com.br/?utm_source=email&amp;utm_medium=assinatura" target="_blank" style="text-decoration:none;border:0;">
+        <img src="https://www.solidatransporte.com.br/assinatura/logo-animada.gif" width="190" height="74" alt="Sólida Transporte" style="display:block;border:0;outline:none;text-decoration:none;width:190px;height:74px;">
+      </a>
+    </td>
+    <td valign="middle" style="padding:6px 0 6px 18px;border-left:2px solid #E10600;">
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:20px;font-weight:bold;color:#E10600;">{{NOME}}</div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#6B7280;padding:0 0 8px 0;">{{CARGO}}</div>
+      <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+        <tr>
+          <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-cidade.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
+          <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;">{{CIDADE}}</td>
+        </tr>
+        <tr>
+          <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-fone.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
+          <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;"><a href="tel:{{FONE_HREF}}" style="color:#1F2937;text-decoration:none;">{{FONE}}</a>&nbsp;&nbsp;<span style="color:#6B7280;">Ramal {{RAMAL}}</span></td>
+        </tr>
+        <tr>
+          <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-whatsapp.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
+          <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;"><a href="https://wa.me/{{WHATSAPP_HREF}}" target="_blank" style="color:#1F2937;text-decoration:none;">{{WHATSAPP}}</a></td>
+        </tr>
+        <tr>
+          <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-email.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
+          <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;"><a href="mailto:{{EMAIL}}" style="color:#1F2937;text-decoration:none;">{{EMAIL}}</a></td>
+        </tr>
+        <tr>
+          <td valign="middle" width="22" style="padding:0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-site.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
+          <td valign="middle" style="padding:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;"><a href="https://www.solidatransporte.com.br/?utm_source=email&amp;utm_medium=assinatura" target="_blank" style="color:#E10600;text-decoration:none;font-weight:bold;">{{SITE}}</a></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>`;
+
+const FIELDS = ["NOME", "CARGO", "CIDADE", "FONE", "RAMAL", "WHATSAPP", "EMAIL", "SITE"];
+const $ = (id) => document.getElementById(id);
+
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const digits = (s) => s.replace(/\D/g, "");
+const withDDI = (s) => { const d = digits(s); return d.startsWith("55") && d.length >= 12 ? d : "55" + d; };
+
+// Sem ramal preenchido, a linha do telefone fica só com o fone.
+function render() {
+  const v = Object.fromEntries(FIELDS.map((k) => [k, $(k).value.trim()]));
+  let html = TEMPLATE;
+  const map = {
+    ...Object.fromEntries(FIELDS.map((k) => [k, esc(v[k])])),
+    FONE_HREF: "+" + withDDI(v.FONE),
+    WHATSAPP_HREF: withDDI(v.WHATSAPP),
+  };
+  html = html.replace(/\{\{(\w+)\}\}/g, (_, k) => map[k] ?? "");
+  if (!v.RAMAL) html = html.replace(/&nbsp;&nbsp;<span style="color:#6B7280;">Ramal <\/span>/, "");
+  $("preview").innerHTML = html;
+  $("code").value = html;
+  return html;
+}
+
+$("UNIDADE").addEventListener("change", () => {
+  const [cidade, fone] = $("UNIDADE").value.split("|");
+  if (cidade) { $("CIDADE").value = cidade; $("FONE").value = fone; }
+  render();
+});
+FIELDS.forEach((k) => $(k).addEventListener("input", render));
+
+function flash(msg, ok = true) {
+  const s = $("status");
+  s.style.color = ok ? "#0a7a3a" : "#B00000";
+  s.textContent = msg;
+  setTimeout(() => { if (s.textContent === msg) s.textContent = ""; }, 5000);
+}
+
+$("copy").addEventListener("click", async () => {
+  const html = render();
+  const text = FIELDS.map((k) => $(k).value.trim()).filter(Boolean).join("\n");
+  try {
+    if (navigator.clipboard && window.ClipboardItem) {
+      await navigator.clipboard.write([new ClipboardItem({
+        "text/html": new Blob([html], { type: "text/html" }),
+        "text/plain": new Blob([text], { type: "text/plain" }),
+      })]);
+    } else { throw new Error("sem ClipboardItem"); }
+    flash("Assinatura copiada! Agora cole (Ctrl+V) na caixa de assinatura do seu e-mail.");
+  } catch (e) {
+    // Fallback: seleciona a pré-visualização e copia como conteúdo formatado
+    const range = document.createRange();
+    range.selectNodeContents($("preview"));
+    const sel = window.getSelection();
+    sel.removeAllRanges(); sel.addRange(range);
+    const ok = document.execCommand("copy");
+    sel.removeAllRanges();
+    flash(ok ? "Assinatura copiada! Agora cole (Ctrl+V) na caixa de assinatura do seu e-mail."
+             : "Não consegui copiar automaticamente. Selecione a pré-visualização e copie com Ctrl+C.", ok);
+  }
+});
+
+$("download").addEventListener("click", () => {
+  const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Assinatura</title></head><body>\n${render()}\n</body></html>`;
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
+  const nome = $("NOME").value.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "assinatura";
+  a.download = `assinatura-solida-${nome}.htm`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+render();
+</script>
+</body>
+</html>

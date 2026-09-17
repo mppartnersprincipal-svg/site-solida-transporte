@@ -81,6 +81,12 @@ const nextConfig: NextConfig = {
         destination: "/blog",
         permanent: true,
       },
+      // Gerador de assinatura de e-mail (uso interno; arquivo estático em public/assinatura/)
+      {
+        source: "/assinatura",
+        destination: "/assinatura/gerador.html",
+        permanent: false,
+      },
     ];
   },
   // Evita que o Turbopack detecte lockfiles fora do projeto como raiz
@@ -105,6 +111,11 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        // Gerador de assinatura: uso interno, fora do Google
+        source: "/assinatura/gerador.html",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       {
         // Assets estáticos de public/ (fotos, vídeos da intro, logos).
         // Na Vercel o default é max-age=0; immutable é seguro porque a regra
