@@ -292,10 +292,12 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Logo:** reaproveita `../Apresentação/nova-apresentacao/assets/logo-color.png` (extraída do PDF antigo); quando vier o vetor da Sólida, trocar `LOGO_SRC` e rodar de novo
 - **Cuidado:** esta seção fica ANTES de "## Ficha cadastral" de propósito — outra sessão reescreve aquela seção inteira e já apagou esta duas vezes quando estava aninhada nela
 
-## Ficha cadastral — Setembro Amarelo (17/09/2026)
+## Ficha cadastral (17/09/2026)
 
-- **Decisão do usuário:** a ficha cadastral que a Sólida já usa (`../Ficha Cadastral/ficha_cadastral_solida_atualizada.pdf`, Filial SP, página única rasterizada) **NÃO deve ser redesenhada**. Um redesenho no padrão da apresentação foi feito e **reprovado** no mesmo dia (arquivos `build-ficha.py`, `ficha.css`, `ficha.html`, `assets/` e `Ficha Cadastral Sólida - Filial SP.pdf` ficaram na pasta e podem ser apagados)
-- **Entrega final:** `Ficha Cadastral Sólida - Setembro Amarelo.pdf` = **1 página A4**: a ficha original (via `show_pdf_page`, sem edição) reduzida a ~78% e centralizada no topo + a arte `novas proporções.png` na mesma largura logo abaixo. A versão em 2 páginas foi reprovada ("uma só página"). O conteúdo da ficha vai até 96% da altura, então não há como sobrepor a arte sem reduzir a ficha
+- **Histórico do dia:** (1) redesenho no estilo do deck (cards chanfrados, faixa vermelha, dois cards lado a lado) → **reprovado**; (2) PDF original + arte do Setembro Amarelo em 2ª página → reprovado ("uma só página"); (3) original reduzido a 78% + arte na mesma página (`Ficha Cadastral Sólida - Setembro Amarelo.pdf`, PyMuPDF) → aceito, mas o usuário pediu em seguida uma versão **moderna e minimalista**
+- **Versão atual:** `../Ficha Cadastral/Ficha Cadastral Sólida - Filial SP.pdf` (1 pág. A4, texto selecionável) — gerada por `build-ficha.py` + `ficha.css`: fundo branco, logo + "FICHA CADASTRAL / FILIAL SÃO PAULO" no cabeçalho, título Sora com traço vermelho, lista em UMA coluna (ícone Lucide outline vermelho · rótulo uppercase cinza · valor) com divisórias finas, mesma ordem de campos da ficha antiga, arte do Setembro Amarelo com cantos arredondados embaixo, rodapé site + Instagram. Vermelho só em acentos. **Regenerar: `python build-ficha.py`**
+- **Regra aprendida:** para a ficha, "modernizar" = minimalista e próximo da estrutura original (uma coluna, mesmos campos), não o visual pesado do deck. Dados no dict `UNIT` do script (copiados da ficha antiga, só com máscara nos números). Para GO/DF faltam IE/IM
+- A arte vem de `novas proporções.png`; o PDF antigo (`ficha_cadastral_solida_atualizada.pdf`) continua intacto
 
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
