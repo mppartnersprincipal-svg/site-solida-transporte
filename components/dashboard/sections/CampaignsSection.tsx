@@ -4,7 +4,7 @@ import { ChartCard } from "@/components/dashboard/ChartCard";
 import { DataTable, InlineBar } from "@/components/dashboard/DataTable";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 
-/** Campanhas / termos / anúncios do Google Ads (via UTM + gclid). */
+/** Visitas atribuídas a campanhas de anúncios pelo rastreamento do site. */
 export async function CampaignsSection({ range }: { range: Range }) {
   const rows = await getCampaigns(range);
   const max = Math.max(0, ...rows.map((r) => Number(r.sessions)));
@@ -13,15 +13,15 @@ export async function CampaignsSection({ range }: { range: Range }) {
   return (
     <ChartCard
       id="campanhas"
-      title="Campanhas do Google Ads"
-      description={total ? `${fmtInt(total)} visitas vindas de anúncios no período` : "Visitas com gclid/UTM de anúncio"}
+      title="Campanhas de anúncios no site"
+      description={total ? `${fmtInt(total)} visitas atribuídas a anúncios pelo site no período` : "Visitas identificadas pelos links das campanhas"}
       className="h-full"
     >
       {!rows.length ? (
         <EmptyState
           compact
-          title="Nenhuma visita do Google Ads no período"
-          hint="Quando as campanhas estiverem no ar com as UTMs, cada campanha, termo e anúncio aparece aqui."
+          title="Nenhuma visita atribuída a anúncios no período"
+          hint="As campanhas aparecem aqui quando seus links identificam a origem das visitas ao site."
         />
       ) : (
         <DataTable
@@ -34,7 +34,7 @@ export async function CampaignsSection({ range }: { range: Range }) {
               header: "Campanha · anúncio",
               render: (r) => (
                 <div className="min-w-44">
-                  <p className="font-semibold text-ink">{r.utm_campaign ?? "(sem utm_campaign)"}</p>
+                  <p className="font-semibold text-ink">{r.utm_campaign ?? "Campanha não identificada"}</p>
                   {r.utm_content ? <p className="text-xs text-ink-muted">{r.utm_content}</p> : null}
                 </div>
               ),
@@ -51,8 +51,8 @@ export async function CampaignsSection({ range }: { range: Range }) {
                 </div>
               ),
             },
-            { key: "wa", header: "WhatsApp", align: "right", render: (r) => fmtInt(r.wa_clicks) },
-            { key: "conv", header: "Conv.", align: "right", render: (r) => fmtPct(r.conv_rate ?? 0) },
+            { key: "wa", header: "Cliques WhatsApp", align: "right", render: (r) => fmtInt(r.wa_clicks) },
+            { key: "conv", header: "Visitas → WhatsApp", align: "right", render: (r) => fmtPct(r.conv_rate ?? 0) },
           ]}
         />
       )}

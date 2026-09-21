@@ -38,6 +38,7 @@ import { JourneysSection } from "@/components/dashboard/sections/JourneysSection
 import { HeatmapSection } from "@/components/dashboard/sections/HeatmapSection";
 import { GeoSection } from "@/components/dashboard/sections/GeoSection";
 import { CampaignsSection } from "@/components/dashboard/sections/CampaignsSection";
+import { GoogleAdsSection } from "@/components/dashboard/sections/GoogleAdsSection";
 import { BlogSection } from "@/components/dashboard/sections/BlogSection";
 import { ClicksSection } from "@/components/dashboard/sections/ClicksSection";
 import { LiveSection } from "@/components/dashboard/sections/LiveSection";
@@ -110,6 +111,17 @@ export default async function DashboardPage({
           hint="Os dados aparecem aqui assim que alguém acessar o site. Tente outro período ou remova o filtro de origem."
         />
       ) : null}
+
+      <Suspense
+        key={`google-ads-${range.from.toISOString()}-${range.to.toISOString()}`}
+        fallback={
+          <div role="status" aria-label="Carregando métricas do Google Ads">
+            <CardSkeleton height={400} />
+          </div>
+        }
+      >
+        <GoogleAdsSection range={range} />
+      </Suspense>
 
       {/* Visitas por dia + origem */}
       <div className="grid gap-4 lg:grid-cols-3">

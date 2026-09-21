@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:google-ads": "node --experimental-strip-types --conditions=react-server --experimental-test-isolation=none --test tests/google-ads.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",

@@ -1,12 +1,13 @@
 const SECTIONS = [
   { id: "kpis", label: "Visão geral" },
+  { id: "google-ads", label: "Google Ads" },
   { id: "origem", label: "Origem" },
   { id: "botoes", label: "Botões" },
   { id: "jornadas", label: "Jornadas" },
   { id: "paginas", label: "Páginas" },
   { id: "horarios", label: "Horários" },
   { id: "geo", label: "Cidades" },
-  { id: "campanhas", label: "Campanhas" },
+  { id: "campanhas", label: "Campanhas no site" },
   { id: "blog", label: "Blog" },
   { id: "ao-vivo", label: "Ao vivo" },
 ];

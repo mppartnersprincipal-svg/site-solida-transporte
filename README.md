@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+O dashboard administrativo inclui uma seção de métricas do Google Ads.
+Veja [como conectar a conta e validar os relatórios](docs/GOOGLE_ADS.md).
+
 ## Getting Started
 
 First, run the development server:

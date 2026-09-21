@@ -91,6 +91,10 @@ Marque cada item antes de apontar o domínio.
 
 ### Dashboard first-party (`/dashboard`)
 
+- [ ] Para exibir investimento, impressões e conversões do Google Ads, configurar
+      as variáveis privadas `GOOGLE_ADS_*` conforme [docs/GOOGLE_ADS.md](docs/GOOGLE_ADS.md)
+      e comparar os resultados da seção **Google Ads** com a conta no mesmo período.
+
 - [ ] `SUPABASE_SERVICE_ROLE_KEY` cadastrada na Vercel (Production + Preview) e
       migrations `0003_analytics.sql` + `0004_analytics_visitors.sql` aplicadas
 - [ ] Abrir o site num celular, clicar num botão da Central → em até 30 s o
