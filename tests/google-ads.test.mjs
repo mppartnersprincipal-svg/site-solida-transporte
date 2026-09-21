@@ -138,14 +138,14 @@ test("preserves fractional conversions and derives account ratios from account t
   mockGoogle(t, {
     totals: { body: [{ results: [{ metrics: {
       impressions: "1400", clicks: "80", costMicros: "200000000",
-      conversions: "4.5", conversionsValue: "600.5",
+      conversions: "4.5",
     } }] }] },
     campaigns: { body: [
       { results: [{ campaign: { id: "1", name: "Fretes", status: "ENABLED" }, metrics: {
-        impressions: "100", clicks: "50", costMicros: "150000000", conversions: "2.5", conversionsValue: "400",
+        impressions: "100", clicks: "50", costMicros: "150000000", conversions: "2.5",
       } }] },
       { results: [{ campaign: { id: "2", name: "Mudanças", status: "PAUSED" }, metrics: {
-        impressions: 900, clicks: 20, costMicros: 25000000, conversions: 1, conversionsValue: 125.5,
+        impressions: 900, clicks: 20, costMicros: 25000000, conversions: 1,
       } }] },
       {},
     ] },
@@ -153,8 +153,8 @@ test("preserves fractional conversions and derives account ratios from account t
   const report = await fetchGoogleAdsReport(range, env);
   assert.equal(report.status, "ready");
   assert.deepEqual(report.totals, {
-    impressions: 1400, clicks: 80, cost: 200, conversions: 4.5, conversionsValue: 600.5,
-    ctr: 80 / 1400, averageCpc: 2.5, costPerConversion: 200 / 4.5, roas: 600.5 / 200,
+    impressions: 1400, clicks: 80, cost: 200, conversions: 4.5,
+    ctr: 80 / 1400, averageCpc: 2.5, costPerConversion: 200 / 4.5,
   });
   assert.deepEqual(report.campaigns.map((campaign) => campaign.id), ["1", "2"]);
   assert.equal(report.campaigns[0].conversions, 2.5);
@@ -174,8 +174,8 @@ test("omitted protobuf zero fields and empty periods have zero totals and null r
       const report = await fetchGoogleAdsReport(range, env);
       assert.equal(report.status, "ready");
       const expected = {
-        impressions: 0, clicks: 0, cost: 0, conversions: 0, conversionsValue: 0,
-        ctr: null, averageCpc: null, costPerConversion: null, roas: null,
+        impressions: 0, clicks: 0, cost: 0, conversions: 0,
+        ctr: null, averageCpc: null, costPerConversion: null,
       };
       assert.deepEqual(report.totals, expected);
       assert.deepEqual(report.campaigns[0], { id: "1", name: "Campanha sem nome", status: "UNKNOWN", ...expected });

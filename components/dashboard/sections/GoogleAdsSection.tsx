@@ -5,7 +5,6 @@ import {
   MousePointerClick,
   Percent,
   Target,
-  TrendingUp,
   Wallet,
 } from "lucide-react";
 import type { Range } from "@/lib/analytics-queries";
@@ -50,7 +49,6 @@ export async function GoogleAdsSection({ range }: { range: Range }) {
   });
   const formatMoney = (value: number | null) => value === null ? "—" : money.format(value);
   const formatPercent = (value: number | null) => value === null ? "—" : percentage.format(value);
-  const formatRoas = (value: number | null) => value === null ? "—" : `${decimal.format(value)}×`;
   const totals = report.totals;
   const cards = [
     { label: "Investimento", value: formatMoney(totals.cost), icon: Wallet, hint: "Valor gasto em anúncios" },
@@ -60,7 +58,6 @@ export async function GoogleAdsSection({ range }: { range: Range }) {
     { label: "CPC médio", value: formatMoney(totals.averageCpc), icon: CircleDollarSign, hint: "Custo médio por clique" },
     { label: "Conversões", value: decimal.format(totals.conversions), icon: Target, hint: "Conversões registradas no Google Ads" },
     { label: "Custo por conversão", value: formatMoney(totals.costPerConversion), icon: Banknote, hint: "Investimento ÷ conversões" },
-    { label: "ROAS", value: formatRoas(totals.roas), icon: TrendingUp, hint: "Valor das conversões ÷ investimento" },
   ];
   const columns: Column<GoogleAdsCampaign>[] = [
     {
@@ -83,7 +80,6 @@ export async function GoogleAdsSection({ range }: { range: Range }) {
     { key: "cpc", header: "CPC médio", align: "right", render: (campaign) => formatMoney(campaign.averageCpc) },
     { key: "conversions", header: "Conversões", align: "right", render: (campaign) => decimal.format(campaign.conversions) },
     { key: "cpa", header: "Custo / conv.", align: "right", render: (campaign) => formatMoney(campaign.costPerConversion) },
-    { key: "roas", header: "ROAS", align: "right", render: (campaign) => formatRoas(campaign.roas) },
   ];
 
   return (
@@ -118,7 +114,7 @@ export async function GoogleAdsSection({ range }: { range: Range }) {
         <div>
           <h3 className="mb-3 text-sm font-bold text-ink">Resultados por campanha</h3>
           {report.campaigns.length ? (
-            <DataTable rows={report.campaigns} rowKey={(campaign) => campaign.id} columns={columns} minWidth={1160} dense />
+            <DataTable rows={report.campaigns} rowKey={(campaign) => campaign.id} columns={columns} minWidth={1060} dense />
           ) : (
             <EmptyState
               compact
@@ -130,7 +126,7 @@ export async function GoogleAdsSection({ range }: { range: Range }) {
 
         <p className="text-xs text-ink-muted">
           As conversões seguem a atribuição do Google Ads e podem ser atualizadas após a interação com o anúncio.
-          {" "}ROAS depende do valor atribuído às conversões. “—” indica uma taxa que não pode ser calculada no período.
+          {" "}“—” indica uma taxa que não pode ser calculada no período.
         </p>
       </div>
     </ChartCard>

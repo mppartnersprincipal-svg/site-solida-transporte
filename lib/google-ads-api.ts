@@ -16,14 +16,13 @@ type AdsRow = {
     clicks?: string | number;
     costMicros?: string | number;
     conversions?: string | number;
-    conversionsValue?: string | number;
   };
 };
 
 class AdsError extends Error {}
 
 const METRICS = `metrics.impressions, metrics.clicks, metrics.cost_micros,
-  metrics.conversions, metrics.conversions_value`;
+  metrics.conversions`;
 
 function numeric(value: string | number | undefined): number {
   // O protobuf omite campos com valor zero nas respostas JSON.
@@ -39,17 +38,14 @@ function metrics(row?: AdsRow): GoogleAdsMetrics {
   const clicks = numeric(source?.clicks);
   const cost = numeric(source?.costMicros) / 1_000_000;
   const conversions = numeric(source?.conversions);
-  const conversionsValue = numeric(source?.conversionsValue);
   return {
     impressions,
     clicks,
     cost,
     conversions,
-    conversionsValue,
     ctr: impressions > 0 ? clicks / impressions : null,
     averageCpc: clicks > 0 ? cost / clicks : null,
     costPerConversion: conversions > 0 ? cost / conversions : null,
-    roas: cost > 0 ? conversionsValue / cost : null,
   };
 }
 

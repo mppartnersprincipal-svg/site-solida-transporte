@@ -202,7 +202,8 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 
 ### Métricas da API do Google Ads — 21/09/2026
 
-- Seção **Google Ads** após os KPIs, com investimento, impressões, cliques, CTR, CPC médio, conversões, custo por conversão, ROAS e tabela de campanhas. A seção anterior passa a identificar as visitas atribuídas pelo próprio site.
+- Seção **Google Ads** após os KPIs, com investimento, impressões, cliques, CTR, CPC médio, conversões, custo por conversão e tabela de campanhas. A seção anterior passa a identificar as visitas atribuídas pelo próprio site.
+- **Decisão do usuário (21/09/2026):** remover ROAS do dashboard. O indicador e o valor de conversão usado no cálculo foram removidos; não reintroduzir sem solicitação do usuário.
 - `lib/google-ads.ts` verifica o usuário Supabase; `lib/google-ads-api.ts` consulta relatórios REST v25 exclusivamente no servidor via OAuth, com timeout e estados separados para conexão ausente e erro. Sem alteração de campanhas ou das tags.
 - Datas seguem o filtro do dashboard (fim inclusivo para GAQL), respeitando o fuso da conta no Google. A origem filtra apenas o site. Moeda da conta e conversões fracionárias preservadas; razões sem denominador exibem `—`.
 - Nomes das variáveis em `.env.example`, credenciais privadas em `.env.local` e passos em `docs/GOOGLE_ADS.md`. Conexão real validada em 21/09/2026: conta **Sólida Transporte** `3392193354`, BRL, America/Sao_Paulo. O ID inicialmente fornecido era da agência; foi corrigido no `.env.local` após confirmar acesso à conta da Sólida. As sete variáveis `GOOGLE_ADS_*` foram cadastradas pelo usuário e confirmadas no ambiente Production do projeto Vercel `site-solida-transporte` em 21/09/2026.

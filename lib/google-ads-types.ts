@@ -3,12 +3,10 @@ export type GoogleAdsMetrics = {
   clicks: number;
   cost: number;
   conversions: number;
-  conversionsValue: number;
   /** Fração: 0,05 corresponde a 5%. */
   ctr: number | null;
   averageCpc: number | null;
   costPerConversion: number | null;
-  roas: number | null;
 };
 
 export type GoogleAdsCampaign = GoogleAdsMetrics & {

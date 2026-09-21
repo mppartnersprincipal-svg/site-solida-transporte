@@ -1,7 +1,7 @@
 # Google Ads no dashboard
 
 A seção **Google Ads** de `/dashboard` consulta a API oficial e mostra investimento,
-impressões, cliques, CTR, CPC médio, conversões, custo por conversão, ROAS e desempenho
+impressões, cliques, CTR, CPC médio, conversões, custo por conversão e desempenho
 por campanha. Usa o mesmo login administrativo do site.
 
 ## Configurar a conexão
@@ -53,8 +53,6 @@ os resultados por zeros. As demais seções continuam funcionando.
 - **Conversões** correspondem a `metrics.conversions`, conforme as ações incluídas
   nessa coluna do Google Ads. Podem ser fracionárias por causa da atribuição.
   Não são a mesma medida que os cliques no WhatsApp capturados pelo site.
-- **ROAS** = valor de conversão / investimento. Depende dos valores atribuídos às
-  conversões no Google Ads; valor zero não permite concluir que não houve receita.
 - A seção **Campanhas de anúncios no site** usa o coletor próprio (gclid/UTM) e pode
   divergir do Google Ads por atribuição, consentimento e processamento dos dados.
 - Os relatórios são consultados ao abrir/atualizar a página ou mudar os filtros.
