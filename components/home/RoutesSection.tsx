@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 
-// Ordem visual: RJ isolado (só entregas locais) e SP no centro dos corredores GO ⇄ SP ⇄ DF
+// Ordem visual: RJ (origem das rotas RJ → GO e RJ → DF) e SP no centro dos corredores GO ⇄ SP ⇄ DF
 const CITIES = [
   { code: "RJ", name: "Rio de Janeiro" },
   { code: "GO", name: "Goiás" },
@@ -28,10 +28,10 @@ export function RoutesSection() {
         <SectionHeading
           eyebrow="Rotas de atuação"
           title="Especialistas na rota que o seu negócio usa"
-          subtitle="Atendemos as seguintes rotas: São Paulo ⇄ Goiás e São Paulo ⇄ Distrito Federal. Também realizamos coletas e entregas em toda a Grande Rio. Concentramos nossa operação nessas regiões para oferecer mais agilidade, eficiência e previsibilidade em cada entrega."
+          subtitle="Atendemos as seguintes rotas: São Paulo ⇄ Goiás, São Paulo ⇄ Distrito Federal, Rio de Janeiro → Goiás e Rio de Janeiro → Distrito Federal. Também realizamos coletas e entregas em toda a Grande Rio. Concentramos nossa operação nessas regiões para oferecer mais agilidade, eficiência e previsibilidade em cada entrega."
         />
 
-        {/* Barra de rotas: RJ isolado (só entregas locais) · GO ⇄ SP ⇄ DF com caminhão saindo de SP */}
+        {/* Barra de rotas: RJ · GO ⇄ SP ⇄ DF com caminhão saindo de SP (RJ → GO/DF não é animado) */}
         <Reveal>
           <div className="relative mx-auto max-w-3xl px-2 py-8">
             <div className="relative grid grid-cols-4">
@@ -50,7 +50,7 @@ export function RoutesSection() {
                     initial={{ left: "60%", scaleX: 1 }}
                     animate={{
                       // SP → DF, volta a SP, SP → GO e volta a SP. Sempre parte de SP:
-                      // GO e DF não se conectam entre si, e o RJ fica fora do trajeto
+                      // GO e DF não se conectam entre si, e o RJ não se conecta a SP
                       left: ["60%", "90%", "90%", "60%", "60%", "31%", "31%", "60%", "60%"],
                       scaleX: [1, 1, -1, -1, -1, -1, 1, 1, 1],
                     }}

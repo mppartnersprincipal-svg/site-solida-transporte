@@ -75,6 +75,13 @@ const nextConfig: NextConfig = {
         destination: "/blog",
         permanent: true,
       })),
+      // Rota SP → RJ removida em 23/09/2026 (a Sólida não opera esse trecho;
+      // o RJ parte só para GO e DF). 301 para o hub de rotas.
+      {
+        source: "/frete/sao-paulo-para-rio-de-janeiro",
+        destination: "/frete",
+        permanent: true,
+      },
       // Rota de listagem antiga com "page/N" (paginação do WordPress)
       {
         source: "/blog/page/:page",

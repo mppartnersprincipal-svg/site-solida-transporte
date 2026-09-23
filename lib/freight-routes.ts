@@ -5,6 +5,9 @@
  * "transportadora" converte mais que "frete"; as duas direções da rota
  * aparecem nas buscas).
  *
+ * Rotas reais da Sólida (confirmadas pelo cliente em 23/09/2026): SP ⇄ GO,
+ * SP ⇄ DF, RJ → GO e RJ → DF. NÃO existe SP ⇄ RJ nem GO ⇄ DF.
+ *
  * Regras de copy (CLAUDE.md): prazo SEMPRE qualificado — 2 a 3 dias úteis
  * capital e região metropolitana, 3 a 4 interior, após a coleta, algumas
  * cidades do interior têm prazo maior; sem promessa de preço; sem
@@ -343,50 +346,50 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
     related: ["sao-paulo-para-brasilia", "goiania-para-sao-paulo", "sao-paulo-para-goiania"],
   },
   {
-    slug: "sao-paulo-para-rio-de-janeiro",
-    corridor: "Rota São Paulo → Rio de Janeiro",
-    headline: "Transportadora de São Paulo para o Rio de Janeiro",
-    metaTitle: "Transportadora de São Paulo para o Rio de Janeiro — frete fracionado",
+    slug: "rio-de-janeiro-para-brasilia",
+    corridor: "Rota Rio de Janeiro → Brasília",
+    headline: "Transportadora do Rio de Janeiro para Brasília",
+    metaTitle: "Transportadora do Rio de Janeiro para Brasília — frete fracionado",
     metaDescription:
-      "Frete fracionado de São Paulo para a cidade do Rio de Janeiro em 2 a 3 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
+      "Frete fracionado do Rio de Janeiro para Brasília e o Distrito Federal em 2 a 3 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
     heroSubtitle:
-      "Frete fracionado de São Paulo para a cidade do Rio de Janeiro em 2 a 3 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento do início ao fim.",
+      "Frete fracionado da cidade do Rio de Janeiro e da Grande Rio para Brasília e o Distrito Federal em 2 a 3 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento do início ao fim.",
     answer:
-      "A Sólida Transporte faz frete fracionado de São Paulo para a cidade do Rio de Janeiro. A coleta acontece na capital paulista e região metropolitana pela filial de Guarulhos, e a entrega na capital fluminense sai em 2 a 3 dias úteis após a coleta. Transportamos cargas fracionadas de fabricantes e distribuidores para lojistas, com seguro de carga e acompanhamento em cada etapa.",
+      "A Sólida Transporte faz frete fracionado do Rio de Janeiro para Brasília. A coleta acontece na capital fluminense e na Grande Rio, e a distribuição no Distrito Federal parte da nossa filial no Guará. A entrega em Brasília e no DF sai em 2 a 3 dias úteis após a coleta. Transportamos cargas fracionadas de fabricantes e distribuidores para lojistas, com seguro de carga e acompanhamento em cada etapa.",
     variations:
-      "Para quem busca frete de SP para o Rio de Janeiro, carga de São Paulo para o RJ ou transportadora SP x Rio, a operação é a mesma dos nossos corredores: coleta pontual na origem, transferência e distribuição na chegada. No estado do Rio, o atendimento é focado na capital.",
+      "Para quem busca frete do Rio para Brasília, carga do RJ para o DF ou transportadora Rio x Brasília, a operação é a mesma dos nossos corredores: coleta pontual na origem, transferência e distribuição na chegada pela nossa filial em Brasília, com a mesma equipe respondendo do início ao fim.",
     deadline: {
-      capitalLabel: "Cidade do Rio de Janeiro (capital)",
+      capitalLabel: "Brasília e Distrito Federal",
     },
     steps: [
       {
-        title: "Coleta em São Paulo",
-        text: "Você agenda e a equipe da filial de Guarulhos coleta na capital e na região metropolitana dentro do prazo combinado, com a documentação conferida antes de sair.",
+        title: "Coleta no Rio de Janeiro",
+        text: "Você agenda e a nossa equipe coleta na capital fluminense e na Grande Rio dentro do prazo combinado, com a documentação conferida antes de sair.",
       },
       {
-        title: "Transferência para o Rio",
-        text: "A carga segue com seguro de carga e rastreamento, e você acompanha a viagem do início ao fim.",
+        title: "Transferência para o Distrito Federal",
+        text: "A carga segue com seguro de carga e rastreamento até a nossa filial no Guará, e você acompanha a viagem do início ao fim.",
       },
       {
-        title: "Entrega na capital fluminense",
-        text: "Distribuição aos destinatários na cidade do Rio de Janeiro em 2 a 3 dias úteis após a coleta.",
+        title: "Entrega em Brasília e no DF",
+        text: "Distribuição aos destinatários em Brasília e no Distrito Federal em 2 a 3 dias úteis após a coleta.",
       },
     ],
-    unitCities: ["Guarulhos - SP"],
+    unitCities: ["Brasília - DF"],
     unitsNote:
-      "No Rio de Janeiro o atendimento é focado na capital. A coleta e o comercial da rota ficam com a equipe de São Paulo.",
+      "No Rio de Janeiro a coleta é feita pela nossa equipe na capital e na Grande Rio. A distribuição no Distrito Federal fica com a filial de Brasília.",
     faq: [
       {
-        q: "Qual o prazo do frete de São Paulo para o Rio de Janeiro?",
-        a: "2 a 3 dias úteis após a coleta para entregas na cidade do Rio de Janeiro.",
+        q: "Qual o prazo do frete do Rio de Janeiro para Brasília?",
+        a: "2 a 3 dias úteis após a coleta para entregas em Brasília e no Distrito Federal.",
       },
       {
-        q: "Vocês atendem o interior do estado do Rio?",
-        a: "O atendimento no estado do Rio de Janeiro é focado na capital. Consulte o comercial pelo WhatsApp sobre o seu destino específico.",
+        q: "Vocês coletam fora da cidade do Rio de Janeiro?",
+        a: "Sim. Coletamos na capital fluminense e na Grande Rio, como Niterói, Duque de Caxias e Nova Iguaçu. Consulte o comercial pelo WhatsApp sobre o seu endereço de coleta.",
       },
       {
         q: "Que tipo de carga vocês transportam nessa rota?",
-        a: "Cargas fracionadas de empresas: fabricantes e distribuidores abastecendo lojistas e revendedores na capital fluminense. Atendemos nove segmentos.",
+        a: "Cargas fracionadas de empresas: fabricantes e distribuidores abastecendo lojistas e revendedores no Distrito Federal. Atendemos nove segmentos.",
       },
       {
         q: "A carga viaja com seguro e rastreamento?",
@@ -401,7 +404,69 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
         a: "Pelo WhatsApp. Toque em qualquer botão de cotação desta página e fale direto com o comercial da rota — sem formulário e sem espera.",
       },
     ],
-    related: ["sao-paulo-para-goiania", "sao-paulo-para-brasilia", "sao-paulo-para-goias"],
+    related: ["rio-de-janeiro-para-goias", "sao-paulo-para-brasilia", "brasilia-para-sao-paulo"],
+  },
+  {
+    slug: "rio-de-janeiro-para-goias",
+    corridor: "Rota Rio de Janeiro → Goiás",
+    headline: "Transportadora do Rio de Janeiro para Goiás",
+    metaTitle: "Transportadora do Rio de Janeiro para Goiás — frete fracionado",
+    metaDescription:
+      "Frete fracionado do Rio de Janeiro para Goiás: Goiânia e região em 2 a 3 dias úteis, interior em 3 a 4 após a coleta. Frota própria, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
+    heroSubtitle:
+      "Frete fracionado da cidade do Rio de Janeiro e da Grande Rio para todo o estado de Goiás: Goiânia e região metropolitana em 2 a 3 dias úteis e interior goiano em 3 a 4, sempre contados após a coleta.",
+    answer:
+      "A Sólida Transporte faz frete fracionado do Rio de Janeiro para Goiás. A coleta acontece na capital fluminense e na Grande Rio, e a entrega em Goiânia e Aparecida de Goiânia sai em 2 a 3 dias úteis após a coleta; no interior de Goiás, em 3 a 4 dias úteis — algumas cidades têm prazo maior. A distribuição no estado parte da nossa matriz em Goiânia, com seguro de carga e rastreamento em cada etapa.",
+    variations:
+      "Quem procura frete do Rio para Goiás, carga do RJ para o interior goiano ou transportadora Rio x Goiânia encontra aqui a mesma operação: coleta pontual na origem, transferência para Goiás e distribuição a partir da nossa estrutura em Goiânia.",
+    deadline: {
+      capitalLabel: "Goiânia e região metropolitana, incluindo Aparecida de Goiânia",
+      interiorLabel: "Interior de Goiás — algumas cidades têm prazo maior",
+    },
+    steps: [
+      {
+        title: "Coleta no Rio de Janeiro",
+        text: "Você agenda e a nossa equipe coleta na capital fluminense e na Grande Rio dentro do prazo combinado, com a documentação conferida antes de sair.",
+      },
+      {
+        title: "Transferência para Goiás",
+        text: "A carga segue com seguro de carga e rastreamento para a nossa matriz em Goiânia — base da distribuição no estado.",
+      },
+      {
+        title: "Distribuição em Goiás",
+        text: "Goiânia e região metropolitana recebem em 2 a 3 dias úteis após a coleta; o interior goiano, em 3 a 4 dias úteis — algumas cidades têm prazo maior.",
+      },
+    ],
+    unitCities: ["Goiânia - GO"],
+    unitsNote:
+      "No Rio de Janeiro a coleta é feita pela nossa equipe na capital e na Grande Rio. A distribuição em Goiás fica com a matriz de Goiânia.",
+    faq: [
+      {
+        q: "Vocês entregam no interior de Goiás?",
+        a: "Sim. O prazo para o interior goiano é de 3 a 4 dias úteis após a coleta — algumas cidades têm prazo maior. Consulte a sua cidade de destino pelo WhatsApp.",
+      },
+      {
+        q: "Qual o prazo para Goiânia e região?",
+        a: "2 a 3 dias úteis após a coleta para Goiânia e região metropolitana, incluindo Aparecida de Goiânia.",
+      },
+      {
+        q: "Vocês coletam fora da cidade do Rio de Janeiro?",
+        a: "Sim. Coletamos na capital fluminense e na Grande Rio, como Niterói, Duque de Caxias e Nova Iguaçu. Consulte o comercial pelo WhatsApp sobre o seu endereço de coleta.",
+      },
+      {
+        q: "A carga viaja com seguro e rastreamento?",
+        a: "Sim. Trabalhamos com seguro de carga e você acompanha a mercadoria do início ao fim, com aviso de qualquer ocorrência na hora.",
+      },
+      {
+        q: "A Sólida faz armazenagem?",
+        a: "Não. Somos transportadora: nossos galpões são ponto de chegada e despacho das cargas, não depósito para estocar mercadoria.",
+      },
+      {
+        q: "Como peço uma cotação?",
+        a: "Pelo WhatsApp. Toque em qualquer botão de cotação desta página e fale direto com o comercial da rota — sem formulário e sem espera.",
+      },
+    ],
+    related: ["rio-de-janeiro-para-brasilia", "sao-paulo-para-goias", "goiania-para-sao-paulo"],
   },
 ];
 
