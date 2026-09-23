@@ -9,7 +9,7 @@
 
 Novo site institucional da **Sólida Transporte** — transportadora especializada em
 cargas fracionadas entre São Paulo, Goiás, Distrito Federal e a **cidade** do Rio de Janeiro (32 anos de mercado).
-**Rotas reais (cliente, 23/09/2026): SP ⇄ GO, SP ⇄ DF, RJ → GO (estado) e RJ → DF. NÃO existe SP ⇄ RJ nem GO ⇄ DF.** O RJ é só origem (coleta na capital e Grande Rio).
+**Rotas reais (cliente, 23/09/2026): SP ⇄ GO, SP ⇄ DF, RJ ⇄ GO (estado) e RJ ⇄ DF, todas nos dois sentidos. NÃO existe SP ⇄ RJ nem GO ⇄ DF.** No RJ: capital e Grande Rio, sem unidade própria.
 **A Sólida NÃO faz armazenagem** — é só transportadora; o galpão é apenas ponto de chegada e despacho.
 Plano completo em `../PLANONOVOSITESOLIDA.md` (copy, sitemap, paleta, roadmap).
 Briefing e auditoria do site atual em `../Briefing Solida Transporte/` e
@@ -269,18 +269,18 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 ## Landing pages de rota `/frete/[slug]` — 31/08/2026
 
 - **Motivação:** campanhas de Google Ads por rota (relatório de palavras-chave em `../Palavras Chaves - *.pdf`: "transportadora" converte mais que "frete"; "transportadora goiânia são paulo" é a campeã — 26 conv.; a direção inversa GO→SP teve 60% de conversão nos termos de pesquisa; "sp brasilia" também converteu)
-- **7 rotas** em `lib/freight-routes.ts` (dados) + template `app/(site)/frete/[slug]/page.tsx` (SSG) + hub `app/(site)/frete/page.tsx`: `sao-paulo-para-goiania`, `goiania-para-sao-paulo`, `sao-paulo-para-goias`, `sao-paulo-para-brasilia`, `brasilia-para-sao-paulo`, `rio-de-janeiro-para-brasilia`, `rio-de-janeiro-para-goias` (as duas do RJ entraram em 23/09/2026 no lugar da `sao-paulo-para-rio-de-janeiro`, ver seção abaixo). **Adicionar rota nova = adicionar objeto no array** (H1/meta/answer/steps/FAQ/related)
+- **9 rotas** em `lib/freight-routes.ts` (dados) + template `app/(site)/frete/[slug]/page.tsx` (SSG) + hub `app/(site)/frete/page.tsx`: `sao-paulo-para-goiania`, `goiania-para-sao-paulo`, `sao-paulo-para-goias`, `sao-paulo-para-brasilia`, `brasilia-para-sao-paulo`, `rio-de-janeiro-para-brasilia`, `rio-de-janeiro-para-goias`, `brasilia-para-rio-de-janeiro`, `goias-para-rio-de-janeiro` (as quatro do RJ entraram em 23/09/2026 no lugar da `sao-paulo-para-rio-de-janeiro`, ver seção abaixo). **Adicionar rota nova = adicionar objeto no array** (H1/meta/answer/steps/FAQ/related)
 - **Estrutura da página:** PageHero (H1 = palavra-chave) → parágrafo-resposta direto (GEO/AI Overviews) + variações de busca em linguagem natural + 4 selos + CTA → card de prazo (sempre qualificado: 2–3 capital/RM, 3–4 interior, após a coleta) → 3 passos da rota → unidades da rota (de `UNITS`) → FAQ em `<details>` → rotas relacionadas → CTA final. JSON-LD: Service + FAQPage + BreadcrumbList
 - **Integrações:** sitemap.ts (hub + rotas), FOOTER_LINKS ganhou "Rotas de Frete", SOURCE_LABELS ganhou `frete-topo`/`frete-cta-final` (CTAs usam `WhatsAppCTAButton` com esses sources)
 - QA: build ok (37 páginas), smoke em `next start`: 200, title/H1 com a palavra-chave, JSON-LD presente, slug inexistente 404, sitemap com 7 URLs /frete
 
 ## Correção das rotas do Rio de Janeiro — 23/09/2026
 
-- **Erro corrigido:** a rota `sao-paulo-para-rio-de-janeiro` (criada em 01/09 por suposição minha, sem fonte) não existe. O cliente confirmou: **o RJ só parte para Brasília e para o estado de Goiás** ("tem nada a ver com Goiânia" = a rota é para o estado, não para a capital). Não há SP ⇄ RJ
-- **Feito:** rota removida de `lib/freight-routes.ts`; entraram `rio-de-janeiro-para-brasilia` (unidade: Brasília - DF) e `rio-de-janeiro-para-goias` (unidade: Goiânia - GO; prazo capital/RM 2–3 e interior 3–4). Coleta descrita como "nossa equipe na capital fluminense e na Grande Rio" (sem unidade própria no RJ). Redirect 301 `/frete/sao-paulo-para-rio-de-janeiro` → `/frete` em `next.config.ts`. Footer: filial SP deixou de ser rotulada "São Paulo - SP / Rio de Janeiro - RJ" (campo `label` removido). Home `RoutesSection`: subtítulo passou a listar as 4 rotas (texto do cliente de 01/09 preservado, só acrescidas as do RJ); visual da barra RJ · GO ⇄ SP ⇄ DF inalterado. Hub `/frete`: description lista as rotas
+- **Erro corrigido:** a rota `sao-paulo-para-rio-de-janeiro` (criada em 01/09 por suposição minha, sem fonte) não existe. O cliente confirmou: **o RJ liga só a Brasília e ao estado de Goiás, nos dois sentidos** ("tem nada a ver com Goiânia" = a rota é para o estado, não para a capital). Não há SP ⇄ RJ nem RJ ⇄ SP
+- **Feito:** rota removida de `lib/freight-routes.ts`; entraram `rio-de-janeiro-para-brasilia` (unidade: Brasília - DF), `rio-de-janeiro-para-goias` (unidade: Goiânia - GO; prazo capital/RM 2–3 e interior 3–4) e as inversas `brasilia-para-rio-de-janeiro` e `goias-para-rio-de-janeiro` (coleta pela filial/matriz, interior de GO sob consulta, entrega capital + Grande Rio 2–3). No RJ a coleta/entrega é descrita como "nossa equipe na capital fluminense e na Grande Rio" (sem unidade própria no RJ). Redirect 301 `/frete/sao-paulo-para-rio-de-janeiro` → `/frete` em `next.config.ts`. Footer: filial SP deixou de ser rotulada "São Paulo - SP / Rio de Janeiro - RJ" (campo `label` removido). Home `RoutesSection`: subtítulo passou a listar as 4 rotas (texto do cliente de 01/09 preservado, só acrescidas as do RJ); visual da barra RJ · GO ⇄ SP ⇄ DF inalterado. Hub `/frete`: description lista as rotas
 - **Não alterado (ambíguo, não errado):** frases institucionais "corredores SP ⇄ GO ⇄ DF e a cidade do Rio de Janeiro" (Hero, Pillars, HowItWorks, A Empresa, Como Funciona, seo.ts, apresentação). Se o cliente pedir, trocar por "SP ⇄ GO ⇄ DF e RJ → GO/DF"
-- **Confirmado pelo cliente (23/09/2026):** cotação/coleta com origem no RJ usa os MESMOS WhatsApps das outras rotas e do botão flutuante (Central padrão — nada a mudar em `lib/whatsapp.ts`); **NÃO existe sentido inverso** GO/DF → RJ, não criar rota nem copy nesse sentido
-- QA: build ok, `next start`: as duas rotas 200 com title/H1/FAQPage, antiga 308 → /frete, sitemap com 7 URLs /frete
+- **Confirmado pelo cliente (23/09/2026):** cotação/coleta com origem no RJ usa os MESMOS WhatsApps das outras rotas e do botão flutuante (Central padrão — nada a mudar em `lib/whatsapp.ts`); o sentido inverso GO/DF → RJ EXISTE (o usuário corrigiu na hora: o que não existe é SP ⇄ RJ)
+- QA: build ok, `next start`: as quatro rotas 200 com title/H1/FAQPage, antiga 308 → /frete, sitemap com 9 URLs /frete
 
 ## Página `/apresentacao` — apresentação comercial + PDF — 14/09/2026
 

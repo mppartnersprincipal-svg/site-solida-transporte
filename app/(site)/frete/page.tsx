@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Rotas de frete fracionado",
   alternates: { canonical: "/frete" },
   description:
-    "Rotas de frete fracionado da Sólida Transporte: São Paulo ⇄ Goiás, São Paulo ⇄ Distrito Federal, Rio de Janeiro → Goiás e Rio de Janeiro → Distrito Federal. Escolha a sua rota e peça a cotação pelo WhatsApp.",
+    "Rotas de frete fracionado da Sólida Transporte: São Paulo ⇄ Goiás, São Paulo ⇄ Distrito Federal, Rio de Janeiro ⇄ Goiás e Rio de Janeiro ⇄ Distrito Federal. Escolha a sua rota e peça a cotação pelo WhatsApp.",
 };
 
 export default function FretePage() {
