@@ -33,6 +33,14 @@
   details summary { cursor:pointer; font-size:13px; color:var(--muted); margin-top:12px; }
   ol.steps { font-size:13px; line-height:1.55; padding-left:18px; margin:8px 0 0; }
   ol.steps li { margin-bottom:6px; }
+  .camps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .camp { margin:0; cursor:pointer; }
+  .camp input { position:absolute; opacity:0; width:0; height:0; }
+  .camp span { display:flex; align-items:center; gap:8px; padding:9px 10px; border:1px solid var(--line); border-radius:8px; font-size:13px; font-weight:600; color:var(--ink); background:#fff; }
+  .camp span i { width:10px; height:10px; border-radius:50%; flex:none; }
+  .camp input:checked + span { border-color:var(--red); box-shadow:0 0 0 1px var(--red); background:#FFF5F5; }
+  .camp input:focus-visible + span { outline:2px solid var(--red); outline-offset:1px; }
+  .camp input:disabled + span { opacity:.45; cursor:not-allowed; }
 </style>
 </head>
 <body>
@@ -81,9 +89,14 @@
       <label>Site</label>
       <input id="SITE" value="www.solidatransporte.com.br">
 
-      <label style="display:flex;align-items:center;gap:8px;margin-top:14px;cursor:pointer;font-size:13px;color:#1F2937;">
-        <input type="checkbox" id="CAMPANHA" checked style="width:auto;margin:0;"> Incluir campanha Setembro Amarelo (imagem + texto à direita)
-      </label>
+      <label>Campanha do mês (imagem + texto à direita)</label>
+      <div class="camps" id="CAMPANHA">
+        <label class="camp"><input type="radio" name="campanha" value=""><span>Nenhuma</span></label>
+        <label class="camp"><input type="radio" name="campanha" value="setembro-amarelo"><span><i style="background:#F2C200"></i>Setembro Amarelo</span></label>
+        <label class="camp"><input type="radio" name="campanha" value="outubro-rosa"><span><i style="background:#E8609A"></i>Outubro Rosa</span></label>
+        <label class="camp"><input type="radio" name="campanha" value="novembro-azul"><span><i style="background:#1F6FD1"></i>Novembro Azul</span></label>
+      </div>
+      <div class="hint">Já vem marcada a campanha do mês atual. Troque quando o mês virar e cole a assinatura de novo.</div>
     </form>
 
     <div class="actions">
@@ -163,6 +176,22 @@ const TEMPLATE = `<table cellpadding="0" cellspacing="0" border="0" role="presen
   </tr>
 </table>`;
 
+// Campanhas sazonais: substituem o bloco CAMPANHA do TEMPLATE (o Setembro Amarelo é o que está lá).
+// Imagens geradas pelo build.py (campanha-<slug>.jpg). null = arte ainda não recebida (opção desabilitada).
+const IMG = "https://www.solidatransporte.com.br/assinatura/";
+const CAMPANHAS = {
+  "setembro-amarelo": TEMPLATE.match(/<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/)[0],
+  "outubro-rosa": `<!--CAMPANHA-->
+    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
+      <img src="${IMG}campanha-outubro-rosa.jpg" width="200" height="153" alt="Outubro Rosa" style="display:block;border:0;width:200px;height:153px;">
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:bold;color:#C2185B;padding:8px 0 4px 0;">Outubro Rosa &middot; Mais conscientiza&ccedil;&atilde;o, mais vida</div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#4B5563;">Quem cuida de tudo tamb&eacute;m precisa se cuidar. Sentiu algo diferente no seu corpo? N&atilde;o espere passar. <b>Procure um m&eacute;dico.</b></div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;">Aqui, a gente cuida <b>de quem faz a S&oacute;lida.</b></div>
+    </td>
+    <!--/CAMPANHA-->`,
+  "novembro-azul": null,
+};
+
 const FIELDS = ["NOME", "CARGO", "CIDADE", "FONE", "RAMAL", "WHATSAPP", "EMAIL", "SITE"];
 const $ = (id) => document.getElementById(id);
 
@@ -181,10 +210,10 @@ function render() {
   };
   html = html.replace(/\{\{(\w+)\}\}/g, (_, k) => map[k] ?? "");
   if (!v.RAMAL) html = html.replace(/&nbsp;&nbsp;<span style="color:#6B7280;">Ramal <\/span>/, "");
-  // Campanha sazonal: remove o bloco inteiro quando desmarcado; senão só tira os marcadores
-  html = $("CAMPANHA").checked
-    ? html.replace(/\s*<!--\/?CAMPANHA-->/g, "")
-    : html.replace(/\s*<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/, "");
+  // Campanha sazonal: troca o bloco pela campanha escolhida (ou remove em "Nenhuma") e tira os marcadores
+  const camp = CAMPANHAS[campanhaEscolhida()];
+  html = html.replace(/\s*<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/, camp ? "\n    " + camp : "")
+             .replace(/\s*<!--\/?CAMPANHA-->/g, "");
   $("preview").innerHTML = html;
   $("code").value = html;
   return html;
@@ -196,7 +225,19 @@ $("UNIDADE").addEventListener("change", () => {
   render();
 });
 FIELDS.forEach((k) => $(k).addEventListener("input", render));
-$("CAMPANHA").addEventListener("change", render);
+
+const radios = [...document.querySelectorAll('input[name="campanha"]')];
+function campanhaEscolhida() { return (radios.find((r) => r.checked) || {}).value || ""; }
+// Campanha sem arte fica desabilitada; a pré-seleção segue o mês atual (set/out/nov), senão "Nenhuma".
+radios.forEach((r) => {
+  if (r.value && !CAMPANHAS[r.value]) {
+    r.disabled = true;
+    r.nextElementSibling.insertAdjacentHTML("beforeend", ' <small style="font-weight:400">(em breve)</small>');
+  }
+  r.addEventListener("change", render);
+});
+const DO_MES = { 8: "setembro-amarelo", 9: "outubro-rosa", 10: "novembro-azul" }[new Date().getMonth()];
+(radios.find((r) => r.value === DO_MES && !r.disabled) || radios[0]).checked = true;
 
 function flash(msg, ok = true) {
   const s = $("status");
