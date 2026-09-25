@@ -281,6 +281,7 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Não alterado (ambíguo, não errado):** frases institucionais "corredores SP ⇄ GO ⇄ DF e a cidade do Rio de Janeiro" (Hero, Pillars, HowItWorks, A Empresa, Como Funciona, seo.ts, apresentação). Se o cliente pedir, trocar por "SP ⇄ GO ⇄ DF e RJ → GO/DF"
 - **Confirmado pelo cliente (23/09/2026):** cotação/coleta com origem no RJ usa os MESMOS WhatsApps das outras rotas e do botão flutuante (Central padrão — nada a mudar em `lib/whatsapp.ts`); o sentido inverso GO/DF → RJ EXISTE (o usuário corrigiu na hora: o que não existe é SP ⇄ RJ)
 - QA: build ok, `next start`: as quatro rotas 200 com title/H1/FAQPage, antiga 308 → /frete, sitemap com 9 URLs /frete
+- **25/09/2026 — prazo RJ ⇄ DF = 3 a 4 dias úteis (pedido do cliente):** `rio-de-janeiro-para-brasilia` e `brasilia-para-rio-de-janeiro` trocaram "2 a 3" por "3 a 4" em meta, hero, resposta, passo 3 e FAQ. O card de prazo do template lê `deadline.capitalDays` (opcional, padrão "2 a 3"). As rotas RJ ⇄ GO continuam com 2 a 3 (capital/RM) e 3 a 4 (interior)
 
 ## Página `/apresentacao` — apresentação comercial + PDF — 14/09/2026
 

@@ -155,7 +155,7 @@ export default async function FreightRoutePage({
           <Reveal className="mx-auto max-w-xl">
             <div className="rounded-2xl bg-ink p-8 text-center text-white">
               <p className="text-3xl font-bold">
-                2 a 3 <span className="text-brand">dias úteis</span>
+                {route.deadline.capitalDays ?? "2 a 3"} <span className="text-brand">dias úteis</span>
               </p>
               <p className="mt-2 text-sm text-white/70">{route.deadline.capitalLabel}</p>
               {route.deadline.interiorLabel ? (

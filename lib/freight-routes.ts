@@ -32,6 +32,8 @@ export type FreightRoute = {
   variations: string;
   /** Card de prazo */
   deadline: {
+    /** Prazo do card principal; padrão "2 a 3" */
+    capitalDays?: string;
     capitalLabel: string;
     interiorLabel?: string;
   };
@@ -351,14 +353,15 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
     headline: "Transportadora do Rio de Janeiro para Brasília",
     metaTitle: "Transportadora do Rio de Janeiro para Brasília — frete fracionado",
     metaDescription:
-      "Frete fracionado do Rio de Janeiro para Brasília e o Distrito Federal em 2 a 3 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
+      "Frete fracionado do Rio de Janeiro para Brasília e o Distrito Federal em 3 a 4 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
     heroSubtitle:
-      "Frete fracionado da cidade do Rio de Janeiro e da Grande Rio para Brasília e o Distrito Federal em 2 a 3 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento do início ao fim.",
+      "Frete fracionado da cidade do Rio de Janeiro e da Grande Rio para Brasília e o Distrito Federal em 3 a 4 dias úteis após a coleta, com frota própria, seguro de carga e rastreamento do início ao fim.",
     answer:
-      "A Sólida Transporte faz frete fracionado do Rio de Janeiro para Brasília. A coleta acontece na capital fluminense e na Grande Rio, e a distribuição no Distrito Federal parte da nossa filial no Guará. A entrega em Brasília e no DF sai em 2 a 3 dias úteis após a coleta. Transportamos cargas fracionadas de fabricantes e distribuidores para lojistas, com seguro de carga e acompanhamento em cada etapa.",
+      "A Sólida Transporte faz frete fracionado do Rio de Janeiro para Brasília. A coleta acontece na capital fluminense e na Grande Rio, e a distribuição no Distrito Federal parte da nossa filial no Guará. A entrega em Brasília e no DF sai em 3 a 4 dias úteis após a coleta. Transportamos cargas fracionadas de fabricantes e distribuidores para lojistas, com seguro de carga e acompanhamento em cada etapa.",
     variations:
       "Para quem busca frete do Rio para Brasília, carga do RJ para o DF ou transportadora Rio x Brasília, a operação é a mesma dos nossos corredores: coleta pontual na origem, transferência e distribuição na chegada pela nossa filial em Brasília, com a mesma equipe respondendo do início ao fim.",
     deadline: {
+      capitalDays: "3 a 4",
       capitalLabel: "Brasília e Distrito Federal",
     },
     steps: [
@@ -372,7 +375,7 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
       },
       {
         title: "Entrega em Brasília e no DF",
-        text: "Distribuição aos destinatários em Brasília e no Distrito Federal em 2 a 3 dias úteis após a coleta.",
+        text: "Distribuição aos destinatários em Brasília e no Distrito Federal em 3 a 4 dias úteis após a coleta.",
       },
     ],
     unitCities: ["Brasília - DF"],
@@ -381,7 +384,7 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
     faq: [
       {
         q: "Qual o prazo do frete do Rio de Janeiro para Brasília?",
-        a: "2 a 3 dias úteis após a coleta para entregas em Brasília e no Distrito Federal.",
+        a: "3 a 4 dias úteis após a coleta para entregas em Brasília e no Distrito Federal.",
       },
       {
         q: "Vocês coletam fora da cidade do Rio de Janeiro?",
@@ -474,14 +477,15 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
     headline: "Transportadora de Brasília para o Rio de Janeiro",
     metaTitle: "Transportadora de Brasília para o Rio de Janeiro — frete fracionado",
     metaDescription:
-      "Frete fracionado de Brasília e do Distrito Federal para a cidade do Rio de Janeiro e Grande Rio em 2 a 3 dias úteis após a coleta. Filial própria no DF, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
+      "Frete fracionado de Brasília e do Distrito Federal para a cidade do Rio de Janeiro e Grande Rio em 3 a 4 dias úteis após a coleta. Filial própria no DF, seguro de carga e rastreamento. Cotação pelo WhatsApp.",
     heroSubtitle:
-      "Frete fracionado de Brasília e do Distrito Federal para a cidade do Rio de Janeiro e a Grande Rio em 2 a 3 dias úteis após a coleta, com filial própria no Guará cuidando da coleta.",
+      "Frete fracionado de Brasília e do Distrito Federal para a cidade do Rio de Janeiro e a Grande Rio em 3 a 4 dias úteis após a coleta, com filial própria no Guará cuidando da coleta.",
     answer:
-      "A Sólida Transporte leva cargas fracionadas de Brasília para o Rio de Janeiro. A coleta no Distrito Federal é feita pela nossa filial no Guará, e a entrega na capital fluminense e na Grande Rio sai em 2 a 3 dias úteis após a coleta. A carga segue com seguro de carga e rastreamento, e você acompanha cada etapa.",
+      "A Sólida Transporte leva cargas fracionadas de Brasília para o Rio de Janeiro. A coleta no Distrito Federal é feita pela nossa filial no Guará, e a entrega na capital fluminense e na Grande Rio sai em 3 a 4 dias úteis após a coleta. A carga segue com seguro de carga e rastreamento, e você acompanha cada etapa.",
     variations:
       "Se você buscou frete de Brasília para o Rio, carga do DF para o RJ ou transportadora Brasília x Rio de Janeiro, a operação é essa: coleta pontual no DF, transferência no corredor DF ⇄ RJ e distribuição na chegada pela nossa equipe no Rio.",
     deadline: {
+      capitalDays: "3 a 4",
       capitalLabel: "Cidade do Rio de Janeiro e Grande Rio",
     },
     steps: [
@@ -495,7 +499,7 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
       },
       {
         title: "Entrega no Rio de Janeiro",
-        text: "Distribuição aos destinatários na capital fluminense e na Grande Rio em 2 a 3 dias úteis após a coleta.",
+        text: "Distribuição aos destinatários na capital fluminense e na Grande Rio em 3 a 4 dias úteis após a coleta.",
       },
     ],
     unitCities: ["Brasília - DF"],
@@ -504,7 +508,7 @@ export const FREIGHT_ROUTES: FreightRoute[] = [
     faq: [
       {
         q: "Qual o prazo do frete de Brasília para o Rio de Janeiro?",
-        a: "2 a 3 dias úteis após a coleta para entregas na cidade do Rio de Janeiro e na Grande Rio.",
+        a: "3 a 4 dias úteis após a coleta para entregas na cidade do Rio de Janeiro e na Grande Rio.",
       },
       {
         q: "Vocês entregam fora da cidade do Rio de Janeiro?",
