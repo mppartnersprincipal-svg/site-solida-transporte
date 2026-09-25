@@ -2,7 +2,7 @@ export const NAV_LINKS = [
   { label: "Início", href: "/" },
   { label: "A Empresa", href: "/a-empresa" },
   { label: "Como Funciona", href: "/como-funciona" },
-  { label: "Segmentos", href: "/segmentos" },
+  { label: "Rotas Atendidas", href: "/frete" },
   { label: "Diferenciais", href: "/diferenciais" },
   { label: "Blog", href: "/blog" },
   { label: "Contato", href: "/contato" },
