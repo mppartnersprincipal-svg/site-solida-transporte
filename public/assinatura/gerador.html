@@ -32,6 +32,13 @@
   textarea { width:100%; height:220px; font-family:Consolas, monospace; font-size:12px; border:1px solid var(--line); border-radius:8px; padding:10px; margin-top:8px; }
   details summary { cursor:pointer; font-size:13px; color:var(--muted); margin-top:12px; }
   #editar { border-top:1px solid var(--line); margin-top:14px; padding-bottom:4px; }
+  button.small { padding:8px 12px; font-size:13px; }
+  #novo { margin-top:10px; }
+  .danger { color:#B00000; }
+  .danger:hover { background:#FFF5F5; }
+  #cadastro { margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); }
+  #cadastro .actions { margin-top:10px; }
+  #cadastroStatus { font-size:13px; margin-top:8px; min-height:18px; }
   ol.steps { font-size:13px; line-height:1.55; padding-left:18px; margin:8px 0 0; }
   ol.steps li { margin-bottom:6px; }
   .camps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -47,7 +54,7 @@
 <body>
 <header>
   <h1>Gerador de assinatura de e-mail — Sólida Transporte</h1>
-  <p>Página de uso interno. Escolha a filial e a pessoa, clique em <b>Copiar assinatura</b> e cole no seu programa de e-mail. Nada é enviado a lugar nenhum: tudo roda aqui no seu computador.</p>
+  <p>Página de uso interno. Escolha a filial e a pessoa, clique em <b>Copiar assinatura</b> e cole no seu programa de e-mail. A assinatura é montada aqui no seu computador; só o cadastro de colaboradores fica salvo no site.</p>
 </header>
 
 <main>
@@ -60,9 +67,10 @@
       <label for="PESSOA">Pessoa</label>
       <select id="PESSOA"></select>
       <div class="hint">Os dados já vêm preenchidos. O computador lembra a última pessoa escolhida.</div>
+      <button type="button" class="ghost small" id="novo">+ Cadastrar novo colaborador</button>
 
       <details id="editar">
-      <summary>Conferir / editar dados</summary>
+      <summary id="editarTitulo">Conferir / editar dados</summary>
       <label>Nome</label>
       <input id="NOME">
 
@@ -92,7 +100,15 @@
 
       <label>Site</label>
       <input id="SITE" value="www.solidatransporte.com.br">
-      <div class="hint">Mudou algum dado de verdade (ramal, celular, e-mail)? Avise para atualizarmos o cadastro.</div>
+      <div id="cadastro">
+        <div class="actions">
+          <button type="button" class="primary small" id="salvar">Salvar no cadastro</button>
+          <button type="button" class="ghost small danger" id="remover">Remover do cadastro</button>
+        </div>
+        <div class="hint" id="cadastroInfo"></div>
+        <div id="cadastroStatus" role="status"></div>
+      </div>
+      <div class="hint" id="semCadastro" hidden>Cadastro indisponível agora (sem conexão com o site). As alterações acima valem só para esta assinatura.</div>
       </details>
 
       <label>Campanha do mês (imagem + texto à direita)</label>
@@ -229,8 +245,10 @@ function render() {
   return html;
 }
 
-// Cadastro das assinaturas por filial. Fonte: "Assinaturas Pré-Fixadas/Assinatura Email SP.docx.pdf" e
-// "...DF.docx.pdf". Pessoa sem cidade/fone usa os da filial. Entrou/saiu alguém: edite só esta lista.
+// Filiais (cidade/fone padrão) + equipe de RESERVA. A lista de verdade vem do banco via
+// /api/assinatura/colaboradores (a equipe cadastra/edita/remove pela própria página). Esta
+// equipe embutida só aparece se a API não responder (sem internet ou página aberta como arquivo).
+// Pessoa sem cidade/fone usa os da filial.
 const FILIAIS = {
   SP: {
     rotulo: "São Paulo (Guarulhos)", cidade: "São Paulo - SP", fone: "(11) 3936-1258",
@@ -266,35 +284,134 @@ const LEMBRAR = "solida-assinatura-pessoa";
 const lembrar = (valor) => { try { localStorage.setItem(LEMBRAR, valor); } catch (e) { /* navegador sem storage: só não lembra */ } };
 const lembrado = () => { try { return localStorage.getItem(LEMBRAR) || ""; } catch (e) { return ""; } };
 
+const API = "/api/assinatura/colaboradores";
+const DADOS = ["nome", "cargo", "cidade", "fone", "ramal", "whatsapp", "email"];
+// Equipe exibida por filial: começa com a reserva embutida e é trocada pela do banco quando a API responde
+let equipes = Object.fromEntries(Object.entries(FILIAIS).map(([k, f]) => [k, f.equipe.map((p, i) => ({ ...p, chave: "i" + i }))]));
+let online = false;
+let carregando = true;
+
+const pessoaAtual = () => equipes[$("FILIAL").value].find((p) => p.chave === $("PESSOA").value) || null;
+
 function preencher(dados) {
-  ["NOME", "CARGO", "CIDADE", "FONE", "RAMAL", "WHATSAPP", "EMAIL"].forEach((k) => { $(k).value = dados[k.toLowerCase()] || ""; });
+  DADOS.forEach((k) => { $(k.toUpperCase()).value = dados[k] || ""; });
   $("SITE").value = "www.solidatransporte.com.br";
 }
 
-function montarPessoas(pessoaIdx) {
-  const f = FILIAIS[$("FILIAL").value];
-  $("PESSOA").innerHTML = f.equipe
-    .map((p, i) => `<option value="${i}">${esc(p.rotulo || (p.cargo ? `${p.nome} · ${p.cargo}` : p.nome))}</option>`)
+function montarPessoas(chave) {
+  const lista = equipes[$("FILIAL").value];
+  $("PESSOA").innerHTML = lista
+    .map((p) => `<option value="${esc(p.chave)}">${esc(p.rotulo || (p.cargo ? `${p.nome} · ${p.cargo}` : p.nome))}</option>`)
     .join("") + `<option value="${MANUAL}">Outra pessoa (preencher à mão)</option>`;
-  const temIdx = pessoaIdx !== undefined && $("PESSOA").querySelector(`option[value="${pessoaIdx}"]`);
-  $("PESSOA").value = temIdx ? pessoaIdx : (f.equipe.length ? "0" : MANUAL);
+  const existe = chave && lista.some((p) => p.chave === chave);
+  $("PESSOA").value = existe ? chave : (lista.length ? lista[0].chave : MANUAL);
   escolherPessoa();
 }
 
 function escolherPessoa() {
   const f = FILIAIS[$("FILIAL").value];
-  const sel = $("PESSOA").value;
-  const manual = sel === MANUAL;
-  preencher(manual ? { cidade: f.cidade, fone: f.fone } : { cidade: f.cidade, fone: f.fone, ...f.equipe[+sel] });
-  $("editar").open = manual;
-  lembrar(`${$("FILIAL").value}|${sel}`);
+  const p = pessoaAtual();
+  preencher({ cidade: f.cidade, fone: f.fone, ...(p ? Object.fromEntries(DADOS.filter((k) => p[k]).map((k) => [k, p[k]])) : {}) });
+  $("editar").open = !p;
+  // Enquanto a lista do banco não chega, não sobrescreve a pessoa lembrada
+  if (!carregando) lembrar(`${$("FILIAL").value}|${$("PESSOA").value}`);
+  atualizarCadastro();
   render();
-  if (manual) $("NOME").focus();
+  if (!p) $("NOME").focus();
+}
+
+// Botões do cadastro: "Cadastrar" para pessoa nova, "Salvar alterações"/"Remover" para quem já está no banco
+function atualizarCadastro() {
+  const p = pessoaAtual();
+  $("cadastro").hidden = !online;
+  $("semCadastro").hidden = online || carregando;
+  $("salvar").textContent = p ? "Salvar alterações" : "Cadastrar colaborador";
+  $("remover").hidden = !p;
+  $("editarTitulo").textContent = p ? "Conferir / editar dados" : "Dados do novo colaborador";
+  $("cadastroInfo").textContent = p
+    ? "Mudou algo de verdade (ramal, celular, e-mail)? Corrija acima e clique em Salvar alterações: vale para todos os computadores."
+    : "Preencha os dados acima e clique em Cadastrar: a pessoa passa a aparecer na lista em todos os computadores.";
+}
+
+function avisoCadastro(msg, ok = true) {
+  const s = $("cadastroStatus");
+  s.style.color = ok ? "#0a7a3a" : "#B00000";
+  s.textContent = msg;
+}
+
+async function carregarEquipes() {
+  const r = await fetch(API, { cache: "no-store" });
+  const body = await r.json();
+  if (!r.ok || !body.ok) throw new Error(body.error || "Falha ao carregar");
+  const novas = Object.fromEntries(Object.keys(FILIAIS).map((k) => [k, []]));
+  body.data.forEach((p) => { if (novas[p.filial]) novas[p.filial].push({ ...p, chave: p.id }); });
+  equipes = novas;
+  online = true;
+}
+
+// Corpo enviado à API: cidade/fone iguais aos da filial vão vazios (continuam seguindo a filial)
+function dadosDoFormulario() {
+  const filial = $("FILIAL").value;
+  const f = FILIAIS[filial];
+  const d = Object.fromEntries(DADOS.map((k) => [k, $(k.toUpperCase()).value.trim()]));
+  if (d.cidade === f.cidade) d.cidade = "";
+  if (d.fone === f.fone) d.fone = "";
+  return { filial, ...d, rotulo: (pessoaAtual() || {}).rotulo || "" };
+}
+
+async function enviar(metodo, url, corpo) {
+  const r = await fetch(url, {
+    method: metodo,
+    headers: { "Content-Type": "application/json" },
+    body: corpo ? JSON.stringify(corpo) : undefined,
+  });
+  const body = await r.json().catch(() => ({ ok: false, error: "Resposta inválida do servidor." }));
+  if (!r.ok || !body.ok) throw new Error(body.error || "Não consegui salvar.");
+  return body.data;
+}
+
+async function salvar() {
+  const p = pessoaAtual();
+  const botao = $("salvar");
+  botao.disabled = true;
+  avisoCadastro("Salvando…");
+  try {
+    const salvo = p
+      ? await enviar("PUT", `${API}?id=${encodeURIComponent(p.id)}`, dadosDoFormulario())
+      : await enviar("POST", API, dadosDoFormulario());
+    await carregarEquipes();
+    montarPessoas(salvo.id);
+    avisoCadastro(p ? "Alterações salvas para todos os computadores." : `${salvo.nome} cadastrado(a). Já aparece na lista.`);
+  } catch (e) {
+    avisoCadastro(e.message, false);
+  } finally {
+    botao.disabled = false;
+  }
+}
+
+async function remover() {
+  const p = pessoaAtual();
+  if (!p || !confirm(`Remover ${p.nome} do cadastro? A pessoa some da lista em todos os computadores.`)) return;
+  $("remover").disabled = true;
+  avisoCadastro("Removendo…");
+  try {
+    await enviar("DELETE", `${API}?id=${encodeURIComponent(p.id)}`);
+    await carregarEquipes();
+    montarPessoas();
+    avisoCadastro(`${p.nome} removido(a) do cadastro.`);
+  } catch (e) {
+    avisoCadastro(e.message, false);
+  } finally {
+    $("remover").disabled = false;
+  }
 }
 
 $("FILIAL").innerHTML = Object.entries(FILIAIS).map(([k, f]) => `<option value="${k}">${esc(f.rotulo)}</option>`).join("");
-$("FILIAL").addEventListener("change", () => montarPessoas());
-$("PESSOA").addEventListener("change", escolherPessoa);
+$("FILIAL").addEventListener("change", () => { avisoCadastro(""); montarPessoas(); });
+$("PESSOA").addEventListener("change", () => { avisoCadastro(""); escolherPessoa(); });
+$("novo").addEventListener("click", () => { avisoCadastro(""); $("PESSOA").value = MANUAL; escolherPessoa(); });
+$("salvar").addEventListener("click", salvar);
+$("remover").addEventListener("click", remover);
 FIELDS.forEach((k) => $(k).addEventListener("input", render));
 
 const radios = [...document.querySelectorAll('input[name="campanha"]')];
@@ -351,10 +468,21 @@ $("download").addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 
-// Abre na última pessoa escolhida neste computador (ou na primeira de SP)
+// Abre na última pessoa escolhida neste computador (ou na primeira de SP). Mostra a lista
+// embutida na hora e troca pela do banco assim que a API responder.
 const [filialSalva, pessoaSalva] = lembrado().split("|");
 if (FILIAIS[filialSalva]) $("FILIAL").value = filialSalva;
 montarPessoas(pessoaSalva);
+// Lembrada pelo índice da lista embutida ("i3", quando abriu sem API): reencontra pelo nome
+const nomeReserva = /^i\d+$/.test(pessoaSalva || "") ? (pessoaAtual() || {}).nome : null;
+carregarEquipes()
+  .then(() => {
+    const lista = equipes[$("FILIAL").value];
+    const porNome = nomeReserva && lista.find((p) => p.nome === nomeReserva);
+    carregando = false;
+    montarPessoas(porNome ? porNome.chave : pessoaSalva);
+  })
+  .catch(() => { carregando = false; atualizarCadastro(); });
 </script>
 </body>
 </html>
