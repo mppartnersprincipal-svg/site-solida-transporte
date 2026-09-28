@@ -6,8 +6,9 @@ import { COLUNAS, UUID_RE, validarColaborador } from "@/lib/assinatura-colaborad
 /**
  * Cadastro de colaboradores do gerador de assinatura (/assinatura).
  *
- * - GET lista todos (mesmos dados que já saem nas assinaturas).
- * - POST cria, PUT ?id= edita, DELETE ?id= remove.
+ * - GET lista todos, ativos e excluídos (mesmos dados que já saem nas assinaturas).
+ * - POST cria, PUT ?id= edita (só ativos), DELETE ?id= exclui, PATCH ?id= restaura.
+ *   Exclusão é reversível: só marca excluido_em (migration 0007), nunca apaga a linha.
  * - SEM SENHA por decisão do cliente (28/09/2026): qualquer um com o link altera.
  *   Proteção só contra abuso em massa: validação + limite por rede e teto global.
  * - Tabela com RLS e sem policies: só a service role (este arquivo) acessa.
@@ -121,17 +122,19 @@ export async function PUT(request: NextRequest) {
     .from("assinatura_colaboradores")
     .update(v.data)
     .eq("id", id)
+    .is("excluido_em", null)
     .select(COLUNAS)
     .maybeSingle();
   if (error) {
     console.error("[assinatura] update", error.message);
     return json(500, { ok: false, error: "Não consegui salvar. Tente de novo." });
   }
-  if (!data) return json(404, { ok: false, error: "Esse colaborador não existe mais. Recarregue a página." });
+  if (!data) return json(404, { ok: false, error: "Esse colaborador foi excluído ou não existe mais. Recarregue a página." });
   return json(200, { ok: true, data });
 }
 
-export async function DELETE(request: NextRequest) {
+/** Marca/desmarca excluido_em. A linha nunca é apagada: exclusão sempre pode ser desfeita. */
+async function marcarExclusao(request: NextRequest, excluir: boolean) {
   const negado = limitarEscrita(request);
   if (negado) return negado;
   const id = idDaUrl(request);
@@ -139,11 +142,30 @@ export async function DELETE(request: NextRequest) {
 
   const supabase = createAdminClient();
   if (!supabase) return json(503, { ok: false, error: "Banco de dados indisponível." });
-  const { data, error } = await supabase.from("assinatura_colaboradores").delete().eq("id", id).select("id");
+  const base = supabase
+    .from("assinatura_colaboradores")
+    .update({ excluido_em: excluir ? new Date().toISOString() : null })
+    .eq("id", id);
+  const { data, error } = await (excluir ? base.is("excluido_em", null) : base.not("excluido_em", "is", null))
+    .select(COLUNAS)
+    .maybeSingle();
   if (error) {
-    console.error("[assinatura] delete", error.message);
-    return json(500, { ok: false, error: "Não consegui remover. Tente de novo." });
+    console.error(`[assinatura] ${excluir ? "excluir" : "restaurar"}`, error.message);
+    return json(500, { ok: false, error: `Não consegui ${excluir ? "excluir" : "restaurar"}. Tente de novo.` });
   }
-  if (!data?.length) return json(404, { ok: false, error: "Esse colaborador não existe mais. Recarregue a página." });
-  return json(200, { ok: true, data: { id } });
+  if (!data) {
+    const msg = excluir ? "Esse colaborador já foi excluído. Recarregue a página." : "Esse colaborador já está ativo. Recarregue a página.";
+    return json(404, { ok: false, error: msg });
+  }
+  return json(200, { ok: true, data });
+}
+
+/** DELETE ?id= — exclui (vai para "Excluídos"). */
+export async function DELETE(request: NextRequest) {
+  return marcarExclusao(request, true);
+}
+
+/** PATCH ?id= — restaura um excluído. */
+export async function PATCH(request: NextRequest) {
+  return marcarExclusao(request, false);
 }

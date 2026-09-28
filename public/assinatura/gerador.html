@@ -33,12 +33,16 @@
   details summary { cursor:pointer; font-size:13px; color:var(--muted); margin-top:12px; }
   #editar { border-top:1px solid var(--line); margin-top:14px; padding-bottom:4px; }
   button.small { padding:8px 12px; font-size:13px; }
-  #novo { margin-top:10px; }
+  .gestao { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
   .danger { color:#B00000; }
   .danger:hover { background:#FFF5F5; }
   #cadastro { margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); }
   #cadastro .actions { margin-top:10px; }
   #cadastroStatus { font-size:13px; margin-top:8px; min-height:18px; }
+  button.link { padding:0; background:none; border:0; color:var(--red); font-size:13px; font-weight:700; text-decoration:underline; cursor:pointer; }
+  #lixeira ul { list-style:none; margin:8px 0 0; padding:0; }
+  #lixeira li { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:7px 0; border-top:1px solid var(--line); font-size:13px; }
+  #lixeira li small { display:block; color:var(--muted); font-size:11px; }
   ol.steps { font-size:13px; line-height:1.55; padding-left:18px; margin:8px 0 0; }
   ol.steps li { margin-bottom:6px; }
   .camps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -67,7 +71,16 @@
       <label for="PESSOA">Pessoa</label>
       <select id="PESSOA"></select>
       <div class="hint">Os dados já vêm preenchidos. O computador lembra a última pessoa escolhida.</div>
-      <button type="button" class="ghost small" id="novo">+ Cadastrar novo colaborador</button>
+      <div class="gestao">
+        <button type="button" class="ghost small" id="novo">+ Cadastrar novo colaborador</button>
+        <button type="button" class="ghost small danger" id="excluir">Excluir colaborador</button>
+      </div>
+      <div id="cadastroStatus" role="status"><span id="cadastroMsg"></span> <button type="button" class="link" id="desfazer" hidden>Desfazer</button></div>
+      <details id="lixeira" hidden>
+        <summary id="lixeiraTitulo">Excluídos</summary>
+        <div class="hint">Quem foi excluído fica guardado aqui. Clique em Restaurar para a pessoa voltar para a lista.</div>
+        <ul id="lixeiraLista"></ul>
+      </details>
 
       <details id="editar">
       <summary id="editarTitulo">Conferir / editar dados</summary>
@@ -103,10 +116,9 @@
       <div id="cadastro">
         <div class="actions">
           <button type="button" class="primary small" id="salvar">Salvar no cadastro</button>
-          <button type="button" class="ghost small danger" id="remover">Remover do cadastro</button>
+          <button type="button" class="ghost small danger" id="remover">Excluir do cadastro</button>
         </div>
         <div class="hint" id="cadastroInfo"></div>
-        <div id="cadastroStatus" role="status"></div>
       </div>
       <div class="hint" id="semCadastro" hidden>Cadastro indisponível agora (sem conexão com o site). As alterações acima valem só para esta assinatura.</div>
       </details>
@@ -327,16 +339,20 @@ function atualizarCadastro() {
   $("semCadastro").hidden = online || carregando;
   $("salvar").textContent = p ? "Salvar alterações" : "Cadastrar colaborador";
   $("remover").hidden = !p;
+  // Botão de fora: só para quem está no banco (some em "Outra pessoa" e sem conexão)
+  $("excluir").hidden = !(p && online);
   $("editarTitulo").textContent = p ? "Conferir / editar dados" : "Dados do novo colaborador";
   $("cadastroInfo").textContent = p
     ? "Mudou algo de verdade (ramal, celular, e-mail)? Corrija acima e clique em Salvar alterações: vale para todos os computadores."
     : "Preencha os dados acima e clique em Cadastrar: a pessoa passa a aparecer na lista em todos os computadores.";
 }
 
-function avisoCadastro(msg, ok = true) {
-  const s = $("cadastroStatus");
-  s.style.color = ok ? "#0a7a3a" : "#B00000";
-  s.textContent = msg;
+// desfazerId: quem acabou de ser excluído → mostra o botão "Desfazer" ao lado do aviso
+function avisoCadastro(msg, ok = true, desfazerId = null) {
+  $("cadastroStatus").style.color = ok ? "#0a7a3a" : "#B00000";
+  $("cadastroMsg").textContent = msg;
+  $("desfazer").hidden = !desfazerId;
+  $("desfazer").dataset.id = desfazerId || "";
 }
 
 async function carregarEquipes() {
@@ -344,9 +360,34 @@ async function carregarEquipes() {
   const body = await r.json();
   if (!r.ok || !body.ok) throw new Error(body.error || "Falha ao carregar");
   const novas = Object.fromEntries(Object.keys(FILIAIS).map((k) => [k, []]));
-  body.data.forEach((p) => { if (novas[p.filial]) novas[p.filial].push({ ...p, chave: p.id }); });
+  body.data.filter((p) => !p.excluido_em).forEach((p) => { if (novas[p.filial]) novas[p.filial].push({ ...p, chave: p.id }); });
   equipes = novas;
   online = true;
+  montarLixeira(body.data.filter((p) => p.excluido_em));
+}
+
+// Área "Excluídos": mais recentes primeiro, cada um com botão Restaurar
+function montarLixeira(excluidos) {
+  const lista = [...excluidos].sort((a, b) => b.excluido_em.localeCompare(a.excluido_em));
+  const quando = (iso) => new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+  $("lixeira").hidden = !lista.length;
+  $("lixeiraTitulo").textContent = `Excluídos (${lista.length})`;
+  $("lixeiraLista").innerHTML = lista.map((p) => `<li><span>${esc(p.nome)}${p.cargo ? " · " + esc(p.cargo) : ""}
+    <small>${esc(FILIAIS[p.filial] ? FILIAIS[p.filial].rotulo : p.filial)} · excluído em ${esc(quando(p.excluido_em))}</small></span>
+    <button type="button" class="ghost small" data-restaurar="${esc(p.id)}" data-filial="${esc(p.filial)}">Restaurar</button></li>`).join("");
+}
+
+async function restaurar(id, filial) {
+  avisoCadastro("Restaurando…");
+  try {
+    const p = await enviar("PATCH", `${API}?id=${encodeURIComponent(id)}`);
+    await carregarEquipes();
+    if (FILIAIS[filial]) $("FILIAL").value = filial;
+    montarPessoas(p.id);
+    avisoCadastro(`${p.nome} restaurado(a). Voltou para a lista.`);
+  } catch (e) {
+    avisoCadastro(e.message, false);
+  }
 }
 
 // Corpo enviado à API: cidade/fone iguais aos da filial vão vazios (continuam seguindo a filial)
@@ -391,18 +432,20 @@ async function salvar() {
 
 async function remover() {
   const p = pessoaAtual();
-  if (!p || !confirm(`Remover ${p.nome} do cadastro? A pessoa some da lista em todos os computadores.`)) return;
+  if (!p || !confirm(`Excluir ${p.nome}? A pessoa sai da lista em todos os computadores e fica guardada em "Excluídos", de onde pode ser restaurada.`)) return;
   $("remover").disabled = true;
-  avisoCadastro("Removendo…");
+  $("excluir").disabled = true;
+  avisoCadastro("Excluindo…");
   try {
     await enviar("DELETE", `${API}?id=${encodeURIComponent(p.id)}`);
     await carregarEquipes();
     montarPessoas();
-    avisoCadastro(`${p.nome} removido(a) do cadastro.`);
+    avisoCadastro(`${p.nome} excluído(a) e guardado(a) em "Excluídos".`, true, p.id);
   } catch (e) {
     avisoCadastro(e.message, false);
   } finally {
     $("remover").disabled = false;
+    $("excluir").disabled = false;
   }
 }
 
@@ -412,6 +455,12 @@ $("PESSOA").addEventListener("change", () => { avisoCadastro(""); escolherPessoa
 $("novo").addEventListener("click", () => { avisoCadastro(""); $("PESSOA").value = MANUAL; escolherPessoa(); });
 $("salvar").addEventListener("click", salvar);
 $("remover").addEventListener("click", remover);
+$("excluir").addEventListener("click", remover);
+$("desfazer").addEventListener("click", () => restaurar($("desfazer").dataset.id, $("FILIAL").value));
+$("lixeiraLista").addEventListener("click", (ev) => {
+  const b = ev.target.closest("[data-restaurar]");
+  if (b) restaurar(b.dataset.restaurar, b.dataset.filial);
+});
 FIELDS.forEach((k) => $(k).addEventListener("input", render));
 
 const radios = [...document.querySelectorAll('input[name="campanha"]')];

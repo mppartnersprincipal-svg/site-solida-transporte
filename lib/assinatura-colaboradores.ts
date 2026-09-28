@@ -17,11 +17,13 @@ export type Colaborador = {
   whatsapp: string | null;
   email: string;
   rotulo: string | null;
+  /** Preenchido = excluído (fica na área "Excluídos" do gerador e pode ser restaurado). */
+  excluido_em: string | null;
 };
 
-export type ColaboradorInput = Omit<Colaborador, "id">;
+export type ColaboradorInput = Omit<Colaborador, "id" | "excluido_em">;
 
-export const COLUNAS = "id, filial, nome, cargo, cidade, fone, ramal, whatsapp, email, rotulo";
+export const COLUNAS = "id, filial, nome, cargo, cidade, fone, ramal, whatsapp, email, rotulo, excluido_em";
 
 const LIMITES = { nome: 80, cargo: 60, cidade: 60, fone: 30, ramal: 10, whatsapp: 30, email: 120, rotulo: 80 } as const;
 const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
