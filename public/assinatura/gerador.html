@@ -18,7 +18,7 @@
   .card h2 { margin:0 0 14px; font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
   label { display:block; font-size:12px; font-weight:600; color:var(--muted); margin:10px 0 4px; }
   input, select { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:inherit; color:var(--ink); }
-  input:focus { outline:2px solid var(--red); outline-offset:1px; border-color:transparent; }
+  input:focus, select:focus { outline:2px solid var(--red); outline-offset:1px; border-color:transparent; }
   .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .hint { font-size:11px; color:var(--muted); margin-top:3px; }
   .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
@@ -31,6 +31,7 @@
   #status { font-size:13px; margin-top:10px; min-height:18px; color:#0a7a3a; }
   textarea { width:100%; height:220px; font-family:Consolas, monospace; font-size:12px; border:1px solid var(--line); border-radius:8px; padding:10px; margin-top:8px; }
   details summary { cursor:pointer; font-size:13px; color:var(--muted); margin-top:12px; }
+  #editar { border-top:1px solid var(--line); margin-top:14px; padding-bottom:4px; }
   ol.steps { font-size:13px; line-height:1.55; padding-left:18px; margin:8px 0 0; }
   ol.steps li { margin-bottom:6px; }
   .camps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -46,48 +47,53 @@
 <body>
 <header>
   <h1>Gerador de assinatura de e-mail — Sólida Transporte</h1>
-  <p>Página de uso interno. Preencha os campos, clique em <b>Copiar assinatura</b> e cole no seu programa de e-mail. Nada é enviado a lugar nenhum: tudo roda aqui no seu computador.</p>
+  <p>Página de uso interno. Escolha a filial e a pessoa, clique em <b>Copiar assinatura</b> e cole no seu programa de e-mail. Nada é enviado a lugar nenhum: tudo roda aqui no seu computador.</p>
 </header>
 
 <main>
   <section class="card">
-    <h2>Dados do colaborador</h2>
+    <h2>Quem vai usar a assinatura</h2>
     <form id="f" autocomplete="off" onsubmit="return false">
+      <label for="FILIAL">Filial</label>
+      <select id="FILIAL"></select>
+
+      <label for="PESSOA">Pessoa</label>
+      <select id="PESSOA"></select>
+      <div class="hint">Os dados já vêm preenchidos. O computador lembra a última pessoa escolhida.</div>
+
+      <details id="editar">
+      <summary>Conferir / editar dados</summary>
       <label>Nome</label>
-      <input id="NOME" value="Nome Sobrenome">
+      <input id="NOME">
 
       <label>Cargo</label>
-      <input id="CARGO" value="Analista Comercial">
+      <input id="CARGO">
 
       <label>Cidade (unidade)</label>
-      <select id="UNIDADE">
-        <option value="Goiânia - GO|(62) 3206-8100">Goiânia - GO (Matriz)</option>
-        <option value="Guarulhos - SP|(11) 3936-1258">Guarulhos - SP (Filial São Paulo)</option>
-        <option value="Brasília - DF|(61) 3361-7772">Brasília - DF (Filial Distrito Federal)</option>
-        <option value="|">Outra…</option>
-      </select>
-      <input id="CIDADE" value="Goiânia - GO" style="margin-top:6px">
+      <input id="CIDADE">
 
       <div class="row">
         <div>
           <label>Fone</label>
-          <input id="FONE" value="(62) 3206-8100" placeholder="(62) 3206-8100">
+          <input id="FONE" placeholder="(62) 3206-8100">
         </div>
         <div>
           <label>Ramal</label>
-          <input id="RAMAL" value="100" placeholder="100">
+          <input id="RAMAL" placeholder="100">
         </div>
       </div>
 
       <label>WhatsApp</label>
-      <input id="WHATSAPP" value="(62) 9 9999-9999" placeholder="(62) 9 9999-9999">
-      <div class="hint">O link wa.me é montado sozinho a partir dos dígitos.</div>
+      <input id="WHATSAPP" placeholder="(62) 9 9999-9999">
+      <div class="hint">O link wa.me é montado sozinho a partir dos dígitos. Vazio = linha some da assinatura.</div>
 
       <label>E-mail</label>
-      <input id="EMAIL" value="nome@solidatransporte.com.br">
+      <input id="EMAIL" placeholder="nome@solidatransporte.com.br">
 
       <label>Site</label>
       <input id="SITE" value="www.solidatransporte.com.br">
+      <div class="hint">Mudou algum dado de verdade (ramal, celular, e-mail)? Avise para atualizarmos o cadastro.</div>
+      </details>
 
       <label>Campanha do mês (imagem + texto à direita)</label>
       <div class="camps" id="CAMPANHA">
@@ -141,7 +147,7 @@ const TEMPLATE = `<table cellpadding="0" cellspacing="0" border="0" role="presen
     </td>
     <td valign="middle" style="padding:6px 0 6px 18px;border-left:2px solid #E10600;">
       <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:20px;font-weight:bold;color:#E10600;">{{NOME}}</div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#6B7280;padding:0 0 8px 0;">{{CARGO}}</div>
+      <!--CARGO--><div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#6B7280;padding:0 0 8px 0;">{{CARGO}}</div><!--/CARGO-->
       <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
         <tr>
           <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-cidade.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
@@ -151,10 +157,10 @@ const TEMPLATE = `<table cellpadding="0" cellspacing="0" border="0" role="presen
           <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-fone.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
           <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;"><a href="tel:{{FONE_HREF}}" style="color:#1F2937;text-decoration:none;">{{FONE}}</a>&nbsp;&nbsp;<span style="color:#6B7280;">Ramal {{RAMAL}}</span></td>
         </tr>
-        <tr>
+        <!--WA--><tr>
           <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-whatsapp.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
           <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;"><a href="https://wa.me/{{WHATSAPP_HREF}}" target="_blank" style="color:#1F2937;text-decoration:none;">{{WHATSAPP}}</a></td>
-        </tr>
+        </tr><!--/WA-->
         <tr>
           <td valign="middle" width="22" style="padding:0 0 4px 0;"><img src="https://www.solidatransporte.com.br/assinatura/icone-email.png" width="16" height="16" alt="" style="display:block;border:0;width:16px;height:16px;"></td>
           <td valign="middle" style="padding:0 0 4px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#1F2937;"><a href="mailto:{{EMAIL}}" style="color:#1F2937;text-decoration:none;">{{EMAIL}}</a></td>
@@ -210,6 +216,10 @@ function render() {
   };
   html = html.replace(/\{\{(\w+)\}\}/g, (_, k) => map[k] ?? "");
   if (!v.RAMAL) html = html.replace(/&nbsp;&nbsp;<span style="color:#6B7280;">Ramal <\/span>/, "");
+  // Linhas opcionais: sem WhatsApp ou sem cargo, a linha inteira sai (e os marcadores somem sempre)
+  if (!v.WHATSAPP) html = html.replace(/<!--WA-->[\s\S]*?<!--\/WA-->\s*/, "");
+  if (!v.CARGO) html = html.replace(/<!--CARGO-->[\s\S]*?<!--\/CARGO-->\s*/, "");
+  html = html.replace(/<!--\/?(WA|CARGO)-->/g, "");
   // Campanha sazonal: troca o bloco pela campanha escolhida (ou remove em "Nenhuma") e tira os marcadores
   const camp = CAMPANHAS[campanhaEscolhida()];
   html = html.replace(/\s*<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/, camp ? "\n    " + camp : "")
@@ -219,11 +229,72 @@ function render() {
   return html;
 }
 
-$("UNIDADE").addEventListener("change", () => {
-  const [cidade, fone] = $("UNIDADE").value.split("|");
-  if (cidade) { $("CIDADE").value = cidade; $("FONE").value = fone; }
+// Cadastro das assinaturas por filial. Fonte: "Assinaturas Pré-Fixadas/Assinatura Email SP.docx.pdf" e
+// "...DF.docx.pdf". Pessoa sem cidade/fone usa os da filial. Entrou/saiu alguém: edite só esta lista.
+const FILIAIS = {
+  SP: {
+    rotulo: "São Paulo (Guarulhos)", cidade: "São Paulo - SP", fone: "(11) 3936-1258",
+    equipe: [
+      { nome: "Adriana Gila", cargo: "Gerência", ramal: "7771", whatsapp: "(11) 9 7463-7863", email: "coletasp@solidatransporte.com.br" },
+      { nome: "Camila Almeida", cargo: "Pendência", ramal: "7763", email: "pendenciasp@solidatransporte.com.br" },
+      { nome: "Eduarda Silva", cargo: "Expedição", ramal: "7767", email: "expedicaosp@solidatransporte.com.br" },
+      { nome: "Jaqueline Xavier", cargo: "Expedição", ramal: "7765", email: "expedicaosp@solidatransporte.com.br" },
+      { nome: "Maria Eduarda", cargo: "Coleta", ramal: "7764", email: "administrativosp@solidatransporte.com.br" },
+      { nome: "Michele Pereira", cargo: "Aux. Expedição", cidade: "Guarulhos - SP", ramal: "7766", email: "expedicaosp@solidatransporte.com.br" },
+      { nome: "Onaldo Cavalcante", cargo: "Expedição", cidade: "Guarulhos - SP", ramal: "7770", email: "expedicaosp@solidatransporte.com.br" },
+      { nome: "Sara Júlia", cargo: "Atendimento", ramal: "7761", email: "coletaspsuporte@solidatransporte.com.br" },
+      { nome: "Sara Quezia", cargo: "Atendimento", ramal: "7760", email: "atendimentosp@solidatransporte.com.br" },
+      { nome: "Thais Gomes", cargo: "Coleta", ramal: "7768", email: "coletasp1@solidatransporte.com.br" },
+      { nome: "Gerência", cargo: "", ramal: "", email: "gerenciasp@solidatransporte.com.br", rotulo: "Gerência (e-mail geral)" },
+    ],
+  },
+  DF: {
+    rotulo: "Distrito Federal (Brasília)", cidade: "Brasília - DF", fone: "(61) 3361-7772",
+    equipe: [
+      { nome: "Ana Paula Alves", cargo: "Comercial", ramal: "7702", whatsapp: "(61) 9 9653-2064", email: "comercialdf4@solidatransporte.com.br" },
+      { nome: "Marlene", cargo: "Financeiro", ramal: "7700", email: "financeirodf@solidatransporte.com.br" },
+      { nome: "Sergio Alexandre", cargo: "Operacional", ramal: "7707", whatsapp: "(61) 9 9956-0138", email: "operacionaldf@solidatransporte.com.br" },
+      { nome: "Virginia Tatiane", cargo: "Expedição", ramal: "7705", whatsapp: "(61) 9 9825-3123", email: "expedicaodf@solidatransporte.com.br" },
+      { nome: "Willian Sousa", cargo: "Expedição", ramal: "7706", whatsapp: "(61) 9 9825-3123", email: "expedicaodf@solidatransporte.com.br" },
+    ],
+  },
+  GO: { rotulo: "Goiânia (Matriz)", cidade: "Goiânia - GO", fone: "(62) 3206-8100", equipe: [] },
+};
+const MANUAL = "manual";
+const LEMBRAR = "solida-assinatura-pessoa";
+
+const lembrar = (valor) => { try { localStorage.setItem(LEMBRAR, valor); } catch (e) { /* navegador sem storage: só não lembra */ } };
+const lembrado = () => { try { return localStorage.getItem(LEMBRAR) || ""; } catch (e) { return ""; } };
+
+function preencher(dados) {
+  ["NOME", "CARGO", "CIDADE", "FONE", "RAMAL", "WHATSAPP", "EMAIL"].forEach((k) => { $(k).value = dados[k.toLowerCase()] || ""; });
+  $("SITE").value = "www.solidatransporte.com.br";
+}
+
+function montarPessoas(pessoaIdx) {
+  const f = FILIAIS[$("FILIAL").value];
+  $("PESSOA").innerHTML = f.equipe
+    .map((p, i) => `<option value="${i}">${esc(p.rotulo || (p.cargo ? `${p.nome} · ${p.cargo}` : p.nome))}</option>`)
+    .join("") + `<option value="${MANUAL}">Outra pessoa (preencher à mão)</option>`;
+  const temIdx = pessoaIdx !== undefined && $("PESSOA").querySelector(`option[value="${pessoaIdx}"]`);
+  $("PESSOA").value = temIdx ? pessoaIdx : (f.equipe.length ? "0" : MANUAL);
+  escolherPessoa();
+}
+
+function escolherPessoa() {
+  const f = FILIAIS[$("FILIAL").value];
+  const sel = $("PESSOA").value;
+  const manual = sel === MANUAL;
+  preencher(manual ? { cidade: f.cidade, fone: f.fone } : { cidade: f.cidade, fone: f.fone, ...f.equipe[+sel] });
+  $("editar").open = manual;
+  lembrar(`${$("FILIAL").value}|${sel}`);
   render();
-});
+  if (manual) $("NOME").focus();
+}
+
+$("FILIAL").innerHTML = Object.entries(FILIAIS).map(([k, f]) => `<option value="${k}">${esc(f.rotulo)}</option>`).join("");
+$("FILIAL").addEventListener("change", () => montarPessoas());
+$("PESSOA").addEventListener("change", escolherPessoa);
 FIELDS.forEach((k) => $(k).addEventListener("input", render));
 
 const radios = [...document.querySelectorAll('input[name="campanha"]')];
@@ -280,7 +351,10 @@ $("download").addEventListener("click", () => {
   URL.revokeObjectURL(a.href);
 });
 
-render();
+// Abre na última pessoa escolhida neste computador (ou na primeira de SP)
+const [filialSalva, pessoaSalva] = lembrado().split("|");
+if (FILIAIS[filialSalva]) $("FILIAL").value = filialSalva;
+montarPessoas(pessoaSalva);
 </script>
 </body>
 </html>
