@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
   motion,
@@ -14,6 +13,7 @@ import {
 } from "framer-motion";
 import { Menu, PackageSearch, X } from "lucide-react";
 import { NAV_LINKS } from "@/components/layout/nav-links";
+import { DesktopNav } from "@/components/layout/DesktopNav";
 import { Button, buttonClasses } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { WhatsAppIcon } from "@/components/layout/WhatsAppIcon";
@@ -45,7 +45,6 @@ export function Header() {
   }, [drawerOpen]);
 
   const { open } = useWhatsApp();
-  const pathname = usePathname();
   const reduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
 
@@ -62,7 +61,7 @@ export function Header() {
     >
       <Container
         className={cn(
-          "flex items-center justify-between gap-4 transition-[padding] duration-300",
+          "flex items-center justify-between gap-4 xl:gap-6 transition-[padding] duration-300",
           scrolled ? "py-2.5" : "py-4"
         )}
       >
@@ -81,38 +80,16 @@ export function Header() {
           />
         </Link>
 
-        {/* Navegação desktop */}
-        <nav aria-label="Navegação principal" className="hidden lg:block">
-          <ul className="flex items-center gap-6">
-            {NAV_LINKS.map((link) => {
-              const active =
-                link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "text-sm font-medium transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white",
-                      active ? "text-white" : "text-white/70"
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <DesktopNav />
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {/* Rastreamento de carga — texto completo em telas largas */}
           <a
             href={TRACKING_URL}
             target="_blank"
             rel="noopener noreferrer"
             data-track="Portal de rastreamento (Cabeçalho)"
-            className={cn(buttonClasses("outline-light", "md"), "hidden xl:inline-flex")}
+            className={cn(buttonClasses("outline-light", "md"), "max-xl:hidden")}
           >
             <PackageSearch className="size-4" aria-hidden />
             Rastrear carga

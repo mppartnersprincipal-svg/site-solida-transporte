@@ -258,3 +258,20 @@
     text-decoration: none;
   }
 }
+
+/* Menu do cabeçalho rolável (DesktopNav): barra de rolagem oculta + degradê na borda com itens escondidos */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.nav-fade-left {
+  mask-image: linear-gradient(to right, transparent 0, #000 2.75rem);
+}
+.nav-fade-right {
+  mask-image: linear-gradient(to left, transparent 0, #000 2.75rem);
+}
+.nav-fade-both {
+  mask-image: linear-gradient(to right, transparent 0, #000 2.75rem, #000 calc(100% - 2.75rem), transparent 100%);
+}

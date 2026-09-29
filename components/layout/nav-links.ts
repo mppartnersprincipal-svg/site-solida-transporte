@@ -4,6 +4,7 @@ export const NAV_LINKS = [
   { label: "Como Funciona", href: "/como-funciona" },
   { label: "Rotas Atendidas", href: "/frete" },
   { label: "Diferenciais", href: "/diferenciais" },
+  { label: "Apresentação Comercial", href: "/apresentacao" },
   { label: "Blog", href: "/blog" },
   { label: "Contato", href: "/contato" },
 ] as const;
