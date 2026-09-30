@@ -96,6 +96,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Configuração automática de e-mail (lib/mail-autoconfig.ts): variações de
+  // caminho que os programas de e-mail consultam caem nas rotas em minúsculas
+  async rewrites() {
+    return [
+      {
+        source: "/.well-known/autoconfig/mail/config-v1.1.xml",
+        destination: "/mail/config-v1.1.xml",
+      },
+      {
+        source: "/Autodiscover/Autodiscover.xml",
+        destination: "/autodiscover/autodiscover.xml",
+      },
+    ];
+  },
   // Evita que o Turbopack detecte lockfiles fora do projeto como raiz
   turbopack: {
     root: __dirname,
