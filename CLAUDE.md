@@ -334,6 +334,13 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Campos (PyMuPDF):** `foto` = botão sobre o placeholder tracejado (JS `buttonImportIcon`, só ícone, proporcional, centralizado; **funciona só no Adobe Acrobat/Reader**, não no navegador); `nome` (Helvetica-Bold, tamanho automático, centralizado) e `cargo` (Helvetica-Bold 5,5 pt, vermelho, vira maiúsculas ao digitar). O PyMuPDF só aceita Helv/Cour/TiRo/ZaDb: o script libera "HeBo" e registra Helvetica-Bold no `/AcroForm/DR`, com `NeedAppearances true` para o Acrobat redesenhar em negrito (o preview do MuPDF mostra regular). Campos de formulário não usam Sora nem espaçamento entre letras, então o nome/cargo ficam um pouco diferentes da versão HTML
 - **Praças:** "SP · GO · DF" (TO removido a pedido do usuário em 28/09/2026). **A confirmar:** PDF sem sangria (pedir à gráfica se precisar de 2–3 mm)
 
+## Configuração automática de e-mail (30/09/2026, commit 00c0183)
+
+- **Por quê:** o TI configura à mão ~40 contas IMAP da KingHost no Outlook novo. O autoconfig da KingHost para o domínio (`autoconfig.`/`autodiscover.solidatransporte.com.br` → CNAME `autoconfig.kinghost.net`) devolve o modelo sem preencher (`%SERVER/IMAP/HOST%`) e o autodiscover dá "Access denied"
+- **Feito (no ar, sem efeito até mudar o DNS):** `lib/mail-autoconfig.ts` (servidores: `imap.kinghost.net` 993 SSL, `smtp.kinghost.net` 465 SSL, login = e-mail completo); `GET /mail/config-v1.1.xml` (Mozilla/Thunderbird, estático) + rewrite de `/.well-known/autoconfig/mail/config-v1.1.xml`; `POST|GET /autodiscover/autodiscover.xml` (POX do Outlook clássico; devolve `LoginName` só para e-mail `@solidatransporte.com.br` válido, corpo até 10 KB) + rewrite de `/Autodiscover/Autodiscover.xml`. Testes: `npm run test:mail`
+- **Para ativar (plano B, se a KingHost não consertar):** adicionar `autoconfig.solidatransporte.com.br` e `autodiscover.solidatransporte.com.br` como domínios do projeto na Vercel → trocar os 2 CNAMEs na zona da KingHost pelo valor que a Vercel mostrar (NÃO mexer em MX/SPF/DKIM). Reverter = voltar os CNAMEs para `autoconfig.kinghost.net`
+- **Incerto:** o Outlook novo usa o serviço de detecção da Microsoft; só teste real em 1 PC diz se ele lê essas fichas. Thunderbird e Outlook clássico leem
+
 ## Pendências para validar com a Sólida (não bloqueiam dev)
 
 - URL real de LinkedIn (hoje `#`); Instagram ✅ instagram.com/solidatransporte (footer, /contato, JSON-LD); Facebook veio da auditoria
