@@ -82,6 +82,14 @@ const nextConfig: NextConfig = {
         destination: "/frete",
         permanent: true,
       },
+      // Página "Nossas Unidades" do site antigo: o link está no QR Code dos
+      // cartões impressos (01/10/2026). Temporário (307) para não ficar
+      // preso no cache do navegador caso a página volte a existir.
+      {
+        source: "/nossas-unidades",
+        destination: "/",
+        permanent: false,
+      },
       // Rota de listagem antiga com "page/N" (paginação do WordPress)
       {
         source: "/blog/page/:page",
