@@ -18,6 +18,7 @@ export const FOOTER_LINKS = [
   { label: "Apresentação Comercial", href: "/apresentacao" },
   { label: "Segmentos", href: "/segmentos" },
   { label: "Diferenciais", href: "/diferenciais" },
+  { label: "Seguro de Carga", href: "/seguro" },
   { label: "Blog", href: "/blog" },
   { label: "Contato", href: "/contato" },
 ] as const;
