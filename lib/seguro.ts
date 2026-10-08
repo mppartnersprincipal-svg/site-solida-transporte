@@ -5,8 +5,9 @@
  * 1. Substituir `public/seguro/carta-de-adimplencia.pdf` pelo PDF novo (mesmo nome)
  * 2. Atualizar `CARTA_EMITIDA_EM` abaixo com a data que está escrita na carta
  *
- * Só publicar dados do CERTIFICADO. Limites de garantia, endereços dos
- * depósitos e condições da apólice são sigilosos (pedido do cliente, 08/10/2026).
+ * O CERTIFICADO pode ser publicado inteiro (dono, Audio 4, 08/10/2026). Sigilosas
+ * são as TAXAS do seguro, que estão só na apólice — a apólice nunca vai ao site.
+ * Na renovação anual: trocar `public/seguro/certificado-de-seguro.pdf` e `VIGENCIA`.
  */
 
 /** Data de emissão da carta vigente (AAAA-MM-DD), como escrita no PDF. */
@@ -19,6 +20,9 @@ export const SEGURADORA = "Yelum Seguros S.A. (Grupo HDI)";
 
 /** Vigência das apólices, conforme o certificado. */
 export const VIGENCIA = { inicio: "2026-07-31", fim: "2027-07-31" };
+
+/** Certificado de seguro (RCTR-C + RC-DC); `?v=` muda a cada renovação. */
+export const CERTIFICADO_URL = `/seguro/certificado-de-seguro.pdf?v=${VIGENCIA.inicio}`;
 
 export const COBERTURAS = [
   {

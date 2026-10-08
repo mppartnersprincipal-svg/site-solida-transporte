@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BadgeCheck, CalendarCheck, Check, FileText, Lock, ShieldCheck } from "lucide-react";
+import { BadgeCheck, CalendarCheck, Check, Download, FileText, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { buttonClasses } from "@/components/ui/Button";
@@ -8,6 +8,7 @@ import { WhatsAppCTAButton } from "@/components/whatsapp/WhatsAppCTAButton";
 import {
   CARTA_EMITIDA_EM,
   CARTA_URL,
+  CERTIFICADO_URL,
   COBERTURAS,
   SEGURADORA,
   VIGENCIA,
@@ -115,12 +116,22 @@ export default function SeguroPage() {
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-2xl border border-line bg-white p-5">
-              <Lock className="mt-0.5 size-5 shrink-0 text-brand-action" aria-hidden />
+              <FileText className="mt-0.5 size-5 shrink-0 text-brand-action" aria-hidden />
               <div className="text-sm">
                 <p className="font-semibold">Condições da apólice</p>
                 <p className="mt-1 text-ink-body">
-                  Valores e condições contratuais são sigilosos e não ficam públicos.
+                  Coberturas e limites de garantia no certificado emitido pela seguradora.
                 </p>
+                <a
+                  href={CERTIFICADO_URL}
+                  target="_blank"
+                  rel="noopener"
+                  data-track="Certificado de seguro (PDF)"
+                  className="mt-2 inline-flex items-center gap-1.5 font-semibold text-brand-action hover:text-brand-hover"
+                >
+                  <Download className="size-4" aria-hidden />
+                  Baixar certificado (PDF)
+                </a>
               </div>
             </div>
           </Reveal>
