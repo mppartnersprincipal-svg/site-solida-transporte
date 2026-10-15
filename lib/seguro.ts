@@ -50,6 +50,35 @@ export const COBERTURAS = [
   },
 ] as const;
 
+/**
+ * Demais seguros: só MENÇÃO, sem documento (dono + corretor, Audios 5–10, 15/10/2026).
+ * A Sólida NÃO faz armazenagem — falar em carga "de passagem" pelas unidades.
+ */
+export const OUTROS_SEGUROS = [
+  {
+    id: "unidades",
+    titulo: "Unidades seguradas",
+    texto:
+      "Seguro empresarial nas três unidades. A mercadoria também fica coberta enquanto passa pelos nossos galpões.",
+  },
+  {
+    id: "frota",
+    titulo: "Frota segurada",
+    texto: "Todos os veículos da frota própria têm seguro.",
+  },
+  {
+    id: "ambiental",
+    titulo: "Seguro ambiental",
+    texto:
+      "Responsabilidade civil ambiental para a empresa inteira. Cuidar do meio ambiente também faz parte do nosso trabalho.",
+  },
+  {
+    id: "vida",
+    titulo: "Seguro de vida da equipe",
+    texto: "Todos os colaboradores da Sólida têm seguro de vida.",
+  },
+] as const;
+
 /** "2026-10-07" → "07/10/2026" (sem passar por Date, para não sofrer com fuso). */
 export function formatarData(iso: string) {
   const [ano, mes, dia] = iso.split("-");

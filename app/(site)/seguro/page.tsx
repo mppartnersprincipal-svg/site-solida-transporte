@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
-import { BadgeCheck, CalendarCheck, Check, Download, FileText, ShieldCheck } from "lucide-react";
+import {
+  BadgeCheck,
+  CalendarCheck,
+  Check,
+  Download,
+  FileText,
+  HeartHandshake,
+  Leaf,
+  ShieldCheck,
+  Truck,
+  Warehouse,
+} from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 import { buttonClasses } from "@/components/ui/Button";
@@ -10,6 +21,7 @@ import {
   CARTA_URL,
   CERTIFICADO_URL,
   COBERTURAS,
+  OUTROS_SEGUROS,
   SEGURADORA,
   VIGENCIA,
   formatarData,
@@ -21,6 +33,13 @@ export const metadata: Metadata = {
   description:
     "A carga transportada pela Sólida viaja segurada (RCTR-C e RC-DC) e o seguro está em dia: veja a carta de adimplência emitida pela seguradora todo mês.",
 };
+
+const ICONES_OUTROS = {
+  unidades: Warehouse,
+  frota: Truck,
+  ambiental: Leaf,
+  vida: HeartHandshake,
+} as const;
 
 export default function SeguroPage() {
   return (
@@ -138,8 +157,35 @@ export default function SeguroPage() {
         </Container>
       </section>
 
+      {/* Demais seguros (só menção, sem documento) */}
+      <section className="bg-surface py-16 sm:py-24">
+        <Container>
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="text-2xl font-bold sm:text-3xl text-balance">Outros seguros da Sólida</h2>
+            <p className="mt-3 text-ink-body">
+              Além da carga, a empresa inteira é segurada: unidades, frota, meio ambiente e equipe.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {OUTROS_SEGUROS.map(({ id, titulo, texto }, i) => {
+              const Icon = ICONES_OUTROS[id];
+              return (
+                <Reveal key={id} delay={i * 0.07} className="h-full rounded-2xl border border-line bg-white p-6">
+                  <span className="flex size-12 items-center justify-center rounded-xl bg-brand-tint text-brand-action">
+                    <Icon className="size-6" aria-hidden />
+                  </span>
+                  <h3 className="mt-4 text-base font-bold">{titulo}</h3>
+                  <p className="mt-2 text-sm text-ink-body">{texto}</p>
+                </Reveal>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
       {/* CTA */}
-      <section className="bg-surface py-16 text-center sm:py-20">
+      <section className="bg-surface-alt py-16 text-center sm:py-20">
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-xl text-2xl font-bold sm:text-3xl text-balance">
