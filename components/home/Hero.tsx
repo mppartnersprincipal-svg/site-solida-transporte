@@ -18,9 +18,9 @@ const TRUST_ITEMS = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink text-white">
-      {/* Foto real da sede/frota, já escurecida */}
+      {/* Foto real da frota no pátio, já escurecida */}
       <Image
-        src="/assets/hero-sede.jpg"
+        src="/assets/frota-patio-ceu.webp"
         alt=""
         fill
         priority

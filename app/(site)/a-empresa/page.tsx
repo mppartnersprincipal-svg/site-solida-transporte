@@ -99,10 +99,10 @@ export default function AEmpresaPage() {
           <Reveal delay={0.15} className="relative">
             <div className="overflow-hidden rounded-2xl">
               <Image
-                src="/assets/sede-frota.jpg"
-                alt="Sede da Sólida Transporte em Goiânia, com caminhão da frota própria"
-                width={1200}
-                height={640}
+                src="/assets/frota-patio-ceu.webp"
+                alt="Caminhões e carreta da frota própria da Sólida no pátio da sede"
+                width={1600}
+                height={1066}
                 className="h-auto w-full object-cover"
               />
             </div>

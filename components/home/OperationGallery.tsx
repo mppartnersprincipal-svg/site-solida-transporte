@@ -31,13 +31,15 @@ const PHOTOS = [
     span: "col-span-2 md:col-span-1",
   },
   {
-    src: "/assets/op-carreta.webp",
-    alt: "Carreta Iveco Stralis da Sólida Transporte estacionada no pátio",
+    src: "/assets/caminhao-estrada.webp",
+    alt: "Caminhão baú Volkswagen da Sólida Transporte rodando na estrada",
     span: "md:row-span-2",
+    // Céu ocupa o topo da foto: alinha por baixo para o caminhão ficar no quadro
+    position: "object-[50%_80%]",
   },
   {
-    src: "/assets/op-patio-frota.webp",
-    alt: "Carreta e caminhões baú da Sólida enfileirados em frente ao galpão",
+    src: "/assets/carreta-ipe.webp",
+    alt: "Carreta Iveco Stralis da Sólida encostada na doca do galpão, com um ipê florido ao fundo",
     span: "col-span-2",
   },
   {
@@ -79,7 +81,7 @@ export function OperationGallery() {
                 alt={p.alt}
                 fill
                 sizes="(min-width: 768px) 25vw, 50vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className={`object-cover ${p.position ?? ""} transition-transform duration-700 ease-out group-hover:scale-105`}
               />
             </Reveal>
           ))}

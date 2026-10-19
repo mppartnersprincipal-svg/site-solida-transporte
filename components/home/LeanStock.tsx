@@ -37,10 +37,10 @@ export function LeanStock() {
         <Reveal delay={0.15} className="relative">
           <div className="overflow-hidden rounded-2xl">
             <Image
-              src="/assets/frota-detalhe.jpg"
-              alt="Baú de caminhão da frota da Sólida Transporte com a marca da empresa"
-              width={1200}
-              height={640}
+              src="/assets/frota-cargo-816.webp"
+              alt="Caminhão Ford Cargo da frota da Sólida Transporte com a marca da empresa no baú"
+              width={1600}
+              height={1066}
               className="h-auto w-full object-cover"
             />
           </div>

@@ -12,8 +12,8 @@ const SLIDES = [
     caption: "Frota própria",
   },
   {
-    src: "/assets/frota-detalhe.jpg",
-    alt: "Baú de caminhão da frota da Sólida Transporte com a marca da empresa",
+    src: "/assets/frota-cargo-816.webp",
+    alt: "Caminhão Ford Cargo da frota da Sólida Transporte com a marca da empresa no baú",
     caption: "Caminhões com a marca da Sólida",
   },
   {
@@ -52,8 +52,8 @@ const SLIDES = [
     caption: "Separação de volumes",
   },
   {
-    src: "/assets/op-carreta.webp",
-    alt: "Carreta Iveco Stralis da Sólida Transporte estacionada no pátio",
+    src: "/assets/carreta-ipe.webp",
+    alt: "Carreta Iveco Stralis da Sólida encostada na doca do galpão, com um ipê florido ao fundo",
     caption: "Carreta para cargas de maior volume",
   },
 ];
