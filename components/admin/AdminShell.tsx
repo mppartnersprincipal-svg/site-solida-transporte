@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BarChart3, ExternalLink, FileText, LogOut } from "lucide-react";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { ACCESS_DENIED_PARAM, ACCESS_DENIED_VALUE, isAdminEmail } from "@/lib/admin-access";
 import { signOut } from "@/app/(admin)/admin/actions";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +32,10 @@ export async function AdminShell({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  // Segunda barreira além do proxy: só e-mails da allowlist ADMIN_EMAILS
+  if (!user || !isAdminEmail(user.email)) {
+    redirect(user ? `/login?${ACCESS_DENIED_PARAM}=${ACCESS_DENIED_VALUE}` : "/login");
+  }
 
   const width = wide ? "max-w-7xl" : "max-w-6xl";
 

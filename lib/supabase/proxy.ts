@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { ACCESS_DENIED_PARAM, ACCESS_DENIED_VALUE, isAdminEmail } from "@/lib/admin-access";
 
 /**
  * Renova a sessão do Supabase a cada request e protege a área administrativa.
@@ -42,15 +43,19 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // /admin/* e /dashboard/* exigem login; /login redireciona quem já está logado
+  // /admin/* e /dashboard/* exigem login de um e-mail da allowlist ADMIN_EMAILS
+  // (falha fechada: sem a env, ninguém entra); /login redireciona quem já é admin
+  const isAdmin = isAdminEmail(user?.email);
   const isPrivate = pathname.startsWith("/admin") || pathname.startsWith("/dashboard");
-  if (isPrivate && !user) {
+  if (isPrivate && !isAdmin) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
+    redirectUrl.search = "";
+    if (user) redirectUrl.searchParams.set(ACCESS_DENIED_PARAM, ACCESS_DENIED_VALUE);
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (pathname === "/login" && user) {
+  if (pathname === "/login" && isAdmin) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";
     return NextResponse.redirect(redirectUrl);

@@ -57,6 +57,26 @@ const LEGACY_POST_SLUGS = [
   "estrategia-de-distribuicao-intensiva-exclusiva-ou-seletiva-como-escolher",
 ];
 
+// Headers de segurança em todas as rotas. SEM Content-Security-Policy de
+// propósito: CSP quebraria GTM, GA4 e Meta Pixel.
+const SECURITY_HEADERS = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+];
+
+// Hostname EXATO do projeto Supabase (lido de NEXT_PUBLIC_SUPABASE_URL no build;
+// sem a env, cai no projeto em produção). Antes era *.supabase.co (qualquer projeto).
+const SUPABASE_HOSTNAME = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").hostname;
+  } catch {
+    return "khipnjfbxjgvmjvyxero.supabase.co";
+  }
+})();
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
@@ -133,13 +153,14 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.supabase.co",
+        hostname: SUPABASE_HOSTNAME,
         pathname: "/storage/v1/object/public/**",
       },
     ],
   },
   async headers() {
     return [
+      { source: "/(.*)", headers: SECURITY_HEADERS },
       {
         // Gerador de assinatura: uso interno, fora do Google
         source: "/assinatura/gerador.html",

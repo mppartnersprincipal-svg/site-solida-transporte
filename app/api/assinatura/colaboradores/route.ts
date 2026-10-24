@@ -1,16 +1,23 @@
 import { type NextRequest } from "next/server";
-import { createHash } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { COLUNAS, UUID_RE, validarColaborador } from "@/lib/assinatura-colaboradores";
+import { hasAdminSession } from "@/lib/admin-session";
+import { COLUNAS, COLUNAS_PUBLICAS, UUID_RE, validarColaborador } from "@/lib/assinatura-colaboradores";
 
 /**
  * Cadastro de colaboradores do gerador de assinatura (/assinatura).
  *
- * - GET lista todos, ativos e excluídos (mesmos dados que já saem nas assinaturas).
+ * - GET público: só colaboradores ATIVOS e só os campos que aparecem na assinatura
+ *   (+ id e rótulo do menu). Com acesso de edição (abaixo), também devolve os excluídos.
  * - POST cria, PUT ?id= edita (só ativos), DELETE ?id= exclui, PATCH ?id= restaura.
  *   Exclusão é reversível: só marca excluido_em (migration 0007), nunca apaga a linha.
- * - SEM SENHA por decisão do cliente (28/09/2026): qualquer um com o link altera.
- *   Proteção só contra abuso em massa: validação + limite por rede e teto global.
+ * - Escrita: em 28/09/2026 o cliente pediu SEM LOGIN para a equipe; mantido sem login,
+ *   mas desde 23/10/2026 (correção de segurança autorizada pelo Pedro) exige uma de:
+ *     1. sessão de admin do Supabase (e-mail em ADMIN_EMAILS), ou
+ *     2. código de acesso compartilhado com a equipe (env ASSINATURA_ACCESS_CODE),
+ *        enviado no header x-assinatura-codigo e comparado em tempo constante.
+ *   Falha fechada: sem ASSINATURA_ACCESS_CODE, só o admin logado consegue alterar.
+ * - Proteção extra contra abuso: validação + limite por rede e teto global.
  * - Tabela com RLS e sem policies: só a service role (este arquivo) acessa.
  */
 
@@ -54,6 +61,28 @@ function limitarEscrita(request: NextRequest): Response | null {
   return null;
 }
 
+const HEADER_CODIGO = "x-assinatura-codigo";
+
+/** Código válido? Sem a env configurada, nunca (falha fechada). */
+function codigoValido(request: NextRequest): boolean {
+  const esperado = process.env.ASSINATURA_ACCESS_CODE ?? "";
+  const recebido = request.headers.get(HEADER_CODIGO) ?? "";
+  if (!esperado || !recebido) return false;
+  const a = createHash("sha256").update(recebido).digest();
+  const b = createHash("sha256").update(esperado).digest();
+  return timingSafeEqual(a, b);
+}
+
+async function podeEditar(request: NextRequest): Promise<boolean> {
+  return codigoValido(request) || (await hasAdminSession());
+}
+
+/** null = autorizado; senão a Response 401. */
+async function exigirEdicao(request: NextRequest): Promise<Response | null> {
+  if (await podeEditar(request)) return null;
+  return json(401, { ok: false, error: "Código de acesso inválido. Peça o código atual ao responsável." });
+}
+
 async function lerCorpo(request: NextRequest): Promise<unknown> {
   const len = Number(request.headers.get("content-length") ?? 0);
   if (len > MAX_BODY) return json(413, { ok: false, error: "Dados grandes demais." });
@@ -73,12 +102,19 @@ function idDaUrl(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   if (!allow(`r:${ipHash(request)}`, 120)) return json(429, { ok: false, error: "Muitas requisições." });
+  // Código enviado e errado → 401 (o gerador pede de novo); sem código → lista pública
+  const enviouCodigo = request.headers.has(HEADER_CODIGO);
+  const completo = await podeEditar(request);
+  if (enviouCodigo && !completo) {
+    if (!allow(`f:${ipHash(request)}`, 10)) return json(429, { ok: false, error: "Muitas tentativas. Espere um minuto." });
+    return json(401, { ok: false, error: "Código de acesso inválido." });
+  }
+
   const supabase = createAdminClient();
   if (!supabase) return json(503, { ok: false, error: "Banco de dados indisponível." });
 
-  const { data, error } = await supabase
-    .from("assinatura_colaboradores")
-    .select(COLUNAS)
+  const base = supabase.from("assinatura_colaboradores").select(completo ? COLUNAS : COLUNAS_PUBLICAS);
+  const { data, error } = await (completo ? base : base.is("excluido_em", null))
     .order("filial")
     .order("nome");
   if (error) {
@@ -89,7 +125,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const negado = limitarEscrita(request);
+  const negado = limitarEscrita(request) ?? (await exigirEdicao(request));
   if (negado) return negado;
   const body = await lerCorpo(request);
   if (body instanceof Response) return body;
@@ -107,7 +143,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const negado = limitarEscrita(request);
+  const negado = limitarEscrita(request) ?? (await exigirEdicao(request));
   if (negado) return negado;
   const id = idDaUrl(request);
   if (!id) return json(400, { ok: false, error: "Colaborador inválido." });
@@ -135,7 +171,7 @@ export async function PUT(request: NextRequest) {
 
 /** Marca/desmarca excluido_em. A linha nunca é apagada: exclusão sempre pode ser desfeita. */
 async function marcarExclusao(request: NextRequest, excluir: boolean) {
-  const negado = limitarEscrita(request);
+  const negado = limitarEscrita(request) ?? (await exigirEdicao(request));
   if (negado) return negado;
   const id = idDaUrl(request);
   if (!id) return json(400, { ok: false, error: "Colaborador inválido." });

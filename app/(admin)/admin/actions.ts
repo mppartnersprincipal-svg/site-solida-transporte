@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/admin-access";
 import { slugify } from "@/lib/utils";
 import type { PostStatus } from "@/lib/blog";
 
@@ -27,7 +28,8 @@ async function requireUser() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  // Conta no Supabase não basta: só e-mails da allowlist ADMIN_EMAILS
+  if (!user || !isAdminEmail(user.email)) redirect("/login");
   return { supabase, user };
 }
 

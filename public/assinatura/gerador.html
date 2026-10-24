@@ -297,6 +297,19 @@ const lembrar = (valor) => { try { localStorage.setItem(LEMBRAR, valor); } catch
 const lembrado = () => { try { return localStorage.getItem(LEMBRAR) || ""; } catch (e) { return ""; } };
 
 const API = "/api/assinatura/colaboradores";
+// Código de acesso da equipe (env ASSINATURA_ACCESS_CODE no servidor): exigido para
+// cadastrar/editar/excluir/restaurar. Pedido na 1ª alteração e lembrado neste navegador.
+const CODIGO = "solida-assinatura-codigo";
+const codigoSalvo = () => { try { return localStorage.getItem(CODIGO) || ""; } catch (e) { return ""; } };
+const salvarCodigo = (v) => { try { if (v) localStorage.setItem(CODIGO, v); else localStorage.removeItem(CODIGO); } catch (e) { /* sem storage: pede de novo */ } };
+let codigoAtual = codigoSalvo();
+const esquecerCodigo = () => { codigoAtual = ""; salvarCodigo(""); };
+function pedirCodigo() {
+  const v = (prompt("Para alterar o cadastro, digite o código de acesso da equipe:") || "").trim();
+  if (v) { codigoAtual = v; salvarCodigo(v); }
+  return v;
+}
+const comCodigo = (h = {}) => (codigoAtual ? { ...h, "x-assinatura-codigo": codigoAtual } : h);
 const DADOS = ["nome", "cargo", "cidade", "fone", "ramal", "whatsapp", "email"];
 // Equipe exibida por filial: começa com a reserva embutida e é trocada pela do banco quando a API responde
 let equipes = Object.fromEntries(Object.entries(FILIAIS).map(([k, f]) => [k, f.equipe.map((p, i) => ({ ...p, chave: "i" + i }))]));
@@ -356,7 +369,9 @@ function avisoCadastro(msg, ok = true, desfazerId = null) {
 }
 
 async function carregarEquipes() {
-  const r = await fetch(API, { cache: "no-store" });
+  let r = await fetch(API, { cache: "no-store", headers: comCodigo() });
+  // Código salvo ficou inválido (foi trocado): esquece e carrega a lista pública
+  if (r.status === 401 && codigoAtual) { esquecerCodigo(); r = await fetch(API, { cache: "no-store" }); }
   const body = await r.json();
   if (!r.ok || !body.ok) throw new Error(body.error || "Falha ao carregar");
   const novas = Object.fromEntries(Object.keys(FILIAIS).map((k) => [k, []]));
@@ -401,11 +416,13 @@ function dadosDoFormulario() {
 }
 
 async function enviar(metodo, url, corpo) {
+  if (!codigoAtual && !pedirCodigo()) throw new Error("Alteração cancelada: é preciso o código de acesso da equipe.");
   const r = await fetch(url, {
     method: metodo,
-    headers: { "Content-Type": "application/json" },
+    headers: comCodigo({ "Content-Type": "application/json" }),
     body: corpo ? JSON.stringify(corpo) : undefined,
   });
+  if (r.status === 401) esquecerCodigo(); // na próxima tentativa pede o código de novo
   const body = await r.json().catch(() => ({ ok: false, error: "Resposta inválida do servidor." }));
   if (!r.ok || !body.ok) throw new Error(body.error || "Não consegui salvar.");
   return body.data;

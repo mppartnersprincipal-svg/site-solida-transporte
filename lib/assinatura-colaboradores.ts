@@ -24,6 +24,8 @@ export type Colaborador = {
 export type ColaboradorInput = Omit<Colaborador, "id" | "excluido_em">;
 
 export const COLUNAS = "id, filial, nome, cargo, cidade, fone, ramal, whatsapp, email, rotulo, excluido_em";
+/** GET público: só o que sai na assinatura (+ id para editar e rótulo do menu). Só ativos. */
+export const COLUNAS_PUBLICAS = "id, filial, nome, cargo, cidade, fone, ramal, whatsapp, email, rotulo";
 
 const LIMITES = { nome: 80, cargo: 60, cidade: 60, fone: 30, ramal: 10, whatsapp: 30, email: 120, rotulo: 80 } as const;
 const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;

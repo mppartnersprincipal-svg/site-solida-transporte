@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/admin-access";
 import { getRecent } from "@/lib/analytics-queries";
 import type { RecentRow } from "@/lib/analytics-types";
 
@@ -10,7 +11,8 @@ async function requireUser() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  // Conta no Supabase não basta: só e-mails da allowlist ADMIN_EMAILS
+  if (!user || !isAdminEmail(user.email)) redirect("/login");
   return user;
 }
 

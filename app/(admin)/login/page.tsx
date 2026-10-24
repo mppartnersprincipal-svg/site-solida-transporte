@@ -2,12 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LoginForm } from "@/components/admin/LoginForm";
+import { ACCESS_DENIED_PARAM, ACCESS_DENIED_VALUE } from "@/lib/admin-access";
 
 export const metadata: Metadata = {
   title: "Login | Área administrativa",
 };
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const acessoNegado = params[ACCESS_DENIED_PARAM] === ACCESS_DENIED_VALUE;
+
   return (
     <main className="relative flex flex-1 items-center justify-center overflow-hidden bg-ink px-4 py-16">
       <div
@@ -35,6 +43,11 @@ export default function LoginPage() {
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-white p-6 shadow-2xl sm:p-8">
+          {acessoNegado ? (
+            <p role="alert" className="mb-4 text-sm font-medium text-brand-action">
+              Este e-mail não tem acesso à área administrativa. Entre com uma conta autorizada.
+            </p>
+          ) : null}
           <LoginForm />
         </div>
 

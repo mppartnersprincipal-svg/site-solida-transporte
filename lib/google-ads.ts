@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/admin-access";
 import { fetchGoogleAdsReport } from "@/lib/google-ads-api";
 import type { Range } from "@/lib/analytics-queries";
 import type { GoogleAdsReport } from "@/lib/google-ads-types";
@@ -10,7 +11,7 @@ export async function getGoogleAdsReport(range: Range): Promise<GoogleAdsReport>
   try {
     const supabase = await createClient();
     const { data: { user }, error } = await supabase.auth.getUser();
-    if (error || !user) {
+    if (error || !user || !isAdminEmail(user.email)) {
       return { status: "error", message: "Entre novamente no painel para consultar o Google Ads." };
     }
   } catch {
