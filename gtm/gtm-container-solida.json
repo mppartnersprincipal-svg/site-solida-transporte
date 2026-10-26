@@ -1358,12 +1358,17 @@
           {
             "type": "BOOLEAN",
             "key": "enableCrossDomain",
-            "value": "false"
+            "value": "true"
           },
           {
             "type": "BOOLEAN",
             "key": "enableUrlPassthrough",
             "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "linkerDomains",
+            "value": "site-solida-transporte.vercel.app, solidatransporte.com.br"
           },
           {
             "type": "BOOLEAN",

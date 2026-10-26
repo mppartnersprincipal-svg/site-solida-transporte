@@ -147,8 +147,12 @@ ga4Event("click_outbound", "Click - Outbound link", [["link_url", "{{Click URL}}
 ga4Event("file_download", "Click - File download", [["file_url", "{{Click URL}}"], ["link_text", "{{Click Text}}"], ["page_path", "{{Page Path}}"]]);
 
 // ---------- Tags: Google Ads ----------
+// Domínio cruzado ligado à mão no GTM (visto no container publicado em 26/10/2026) — mantido aqui
+// para a reimportação não desfazer.
 tag("Ads - Conversion Linker", "gclidw", [
-  B("enableCrossDomain", false), B("enableUrlPassthrough", false), B("enableCookieOverrides", false),
+  B("enableCrossDomain", true), B("enableUrlPassthrough", false),
+  T("linkerDomains", "site-solida-transporte.vercel.app, solidatransporte.com.br"),
+  B("enableCookieOverrides", false),
 ], ["Initialization - All Pages"]);
 tag("Ads - Remarketing", "sp", [
   B("enableConversionLinker", true), B("enableDynamicRemarketing", false),
