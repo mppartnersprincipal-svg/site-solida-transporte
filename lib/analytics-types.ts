@@ -187,6 +187,8 @@ export const SOURCE_LABELS: Record<string, string> = {
   "frete-cta-final": "CTA final da página de rota",
   apresentacao: "Apresentação Comercial",
   seguro: "Página Seguro de Carga",
+  formulario: "Vagas: ao lado do formulário",
+  sucesso: "Vagas: após enviar candidatura",
 };
 
 export const EVENT_LABELS: Record<string, string> = {
@@ -203,6 +205,8 @@ export const EVENT_LABELS: Record<string, string> = {
   blog_filter: "Filtrou o blog",
   blog_load_more: "Carregou mais posts",
   cookie_consent: "Respondeu o banner de cookies",
+  candidatura_enviada: "Enviou candidatura (vagas)",
+  whatsapp_rh_click: "Clicou no WhatsApp do RH (vagas)",
 };
 
 export const FUNNEL_LABELS: Record<string, string> = {
@@ -220,6 +224,7 @@ export const PAGE_LABELS: Record<string, string> = {
   "/contato": "Contato",
   "/apresentacao": "Apresentação Comercial",
   "/seguro": "Seguro de Carga",
+  "/trabalhe-conosco": "Trabalhe Conosco (vagas)",
   "/blog": "Blog",
   "/politica-de-privacidade": "Política de Privacidade",
   "/politica-de-cookies": "Política de Cookies",

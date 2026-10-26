@@ -72,7 +72,7 @@ constant("CONST - Ads Label - whatsapp_central_open", "v3B3CKyEtOgcEJPb8_1B");
 [
   "source", "subject", "option", "page", "page_path", "page_location", "page_title",
   "consent_choice", "phone", "label", "email", "network", "unit", "via",
-  "post_slug", "post_title", "post_category", "loaded_count",
+  "post_slug", "post_title", "post_category", "loaded_count", "vaga", "has_cv",
 ].forEach(dlv);
 
 // ---------- Gatilhos ----------
@@ -81,6 +81,7 @@ trigger("All Pages", "PAGEVIEW");
 const CUSTOM_EVENTS = [
   "page_view", "cookie_consent", "whatsapp_central_open", "whatsapp_click", "phone_click",
   "email_click", "social_click", "maps_click", "blog_post_view", "blog_filter", "blog_load_more",
+  "candidatura_enviada", "whatsapp_rh_click",
 ];
 CUSTOM_EVENTS.forEach(ceTrigger);
 trigger("Scroll - 25/50/75/90", "SCROLL_DEPTH", {
@@ -138,6 +139,9 @@ ga4Event("blog_post_view", "CE - blog_post_view", [
 ]);
 ga4Event("blog_filter", "CE - blog_filter", [["post_category", "{{DLV - post_category}}"]]);
 ga4Event("blog_load_more", "CE - blog_load_more", [["post_category", "{{DLV - post_category}}"], ["loaded_count", "{{DLV - loaded_count}}"]]);
+// Vagas (LP /trabalhe-conosco) — só GA4; NÃO são conversão do Google Ads (frete).
+ga4Event("candidatura_enviada", "CE - candidatura_enviada", [["vaga", "{{DLV - vaga}}"], ["has_cv", "{{DLV - has_cv}}"], ["page", "{{DLV - page}}"]]);
+ga4Event("whatsapp_rh_click", "CE - whatsapp_rh_click", [["source", "{{DLV - source}}"], ["page", "{{DLV - page}}"]]);
 ga4Event("scroll_depth", "Scroll - 25/50/75/90", [["percent_scrolled", "{{Scroll Depth Threshold}}"], ["page_path", "{{Page Path}}"]]);
 ga4Event("click_outbound", "Click - Outbound link", [["link_url", "{{Click URL}}"], ["link_text", "{{Click Text}}"], ["page_path", "{{Page Path}}"]]);
 ga4Event("file_download", "Click - File download", [["file_url", "{{Click URL}}"], ["link_text", "{{Click Text}}"], ["page_path", "{{Page Path}}"]]);

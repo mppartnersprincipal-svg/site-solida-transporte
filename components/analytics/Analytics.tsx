@@ -57,7 +57,9 @@ export function Analytics() {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: "page_view", ...params });
     window.gtag?.("event", "page_view", params);
-    window.fbq?.("track", "PageView");
+    // Meta Pixel: NÃO chamar fbq PageView aqui. O fbevents.js já conta sozinho
+    // as navegações SPA (pushState) e o load inicial vem da tag do GTM —
+    // chamar aqui duplicava o PageView a cada troca de página (visto em 26/10/2026).
     // pathname na dependência: dispara a cada troca de rota
   }, [pathname, consented]);
 

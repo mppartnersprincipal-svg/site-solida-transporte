@@ -14,7 +14,12 @@ export const WHATSAPP_NUMBERS = {
   coletaGO: "556232063800",
   /** São Paulo — Coleta */
   coletaSP: "551139368284",
+  /** RH (Goiânia) — só na LP /trabalhe-conosco, fora da Central */
+  rh: "5562996363830",
 } as const;
+
+/** Mensagem pronta do WhatsApp do RH (LP /trabalhe-conosco). */
+export const WA_RH_MESSAGE = "Olá! Vi as vagas da Sólida Transporte e quero me candidatar.";
 
 export function waLink(number: string, message: string) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;

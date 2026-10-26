@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test:google-ads": "node --experimental-strip-types --conditions=react-server --experimental-test-isolation=none --test tests/google-ads.test.mjs",
-    "test:mail": "node --experimental-strip-types --test tests/mail-autoconfig.test.mjs"
+    "test:mail": "node --experimental-strip-types --test tests/mail-autoconfig.test.mjs",
+    "test:vagas": "node --experimental-strip-types --test tests/vagas.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
@@ -22,6 +23,7 @@
     "framer-motion": "^13.1.1",
     "lucide-react": "^1.33.0",
     "next": "16.3.2",
+    "nodemailer": "^10.2.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "^3.10.1",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
