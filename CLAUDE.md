@@ -342,7 +342,7 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **Para ativar (plano B, se a KingHost não consertar):** adicionar `autoconfig.solidatransporte.com.br` e `autodiscover.solidatransporte.com.br` como domínios do projeto na Vercel → trocar os 2 CNAMEs na zona da KingHost pelo valor que a Vercel mostrar (NÃO mexer em MX/SPF/DKIM). Reverter = voltar os CNAMEs para `autoconfig.kinghost.net`
 - **Incerto:** o Outlook novo usa o serviço de detecção da Microsoft; só teste real em 1 PC diz se ele lê essas fichas. Thunderbird e Outlook clássico leem
 
-## LP `/trabalhe-conosco` — vagas + currículo (26/10/2026, branch `feat/trabalhe-conosco`)
+## LP `/trabalhe-conosco` — vagas + currículo (26/10/2026, no ar — commit 172510a)
 
 - **Por quê:** anúncio de vagas no Meta Ads, mas o WhatsApp do RH ((62) 99636-3830) não é Business → o Meta não deixa apontar o anúncio para ele. A LP recebe o clique, coleta os dados + currículo e oferece o WhatsApp do RH
 - **Layout enxuto:** grupo `app/(lp)/` (sem menu/rodapé/Central; mantém CookieBanner, Analytics, Collector). Página em `app/(lp)/trabalhe-conosco/page.tsx`: topo com "Falar com o RH", hero (foto `op-equipe.jpg`), 3 cards de vaga ("Quero esta vaga" já marca a vaga no formulário via evento `solida:vaga`), formulário + caixa WhatsApp, "Por que trabalhar na Sólida", rodapé mínimo, flutuante direto no RH. JSON-LD `JobPosting` × 3 (Google for Jobs). No sitemap
@@ -354,7 +354,8 @@ proxy.ts            protege /admin/* e /dashboard/*, redireciona /login → /das
 - **26/10 (2ª rodada):** migration 0008 rodada pelo Pedro (tabela + bucket privado conferidos; anônimo não lê). Meta Pixel **1432911368279186** no GTM (template oficial, tag "Meta Pixel - PageView", publicada). Validado com o Supabase real + GTM real: `SubmitApplication` (content_name = vaga) e `WhatsAppRH` chegam ao Pixel pelo `window.fbq` direto do código — **não criar tags no GTM para esses eventos** (duplicaria)
 - **Teste automatizado do Pixel:** o fbevents.js ignora navegador automatizado (`navigator.webdriver` / "HeadlessChrome" no user-agent). Para testar com Playwright: `--disable-blink-features=AutomationControlled`, `webdriver=false` e UA normal; bloquear `facebook.com/tr` (o nome do evento às vezes vai no corpo do POST)
 - **PageView em dobro corrigido (todo o site):** o fbevents.js já conta as navegações SPA sozinho; o `Analytics.tsx` também chamava `fbq('track','PageView')` → 2 PageView por troca de página (medido em produção). Removida a chamada manual
-- **Pendências para ir ao ar:** (1) criar `SMTP_USER`/`SMTP_PASS` na Vercel (Production + Preview); (2) merge na `master`; (3) apagar as 5 linhas de teste "TESTE Claude Pixel…" em `candidaturas` + PDFs em `curriculos/2026-10/`; (4) LGPD: apagar candidaturas com mais de 12 meses
+- **No ar em 26/10/2026:** envs `SMTP_USER`/`SMTP_PASS` criadas pelo Pedro na Vercel; candidatura de teste em produção ("TESTE MP Assessoria (pode ignorar)") gravou com `email_enviado = true` (Gmail aceitou o envio ao rh@)
+- **Pendências:** (1) confirmar com a Sólida que o e-mail de teste chegou no rh@ (olhar spam); (2) apagar as linhas de teste "TESTE Claude Pixel…" e "TESTE MP Assessoria…" em `candidaturas` + PDFs em `curriculos/2026-10/`; (3) reimportar o container GTM para o GA4 ver os 2 eventos novos; (4) LGPD: apagar candidaturas com mais de 12 meses
 - **Achado à parte:** com "reduzir movimento" ligado no sistema, o `Reveal` gera aviso de hidratação (servidor renderiza `opacity:0`, cliente não) — vale em todas as páginas, não só nesta
 
 ## Página `/seguro` — carta de adimplência (08/10/2026)
