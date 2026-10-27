@@ -125,12 +125,13 @@
 
       <label>Campanha do mês (imagem + texto à direita)</label>
       <div class="camps" id="CAMPANHA">
+        <label class="camp" style="grid-column:1/-1"><input type="radio" name="campanha" value="auto"><span><i style="background:linear-gradient(90deg,#F2C200,#E8609A,#1F6FD1)"></i>Automática: troca sozinha todo mês</span></label>
         <label class="camp"><input type="radio" name="campanha" value=""><span>Nenhuma</span></label>
         <label class="camp"><input type="radio" name="campanha" value="setembro-amarelo"><span><i style="background:#F2C200"></i>Setembro Amarelo</span></label>
         <label class="camp"><input type="radio" name="campanha" value="outubro-rosa"><span><i style="background:#E8609A"></i>Outubro Rosa</span></label>
         <label class="camp"><input type="radio" name="campanha" value="novembro-azul"><span><i style="background:#1F6FD1"></i>Novembro Azul</span></label>
       </div>
-      <div class="hint">Já vem marcada a campanha do mês atual. Troque quando o mês virar e cole a assinatura de novo.</div>
+      <div class="hint"><b>Automática</b> (recomendada): cole uma vez e pronto. A imagem muda sozinha a cada mês (Setembro Amarelo, Outubro Rosa, Novembro Azul e, nos outros meses, um banner da Sólida), sem precisar colar a assinatura de novo. As outras opções fixam uma campanha e precisam ser trocadas à mão quando o mês virar.</div>
     </form>
 
     <div class="actions">
@@ -223,7 +224,21 @@ const CAMPANHAS = {
       <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;">Aqui, a gente cuida <b>de quem faz a S&oacute;lida.</b></div>
     </td>
     <!--/CAMPANHA-->`,
-  "novembro-azul": null,
+  "novembro-azul": `<!--CAMPANHA-->
+    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
+      <img src="${IMG}campanha-novembro-azul.jpg" width="200" height="153" alt="Novembro Azul" style="display:block;border:0;width:200px;height:153px;">
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:bold;color:#1F6FD1;padding:8px 0 4px 0;">Novembro Azul &middot; Sa&uacute;de tamb&eacute;m &eacute; for&ccedil;a</div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#4B5563;">A estrada espera. Sua sa&uacute;de, n&atilde;o. Qualquer sinal diferente, procure um m&eacute;dico. <b>Se cuidar tamb&eacute;m &eacute; coisa de homem.</b></div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;">Aqui, a gente cuida <b>de quem faz a S&oacute;lida.</b><br>Telemedicina: <a href="https://brcarga.com.br/telemedicina/" target="_blank" style="color:#1F6FD1;text-decoration:none;font-weight:bold;">brcarga.com.br/telemedicina</a></div>
+    </td>
+    <!--/CAMPANHA-->`,
+  // Automática: endereços FIXOS — o site escolhe o banner e o link pelo mês (solida-site/lib/assinatura-campanha.ts;
+  // banners gerados por banners.py). Colou uma vez, a campanha troca sozinha.
+  auto: `<!--CAMPANHA-->
+    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
+      <a href="https://www.solidatransporte.com.br/assinatura/campanha" target="_blank" style="text-decoration:none;border:0;"><img src="${IMG}campanha-do-mes.jpg" width="200" height="332" alt="Campanha do m&ecirc;s da S&oacute;lida Transporte" style="display:block;border:0;outline:none;width:200px;height:332px;"></a>
+    </td>
+    <!--/CAMPANHA-->`,
 };
 
 const FIELDS = ["NOME", "CARGO", "CIDADE", "FONE", "RAMAL", "WHATSAPP", "EMAIL", "SITE"];
@@ -465,7 +480,7 @@ FIELDS.forEach((k) => $(k).addEventListener("input", render));
 
 const radios = [...document.querySelectorAll('input[name="campanha"]')];
 function campanhaEscolhida() { return (radios.find((r) => r.checked) || {}).value || ""; }
-// Campanha sem arte fica desabilitada; a pré-seleção segue o mês atual (set/out/nov), senão "Nenhuma".
+// Campanha sem arte fica desabilitada; a pré-seleção é a "Automática" (troca sozinha todo mês).
 radios.forEach((r) => {
   if (r.value && !CAMPANHAS[r.value]) {
     r.disabled = true;
@@ -473,8 +488,7 @@ radios.forEach((r) => {
   }
   r.addEventListener("change", render);
 });
-const DO_MES = { 8: "setembro-amarelo", 9: "outubro-rosa", 10: "novembro-azul" }[new Date().getMonth()];
-(radios.find((r) => r.value === DO_MES && !r.disabled) || radios[0]).checked = true;
+radios.find((r) => r.value === "auto").checked = true;
 
 function flash(msg, ok = true) {
   const s = $("status");

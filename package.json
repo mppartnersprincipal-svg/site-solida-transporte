@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test:google-ads": "node --experimental-strip-types --conditions=react-server --experimental-test-isolation=none --test tests/google-ads.test.mjs",
     "test:mail": "node --experimental-strip-types --test tests/mail-autoconfig.test.mjs",
-    "test:vagas": "node --experimental-strip-types --test tests/vagas.test.mjs"
+    "test:vagas": "node --experimental-strip-types --test tests/vagas.test.mjs",
+    "test:assinatura": "node --experimental-strip-types --test tests/assinatura-campanha.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",
