@@ -136,7 +136,7 @@
 
     <div class="actions">
       <button class="primary" id="copy">Copiar assinatura</button>
-      <button class="ghost" id="download">Baixar arquivo .htm</button>
+      <button class="ghost" id="download">Baixar arquivo .htm (Windows Live Mail)</button>
     </div>
     <div id="status"></div>
 
@@ -155,8 +155,9 @@
     <div class="card" style="margin-top:24px">
       <h2>Como instalar</h2>
       <ol class="steps">
+        <li><b>Windows Live Mail</b> (não aceita colar): clique em <b>Baixar arquivo .htm</b> e guarde o arquivo numa pasta fixa (ex.: <i>Documentos\Assinatura Sólida</i>; se for apagado, a assinatura some). No Windows Live: menu <b>Arquivo</b> → <i>Opções</i> → <i>Email</i> → aba <i>Assinaturas</i> → <i>Nova</i> → em <i>Editar Assinatura</i> marque <b>Arquivo</b> → <i>Procurar</i> e escolha o .htm → <i>Avançado…</i> e marque a conta da pessoa → marque <i>Adicionar assinaturas a todas as mensagens enviadas</i> → <i>OK</i>. Confira também em <i>Opções</i> → aba <i>Enviar</i> → <i>Formato de envio de email</i> = <b>HTML</b>. Com a campanha <b>Automática</b>, o Windows Live busca a faixa do mês no site a cada e-mail novo, sem nunca precisar trocar o arquivo.</li>
         <li><b>Gmail (navegador):</b> clique em <b>Copiar assinatura</b> → no Gmail, ⚙️ <i>Ver todas as configurações</i> → <i>Assinatura</i> → <i>Criar nova</i> → cole (Ctrl+V) na caixa → defina como padrão para novos e-mails e respostas → <i>Salvar alterações</i>.</li>
-        <li><b>Outlook (Windows / novo Outlook / web):</b> <i>Configurações</i> → <i>Contas</i> → <i>Assinaturas</i> → nova assinatura → cole (Ctrl+V) → salvar. No Outlook clássico do Windows a logo aparece <b>parada</b> (ele não anima GIF); nos demais ela anima.</li>
+        <li><b>Outlook (o que vem com o Windows / novo Outlook / web):</b> <i>Configurações</i> → <i>Contas</i> → <i>Assinaturas</i> → nova assinatura → cole (Ctrl+V) → salvar. No Outlook clássico do Windows a logo aparece <b>parada</b> (ele não anima GIF); nos demais ela anima.</li>
         <li><b>Apple Mail (Mac):</b> <i>Mail</i> → <i>Ajustes</i> → <i>Assinaturas</i> → <b>+</b> → desmarque <i>"Usar sempre minha fonte padrão"</i> → cole (Cmd+V).</li>
         <li><b>Celular (Gmail/Outlook app):</b> a assinatura configurada no computador vale para o app do Gmail (mesma conta). No app do Outlook e no Mail do iPhone, cole a assinatura no campo de assinatura do app.</li>
         <li>Envie um e-mail de teste para você mesmo e confira: logo animando, links de telefone, WhatsApp, e-mail e site funcionando.</li>
@@ -505,7 +506,10 @@ $("copy").addEventListener("click", async () => {
 });
 
 $("download").addEventListener("click", () => {
-  const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Assinatura</title></head><body>\n${render()}\n</body></html>`;
+  // O Windows Live Mail usa o motor antigo do Internet Explorer: acentos viram entidades (&#225;) e o
+  // charset vai também no formato antigo — assim o arquivo abre certo em qualquer codificação.
+  const corpo = render().replace(/[^\x00-\x7F]/g, (c) => `&#${c.codePointAt(0)};`);
+  const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><title>Assinatura</title></head><body>\n${corpo}\n</body></html>`;
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
   const nome = $("NOME").value.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "assinatura";
