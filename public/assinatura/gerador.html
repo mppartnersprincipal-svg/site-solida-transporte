@@ -123,7 +123,7 @@
       <div class="hint" id="semCadastro" hidden>Cadastro indisponível agora (sem conexão com o site). As alterações acima valem só para esta assinatura.</div>
       </details>
 
-      <label>Campanha do mês (imagem + texto à direita)</label>
+      <label>Campanha do mês (faixa embaixo da assinatura)</label>
       <div class="camps" id="CAMPANHA">
         <label class="camp" style="grid-column:1/-1"><input type="radio" name="campanha" value="auto"><span><i style="background:linear-gradient(90deg,#F2C200,#E8609A,#1F6FD1)"></i>Automática: troca sozinha todo mês</span></label>
         <label class="camp"><input type="radio" name="campanha" value=""><span>Nenhuma</span></label>
@@ -200,46 +200,30 @@ const TEMPLATE = `<table cellpadding="0" cellspacing="0" border="0" role="presen
         </tr>
       </table>
     </td>
-    <!--CAMPANHA-->
-    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
-      <img src="https://www.solidatransporte.com.br/assinatura/campanha-setembro-amarelo.jpg" width="200" height="153" alt="Setembro Amarelo" style="display:block;border:0;width:200px;height:153px;">
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:bold;color:#B58900;padding:8px 0 4px 0;">Setembro Amarelo &middot; Valoriza&ccedil;&atilde;o da vida</div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#4B5563;">Para voc&ecirc;, colega, e sua fam&iacute;lia: tem dias que pesam mais. E est&aacute; tudo bem admitir isso. <b>Voc&ecirc; n&atilde;o precisa carregar esse peso sozinho, nem voc&ecirc;, nem sua fam&iacute;lia.</b> Falar &eacute; o primeiro passo.</div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;"><b>Ligue ou chame no WhatsApp: 188</b> (CVV, 24 horas, todos os dias)<br>Ou acesse: <a href="https://brcarga.com.br/telemedicina/" target="_blank" style="color:#B58900;text-decoration:none;font-weight:bold;">brcarga.com.br/telemedicina</a></div>
-    </td>
-    <!--/CAMPANHA-->
   </tr>
 </table>`;
 
-// Campanhas sazonais: substituem o bloco CAMPANHA do TEMPLATE (o Setembro Amarelo é o que está lá).
-// Imagens geradas pelo build.py (campanha-<slug>.jpg). null = arte ainda não recebida (opção desabilitada).
+// Campanhas: faixa 737x272 (formato da designer) INTEIRA embaixo da assinatura — a arte já traz foto, texto e link.
+// Banners gerados por banners.py (banner-<slug>.jpg). null = arte ainda não recebida (opção desabilitada).
+// "auto" usa endereços FIXOS: o site escolhe banner e link pelo mês (solida-site/lib/assinatura-campanha.ts),
+// então a assinatura colada uma vez troca de campanha sozinha.
 const IMG = "https://www.solidatransporte.com.br/assinatura/";
+const TELEMEDICINA = "https://brcarga.com.br/telemedicina/";
+const SITE_URL = "https://www.solidatransporte.com.br/?utm_source=email&amp;utm_medium=assinatura";
 const CAMPANHAS = {
-  "setembro-amarelo": TEMPLATE.match(/<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/)[0],
-  "outubro-rosa": `<!--CAMPANHA-->
-    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
-      <img src="${IMG}campanha-outubro-rosa.jpg" width="200" height="153" alt="Outubro Rosa" style="display:block;border:0;width:200px;height:153px;">
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:bold;color:#C2185B;padding:8px 0 4px 0;">Outubro Rosa &middot; Mais conscientiza&ccedil;&atilde;o, mais vida</div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#4B5563;">Quem cuida de tudo tamb&eacute;m precisa se cuidar. Sentiu algo diferente no seu corpo? N&atilde;o espere passar. <b>Procure um m&eacute;dico.</b></div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;">Aqui, a gente cuida <b>de quem faz a S&oacute;lida.</b></div>
-    </td>
-    <!--/CAMPANHA-->`,
-  "novembro-azul": `<!--CAMPANHA-->
-    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
-      <img src="${IMG}campanha-novembro-azul.jpg" width="200" height="153" alt="Novembro Azul" style="display:block;border:0;width:200px;height:153px;">
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:bold;color:#1F6FD1;padding:8px 0 4px 0;">Novembro Azul &middot; Sa&uacute;de tamb&eacute;m &eacute; for&ccedil;a</div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#4B5563;">A estrada espera. Sua sa&uacute;de, n&atilde;o. Qualquer sinal diferente, procure um m&eacute;dico. <b>Se cuidar tamb&eacute;m &eacute; coisa de homem.</b></div>
-      <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:15px;color:#1F2937;padding:6px 0 0 0;">Aqui, a gente cuida <b>de quem faz a S&oacute;lida.</b><br>Telemedicina: <a href="https://brcarga.com.br/telemedicina/" target="_blank" style="color:#1F6FD1;text-decoration:none;font-weight:bold;">brcarga.com.br/telemedicina</a></div>
-    </td>
-    <!--/CAMPANHA-->`,
-  // Automática: endereços FIXOS — o site escolhe o banner e o link pelo mês (solida-site/lib/assinatura-campanha.ts;
-  // banners gerados por banners.py). Colou uma vez, a campanha troca sozinha.
-  auto: `<!--CAMPANHA-->
-    <td valign="top" width="210" style="padding:6px 0 6px 24px;">
-      <a href="https://www.solidatransporte.com.br/assinatura/campanha" target="_blank" style="text-decoration:none;border:0;"><img src="${IMG}campanha-do-mes.jpg" width="200" height="332" alt="Campanha do m&ecirc;s da S&oacute;lida Transporte" style="display:block;border:0;outline:none;width:200px;height:332px;"></a>
-    </td>
-    <!--/CAMPANHA-->`,
+  auto: { img: IMG + "campanha-do-mes.jpg", link: "https://www.solidatransporte.com.br/assinatura/campanha", alt: "Campanha do m&ecirc;s da S&oacute;lida Transporte" },
+  "setembro-amarelo": { img: IMG + "banner-setembro-amarelo.jpg", link: TELEMEDICINA, alt: "Setembro Amarelo" },
+  "outubro-rosa": { img: IMG + "banner-outubro-rosa.jpg", link: SITE_URL, alt: "Outubro Rosa" },
+  "novembro-azul": { img: IMG + "banner-novembro-azul.jpg", link: TELEMEDICINA, alt: "Novembro Azul" },
 };
+
+// Assinatura + faixa da campanha numa tabela externa (2 linhas). max-width/height:auto: no celular a faixa encolhe.
+function comCampanha(assinatura, c) {
+  return `<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;">
+  <tr><td style="padding:0;">${assinatura}</td></tr>
+  <tr><td style="padding:12px 0 0 0;"><a href="${c.link}" target="_blank" style="text-decoration:none;border:0;"><img src="${c.img}" width="737" height="272" alt="${c.alt}" style="display:block;border:0;outline:none;text-decoration:none;width:737px;max-width:100%;height:auto;"></a></td></tr>
+</table>`;
+}
 
 const FIELDS = ["NOME", "CARGO", "CIDADE", "FONE", "RAMAL", "WHATSAPP", "EMAIL", "SITE"];
 const $ = (id) => document.getElementById(id);
@@ -263,10 +247,9 @@ function render() {
   if (!v.WHATSAPP) html = html.replace(/<!--WA-->[\s\S]*?<!--\/WA-->\s*/, "");
   if (!v.CARGO) html = html.replace(/<!--CARGO-->[\s\S]*?<!--\/CARGO-->\s*/, "");
   html = html.replace(/<!--\/?(WA|CARGO)-->/g, "");
-  // Campanha sazonal: troca o bloco pela campanha escolhida (ou remove em "Nenhuma") e tira os marcadores
+  // Campanha: faixa embaixo da assinatura ("Nenhuma" = só a assinatura)
   const camp = CAMPANHAS[campanhaEscolhida()];
-  html = html.replace(/\s*<!--CAMPANHA-->[\s\S]*?<!--\/CAMPANHA-->/, camp ? "\n    " + camp : "")
-             .replace(/\s*<!--\/?CAMPANHA-->/g, "");
+  if (camp) html = comCampanha(html, camp);
   $("preview").innerHTML = html;
   $("code").value = html;
   return html;
