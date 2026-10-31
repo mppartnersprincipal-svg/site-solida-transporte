@@ -32,16 +32,7 @@ export const VAGAS: Vaga[] = [
       "Pontualidade",
     ],
   },
-  {
-    id: "ajudante-motorista",
-    titulo: "Ajudante de Motorista",
-    resumo: "Apoio ao motorista nas coletas e entregas.",
-    requisitos: [
-      "Disponibilidade para hora extra",
-      "Pontualidade",
-      "Trabalho em equipe",
-    ],
-  },
+  // "Ajudante de Motorista" saiu em 30/10/2026: vaga preenchida.
   {
     id: "motorista",
     titulo: "Motorista (categoria D + MOPP)",

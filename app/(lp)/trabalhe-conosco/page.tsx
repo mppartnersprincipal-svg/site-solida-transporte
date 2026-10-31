@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 const TITULO = "Trabalhe conosco: vagas em Goiânia";
 const DESCRICAO =
-  "A Sólida Transporte está contratando em Goiânia: auxiliar de escritório, ajudante de motorista e motorista categoria D com MOPP. Envie seu currículo pelo site ou pelo WhatsApp do RH.";
+  "A Sólida Transporte está contratando em Goiânia: auxiliar de escritório e motorista categoria D com MOPP. Envie seu currículo pelo site ou pelo WhatsApp do RH.";
 
 export const metadata: Metadata = {
   title: TITULO,
@@ -157,7 +157,7 @@ export default function TrabalheConoscoPage() {
               <h2 className="mt-2 text-3xl font-bold text-balance sm:text-4xl">Escolha a sua e se candidate</h2>
             </Reveal>
 
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <div className={cn("mt-10 grid gap-5", VAGAS.length >= 3 ? "md:grid-cols-3" : "max-w-4xl md:grid-cols-2")}>
               {VAGAS.map((v, i) => (
                 <Reveal
                   key={v.id}
