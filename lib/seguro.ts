@@ -11,7 +11,7 @@
  */
 
 /** Data de emissão da carta vigente (AAAA-MM-DD), como escrita no PDF. */
-export const CARTA_EMITIDA_EM = "2026-10-07";
+export const CARTA_EMITIDA_EM = "2026-11-06";
 
 /** `?v=` muda a cada carta para o navegador não mostrar a versão antiga do cache. */
 export const CARTA_URL = `/seguro/carta-de-adimplencia.pdf?v=${CARTA_EMITIDA_EM}`;
