@@ -23,7 +23,7 @@ function normalize(text: string) {
 const UF_ORDER: CityUf[] = ["GO", "DF", "SP", "RJ"];
 
 /**
- * Explorador das 365 cidades atendidas — substitui os dois PDFs de
+ * Explorador das cidades atendidas — substitui os dois PDFs de
  * "Cidades atendidas" (39 páginas). Abas por origem, busca sem acento,
  * filtro por UF e lista agrupada por letra inicial.
  */

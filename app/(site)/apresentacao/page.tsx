@@ -29,14 +29,14 @@ import { UNITS } from "@/lib/units";
 import { SERVED_CITIES } from "@/lib/cities";
 import { TRACKING_URL } from "@/lib/whatsapp";
 
+const TOTAL_CITIES = SERVED_CITIES.length;
+
 export const metadata: Metadata = {
   title: "Apresentação Comercial",
   alternates: { canonical: "/apresentacao" },
   description:
-    "Apresentação comercial da Sólida Transporte: 32 anos de cargas fracionadas entre SP, Goiás, DF e Rio de Janeiro, 365 cidades atendidas, unidades, prazos e horários.",
+    `Apresentação comercial da Sólida Transporte: 32 anos de cargas fracionadas entre SP, Goiás, DF e Rio de Janeiro, ${TOTAL_CITIES} cidades atendidas, unidades, prazos e horários.`,
 };
-
-const TOTAL_CITIES = SERVED_CITIES.length;
 
 const NUMBERS = [
   { value: 32, suffix: " anos", label: "de mercado, com o mesmo CNPJ" },
@@ -98,7 +98,7 @@ export default function ApresentacaoPage() {
         image="/assets/hero-sede.jpg"
         eyebrow="Apresentação comercial"
         title="Sólida Transporte: cargas fracionadas entre SP, Goiás, DF e Rio de Janeiro há 32 anos."
-        subtitle="Quem somos, o que fazemos, onde estamos e as 365 cidades que atendemos. A sua encomenda é o nosso maior compromisso."
+        subtitle={`Quem somos, o que fazemos, onde estamos e as ${TOTAL_CITIES} cidades que atendemos. A sua encomenda é o nosso maior compromisso.`}
       />
 
       {/* Números */}
