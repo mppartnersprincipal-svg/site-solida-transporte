@@ -20,10 +20,8 @@
  * - blog_post_view       { post_slug, post_title, post_category }
  * - blog_filter          { post_category }
  * - blog_load_more       { post_category, loaded_count }
- * - candidatura_enviada  { vaga, has_cv, page }         — LP /trabalhe-conosco (Meta: SubmitApplication)
- * - whatsapp_rh_click    { source, page }               — LP /trabalhe-conosco (Meta: WhatsAppRH)
- *   Os dois de vagas NÃO são conversão do Google Ads nem disparam `Contact` no
- *   Meta, para não misturar candidato com cliente de frete.
+ * - candidatura_enviada / whatsapp_rh_click — eram da LP /trabalhe-conosco (removida em 25/11/2026);
+ *   seguem no GTM/dashboard só como histórico.
  */
 
 import { collect } from "@/lib/tracker";
@@ -252,20 +250,3 @@ export function trackBlogLoadMore(category: string | null, loadedCount: number) 
   });
 }
 
-/** Candidatura enviada na LP /trabalhe-conosco (objetivo da campanha de vagas no Meta). */
-export function trackCandidatura({ vaga, hasCv }: { vaga: string; hasCv: boolean }) {
-  if (typeof window === "undefined") return;
-  const params = withPage({ vaga, has_cv: hasCv });
-  pushDataLayer({ event: "candidatura_enviada", ...params });
-  window.gtag?.("event", "candidatura_enviada", params);
-  window.fbq?.("track", "SubmitApplication", { content_name: vaga });
-}
-
-/** Clique no WhatsApp do RH (LP /trabalhe-conosco). */
-export function trackWhatsAppRH(source: string) {
-  if (typeof window === "undefined") return;
-  const params = withPage({ source });
-  pushDataLayer({ event: "whatsapp_rh_click", ...params });
-  window.gtag?.("event", "whatsapp_rh_click", params);
-  window.fbq?.("trackCustom", "WhatsAppRH", params);
-}

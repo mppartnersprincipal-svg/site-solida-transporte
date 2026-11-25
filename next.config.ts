@@ -82,6 +82,13 @@ const nextConfig: NextConfig = {
         destination: "/frete",
         permanent: true,
       },
+      // LP de vagas desativada em 25/11/2026 (todas as vagas preenchidas).
+      // Temporário (307): anúncio/links antigos caem na home; volta fácil se abrir vaga nova.
+      {
+        source: "/trabalhe-conosco",
+        destination: "/",
+        permanent: false,
+      },
       // Página "Nossas Unidades" do site antigo: o link está no QR Code dos
       // cartões impressos (01/10/2026). Temporário (307) para não ficar
       // preso no cache do navegador caso a página volte a existir.
