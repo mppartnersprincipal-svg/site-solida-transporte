@@ -264,15 +264,14 @@ export default async function DashboardPage({
         </Suspense>
       </div>
 
-      {/* Campanhas + blog */}
-      <div className="grid gap-4 xl:grid-cols-2">
-        <Suspense fallback={<CardSkeleton height={220} />}>
-          <CampaignsSection range={range} />
-        </Suspense>
-        <Suspense fallback={<CardSkeleton height={220} />}>
-          <BlogSection range={range} />
-        </Suspense>
-      </div>
+      {/* Campanhas (largura toda: Google Ads + Meta, várias colunas de resultado) */}
+      <Suspense fallback={<CardSkeleton height={220} />}>
+        <CampaignsSection range={range} />
+      </Suspense>
+
+      <Suspense fallback={<CardSkeleton height={220} />}>
+        <BlogSection range={range} />
+      </Suspense>
 
       {/* Cliques + ao vivo */}
       <div className="grid gap-4 xl:grid-cols-2">

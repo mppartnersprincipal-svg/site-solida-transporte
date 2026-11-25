@@ -39,11 +39,16 @@ export type GeoRow = {
   wa_clicks: number;
 };
 export type CampaignRow = {
+  /** Ausente enquanto a migration 0009 não roda (versão antiga = só Google Ads) */
+  channel?: Channel;
   utm_campaign: string | null;
   utm_term: string | null;
   utm_content: string | null;
   sessions: number;
   wa_clicks: number;
+  candidaturas?: number;
+  wa_rh_clicks?: number;
+  /** % de visitas com WhatsApp, candidatura ou WhatsApp do RH */
   conv_rate: number | null;
 };
 export type WhatsAppRow = {
